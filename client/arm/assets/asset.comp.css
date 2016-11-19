@@ -1,0 +1,26 @@
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+.createSidenav {
+  width: 60%;
+}
+
+.move-right {
+  flex: 1 1 auto;
+}
+
+.objectDetails {
+  margin-left:20px;
+}
+.icon-20 {
+  font-size: 20px;
+}
+
+/* Add green border to valid required forn field */
+.ng-valid[required], .ng-valid.required {
+  border: 2px solid #42A948; /* green */
+}
+
+/* Add RED border to invalid required forn field */
+.ng-invalid[required], .ng-invalid.required {
+  border: 1px solid #a94442; /* red */
+}

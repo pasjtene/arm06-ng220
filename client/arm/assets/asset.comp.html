@@ -1,0 +1,204 @@
+<md-toolbar color="primary" style="height:30px;">
+    Manage  Assets
+    <span class="move-right"></span>
+    <button md-icon-button [md-menu-trigger-for]="menu">
+      <md-icon>more_vert</md-icon>
+    </button>
+</md-toolbar>
+<md-menu x-position="before" #menu="mdMenu">
+    <button md-menu-item (click)="openDialog(SettingsDialog)">Settings</button>
+    <button md-menu-item>Toggle theme</button>
+    <button md-menu-item (click)="confirmLogout()">Help</button>
+</md-menu>
+
+<!-- Right sidenav for object creation -->
+<md-sidenav-layout>
+    <md-sidenav class="createSidenav" align="end" mode="side" #createAssetSidenav>
+        <div class="container">
+            <h2>Enter Details for new Asset</h2>
+
+            <form #assetForm="ngForm">
+            <table class="table table-hover">
+                <thead>
+                    <th width="18%"> </th>
+                    <th width="20%"> </th>
+                    <th> </th>
+                </thead>
+
+                <tr>
+                    <td>
+                        <label>Asset Name:</label>
+                    </td>
+                    <td>
+                        <input [(ngModel)]="newAsset.name" class="form-control" placeholder="Asset Name" id="name" name="name" #name="ngModel" required>
+                        <div *ngIf="!(name.valid || name.pristine)" class="text-danger">
+                        Asset name is required
+                        </div>
+                    </td>
+                    <td>
+                        {{newAsset.name}}
+                    </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label>Unique Id: </label>
+                  </td>
+                  <td>
+                    <input [(ngModel)]="newAsset.uniqueIdNumber" class="form-control" placeholder = "Asset Id" id="uniqueIdNumber" name="uniqueIdNumber" #uniqueIdNumber="ngModel" required>
+                    <div *ngIf="!(uniqueIdNumber.valid || uniqueIdNumber.pristine)" class="text-danger">
+                    Asset Id is required
+                    </div>
+                    <div *ngIf="assetIdExist" class="text text-danger">This Asset ID is already assigned</div>
+                  </td>
+                  <td>{{newAsset.uniqueIdNumber}}</td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <label>Asset cost:</label>
+                    </td>
+                    <td>
+                        <input [(ngModel)]="newAsset.cost" class="form-control" name="cost" placeholder="Cost">
+                    </td>
+                    <td class="error">
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>Current value:</label>
+                    </td>
+                    <td>
+                        <input [(ngModel)]="newAsset.currentValue" class="form-control" name="currentVlue" placeholder="Current Value">
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Manufacturer:</label>
+                    </td>
+                    <td>
+                        <input [(ngModel)]="newAsset.manufacturer" class="form-control" name="manufacturer" placeholder="Manufacturer">
+                    </td>
+                    <td>
+                        {{newAsset.manufacturer}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>Location:</label>
+                    </td>
+                    <td>
+                        <select [(ngModel)]="newAsset.location" class="form-control" name="location" id="location" required>
+                          <option *ngFor="let location of locations" [value]="[location._id]">{{location.name}}</option>
+                        </select>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+
+            </table>
+          </form>
+
+
+            <div class="col-md-4">
+                <button (click)="createAssetSidenav.close()" class="btn btn-warning btn-xs">Cancel</button>
+                <button [disabled]="!assetForm.valid" class="btn btn-success btn-xs" (click)="create(newAsset)">Create asset</button>
+            </div>
+        </div>
+
+
+    </md-sidenav>
+
+
+
+
+    <md-sidenav align="start" mode="side" #leftSidenav>
+        <md-tab-group>
+            <md-tab>
+                <template md-tab-label>Details</template>
+                <template md-tab-content>
+                  <div class="objectDetails">
+                  <p> <strong>Name: </strong> {{currentAsset.name}}</p>
+                  <p><strong> Cost: </strong>{{currentAsset.cost}}</p>
+                  <p> <strong>Current Value: </strong>{{currentAsset.currentValue}}</p>
+                  <p> <strong>Location: </strong><span *ngIf="currentAsset.location">{{currentAsset.location.name}}</span></p>
+                  <button class="btn btn-info btn-sm" (click)="leftSidenav.close()">Hide details</button>
+                </div>
+                </template>
+            </md-tab>
+
+            <md-tab>
+                <template md-tab-label>List</template>
+                <template md-tab-content>
+            <ol>
+                <li *ngFor="let asset of assets "> {{asset.name}}
+                </li>
+            </ol>
+                <a href="/location/create">Add new Asset</a> <br/>
+                  <button class="btn btn-info btn-xs" (click)="leftSidenav.close()">Hide asset list</button>
+                </template>
+            </md-tab>
+
+        </md-tab-group>
+    </md-sidenav>
+
+    <table width="100%">
+      <tr class="success" *ngIf="isLocationCreated">
+        <td>
+          <span class="alert alert-success"> New asset saved successfully:  {{createdLocationName}}</span>
+        <td>
+      </tr>
+    </table>
+
+<table width="100%">
+    <tr class="danger" *ngIf="isLocationNotCreated">
+        <td>
+          <span class="alert alert-danger"> New location not Created please doube check details for :  {{createdLocationName}}</span>
+        <td>
+    </tr>
+</table>
+
+<!-- Main Asset List Table -->
+
+    <table class="table table-striped table-hover table-bordered">
+
+        <thead>
+            <th width="30%">Name</th>
+            <th>Cost</th>
+            <th>Current value</th>
+            <th>Location</th>
+            <th><th>
+        </thead>
+
+
+        <tr *ngFor="let asset of assets; let i = index;" on-mouseout="mout();">
+            <td on-mouseover="mover(i); unSetMouseOnButton()" on-mouseout="mout()">
+            <button md-icon-button (click)="leftSidenav.open(); createAssetSidenav.close(); showDetails(asset)">
+                 <md-icon class="icon-20">info</md-icon>
+            </button>
+            {{asset.name}}
+
+            </td>
+            <td on-mouseover="mover(i); unSetMouseOnButton()" on-mouseout="mout()">{{asset.cost}}</td>
+            <td on-mouseover="mover(i); unSetMouseOnButton()" on-mouseout="mout()">{{asset.currentValue}}</td>
+            <!-- We should check if fields exists before trying to read their properties-->
+            <td on-mouseover="mover(i); unSetMouseOnButton()" on-mouseout="mout()"> <span *ngIf="asset.location">{{asset.location.name}}</span> </td>
+
+            <td on-mouseover="setMouseOnButton(i)" >
+              <span *ngIf="mouseIn === i || mouseOnButton === i"  >
+              <button md-icon-button (click)="openConfirmDeleteDialog(ConfirmDeleteUserComponent, asset);" >
+                  <md-icon class="icon-20">delete</md-icon>
+              </button>
+            </span>
+            </td>
+        </tr>
+    </table>
+    <button class="btn btn-default btn-sm" (click)="createAssetSidenav.open(); leftSidenav.close()">Create new asset </button>
+    <!-- End Asset list Table -->
+</md-sidenav-layout>

@@ -1,0 +1,105 @@
+<div class="container">
+    <h2>Enter Details for new user</h2>
+    <table class="table table-hover">
+      <thead>
+        <th width="18%">  </th>
+        <th width="20%">  </th>
+        <th> </th>
+      </thead>
+        <tr>
+            <td>
+                <label>User Name:</label>
+            </td>
+            <td>
+                <input [(ngModel)]="user.username" placeholder="User Name">
+            </td>
+            <td>
+              {{user.username}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Password:</label>
+            </td>
+            <td>
+                <input type="password" [(ngModel)]="user.password" placeholder="password">
+            </td>
+            <td class="error">
+              {{passwordMissMatch}}
+            </td>
+        </tr>
+        <tr>
+          <td>
+            <label> Confirm Password: </label>
+          </td>
+
+          <td>
+            <input type="password" placeholder="Confirm Password" #confirmPassword />
+          </td>
+          <td class ="error">
+            {{passwordMissMatch}}
+          </td>
+        </tr>
+        <tr>
+            <td>
+                <label>First Name:</label>
+            </td>
+            <td>
+                <input [(ngModel)]="user.firstName" placeholder="First Name">
+            </td>
+            <td>
+              {{user.firstName}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Last Name:</label>
+            </td>
+            <td>
+                <input [(ngModel)]="user.lastName" placeholder="Last Name">
+            </td>
+            <td>
+              {{user.lastName}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Email:</label>
+            </td>
+            <td>
+                <input [(ngModel)]="user.email" placeholder="Email">
+            </td>
+            <td>
+              {{user.email}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Organization:</label>
+            </td>
+            <td>
+                <input [(ngModel)]="user.organization" placeholder="Organization">
+            </td>
+            <td>
+              {{user.organization}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Location:</label>
+            </td>
+            <td>
+                <input [(ngModel)]="user.location" placeholder="Location">
+            </td>
+            <td>
+              {{user.location}}
+            </td>
+        </tr>
+          </table>
+          <div class="col-md-8">
+            <button (click)="save(user, confirmPassword.value)" class="btn btn-success btn-xs">Save user</button>
+          </div>
+          <div class="col-md-4">
+              <button (click)="goBack()" class="btn btn-warning btn-xs">Go Back</button>
+          </div>
+        </div>

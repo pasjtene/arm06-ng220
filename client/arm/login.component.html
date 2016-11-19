@@ -1,0 +1,45 @@
+<div class="container container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="login-panel">
+                <div class="panel-heading">
+                    <h4> Welcome to ARM: Advanced Risk Manager</h4>
+                </div>
+                <div class="login-form">
+                    <div id="login">
+
+                      <span *ngIf="!authService.authFailed">{{message}}</span>
+                      <div *ngIf="authService.authFailed" class="alert alert-danger">
+                      <strong>Oh Snap!</strong> authentication failed...Wrong username and password!!!
+                    </div>
+
+                        <div>
+                            <div class="form-group flex-group">
+                                <label for="username" class="col-sm-3 control-label form-label">User Name:</label>
+                                <div class="col-sm-9">
+                                    <input [(ngModel)]="userName" placeholder="User Name" class="form-control" id="username"> {{userCred.userName}}
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                          <br/><br/><br/>
+                            <div class="form-group flex-group">
+                                <label for="password" class="col-sm-3 control-label form-label">Password:</label>
+                                <div class="col-sm-9">
+                                    <input type="password" [(ngModel)]="password" placeholder="password" class="form-control" id="password">
+                                </div>
+                            </div>
+                        </div>
+                        <br/><br/>
+                        <button (click)="login(userName, password)" class="btn btn-info">Log In</button>
+                        <br/>
+                        <h6>This is a demo link for user creation. no prior  authentication required </h6>
+                        <a href="/users/register">Create your account</a>
+                        <br/><br/><br/>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <base href="/">
+    <title>ARM - Advanced Risk Manager</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- We need hammerjs for md-slide-toggle as it is not loading properly .. -->
+    <script src="node_modules/hammerjs/hammer.js"></script>
+
+      <!-- Jquery is needed for bootstrap and must be installed before -->
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="node_modules/@angular/material/core/theming/prebuilt/indigo-pink.css" rel="stylesheet">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <!-- for material lite dashboard -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
+    
+
+    <link rel="stylesheet" href="styles.css">
+    <!-- 1. Load libraries -->
+     <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+
+
+    <!-- 2. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
+    <script>
+      System.import('arm').catch(function(err){ console.error(err); });
+    </script>
+
+  </head>
+  <!-- 3. Display the application -->
+  <body>
+    <arm-main>Loading...</arm-main>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<div class="container">
+    <h2>Enter Details for new Location</h2>
+<form [formGroup]="location" (ngSubmit)="createLocation()">
+    <table class="table table-hover">
+      <thead>
+        <th width="18%">  </th>
+        <th width="20%">  </th>
+        <th> </th>
+      </thead>
+        <tr>
+            <td>
+                <label>Location Name:</label>
+            </td>
+            <td>
+                <input formControlName="name" placeholder="location Name">
+            </td>
+            <td>
+              {{location.controls.name.value}}
+              <div *ngIf="location.controls['name'].hasError('required') && location.controls['name'].dirty" class="alert alert-danger">Location name is required</div>
+              <div *ngIf="location.controls['name'].hasError('minlength') && location.controls['name'].touched" class="text-danger">Minimum location name length is 3 characters</div>
+              <div *ngIf="location.controls['name'].hasError('maxlength') && location.controls['name'].touched" class="text-danger">Maximum location name length is 50 characters</div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>City:</label>
+            </td>
+            <td>
+                <input formControlName="city" placeholder="City">
+            </td>
+            <td>
+              {{location.controls.city.value}}
+              <div *ngIf="location.controls['city'].hasError('minlength') && location.controls['city'].touched" class="text-danger">Minimum city name length is 3 characters</div>
+              <div *ngIf="location.controls['city'].hasError('maxlength') && location.controls['city'].touched" class="text-danger">Maximum city name length is 40 characters</div>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>State:</label>
+            </td>
+            <td>
+                <input formControlName="state" placeholder="state">
+            </td>
+            <td>
+              {{state}}
+              <div *ngIf="location.controls['state'].hasError('maxlength') && location.controls['state'].touched" class="text-danger">Max length is 30 chars</div>
+              <div *ngIf="location.controls['state'].hasError('minlength') && location.controls['state'].touched" class="text-danger">Minimum state length is 2 characters</div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>country:</label>
+            </td>
+            <td>
+                <input formControlName="country" placeholder="country">
+            </td>
+            <td>
+              {{country}}
+              <div *ngIf="location.controls['country'].hasError('maxlength') && location.controls['country'].touched" class="text-danger">Max country length is 30 chars</div>
+              <div *ngIf="location.controls['country'].hasError('minlength') && location.controls['country'].touched" class="text-danger">Minimum country length is 2 characters</div>
+
+            </td>
+        </tr>
+
+          </table>
+          <div *ngIf="location.valid" class="text-success">The form is valid</div>
+          <div *ngIf="!location.valid && location.dirty" class="text-danger">The form is not valid</div>
+              <button type="submit" [disabled]="!location.valid" class="btn btn-success btn-xs">Create location</button>
+  </form>
+          <div class="col-md-4">
+              <button (click)="goBack()" class="btn btn-warning btn-xs">Go Back</button>
+          </div>
+</div>

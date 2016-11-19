@@ -1,0 +1,41 @@
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+md-sidenav-layout {
+  height: 100vh;
+}
+.alert {
+  display:inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+md-sidenav1 {
+  width:320px;
+}
+
+.createLocation {
+  width: 60%;
+}
+
+.move-right {
+  flex: 1 1 auto;
+}
+
+.locationDetails {
+  margin-left:20px;
+}
+.icon-20 {
+  font-size: 20px;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border: 2px solid #42A948; /* green */
+}
+
+.ng-invalid[required], .ng-invalid.required {
+  border: 2px solid #a94442; /* red */
+}
+
+.ng-invalid:not (form)  {
+  border-left: 2px solid #a94442; /* red */
+}

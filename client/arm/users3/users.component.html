@@ -1,0 +1,24 @@
+<a href="/users/register">add a new user</a>
+<h2> {{usersTitle}} </h2> <br/>
+<ul class="users">
+  <li *ngFor="let user of users; let i=index;"
+  [class.selected]="isSelected(user)"
+  (click)="onSelect(user)">
+  <span class="badge">{{i+1}}</span> {{user.firstName}}  {{user.lastName}} | {{user.username}}
+  <button class="delete" (click)="delete2(user); $event.stopPropagation()">x</button>
+  </li>
+</ul>
+
+<div *ngIf="selectedUser">
+  <h2>
+    {{selectedUser.firstName | uppercase }} is my hero
+  </h2>
+  <button (click)="gotoDetail()">view details</button>
+</div>
+
+<div>
+    <label> First Name: </label> <input #firstName2 />
+    <label> User Name: </label> <input #userName />
+    <label> Password: </label> <input #password />
+    <button (click)="add2(firstName2.value, userName.value, password.value); firstName2.value=''; userName.value=''; password.value=''" > add user</button>
+</div>
