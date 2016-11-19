@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-var router_1 = require('@angular/router');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var router_1 = require("@angular/router");
 var LocationService = (function () {
     function LocationService(http, router) {
         this.http = http;
@@ -38,12 +38,9 @@ var LocationService = (function () {
     };
     LocationService.prototype.create = function (location) {
         var _this = this;
-        console.log("location created");
-        console.log(location);
         var loc = this.http.post(this.locationUrl, { location: location }, { headers: this.headers })
             .toPromise()
             .then(function (response) {
-            console.log("response for location: ", response);
             _this.router.navigate(['/locations']);
             return response.json();
         })
@@ -55,17 +52,13 @@ var LocationService = (function () {
     LocationService.prototype.deleteLocation = function (id) {
         var _this = this;
         var url = this.locationUrl + "/" + id;
-        console.log(location);
-        console.log(JSON.stringify(location));
         return this.http.delete(url, { headers: this.headers })
             .toPromise()
             .then(function (response) {
-            console.log("response for location: ", response);
             _this.router.navigate(['/locations']);
             return response.json();
         })
             .catch(function (err) {
-            console.log("Errors while creating Location");
             return err;
         });
     };
@@ -79,18 +72,18 @@ var LocationService = (function () {
         return this.http.get(this.locationUrl, { headers: this.headers })
             .toPromise()
             .then(function (locations) {
-            console.log("Locations from server: ", locations.json());
             return locations.json();
         })
             .catch(function (err) {
-            console.log(err);
+            //console.log(err)
         });
     };
-    LocationService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, router_1.Router])
-    ], LocationService);
     return LocationService;
 }());
+LocationService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http,
+        router_1.Router])
+], LocationService);
 exports.LocationService = LocationService;
 //# sourceMappingURL=location.service.js.map

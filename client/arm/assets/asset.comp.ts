@@ -32,7 +32,6 @@ export class ConfirmDeleteAssetComponent implements OnInit {
 
   ngOnInit() : void {
     this.assetToDelete = this.assetService.assetToDelete;
-    console.log("Init confirm delete: ", this.assetToDelete);
   }
 }
 
@@ -101,7 +100,6 @@ export class AssetComponent implements OnInit {
 
     getAssets(): void {
         this.assetService.getAssets().then((assets) => {
-          console.log("Assets from server: ", assets)
             this.assets = assets;
         })
     }
@@ -124,7 +122,7 @@ export class AssetComponent implements OnInit {
               }
 
           }).catch((err) => {
-              console.log(err);
+              //console.log(err);
           });
         }
     }
@@ -140,16 +138,14 @@ export class AssetComponent implements OnInit {
     }
 
     delete(asset: Asset): void {
-      console.log("Asset to delete: ", asset);
       this.assetService.delete(asset).then(() => {
-        console.log("Asset deleted");
         this.assets = this.assets.filter(function(arr){
           //return ann array with all values different from asset
           return arr !== asset;
         })
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       })
     }
 

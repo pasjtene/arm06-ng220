@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var auth_service_1 = require('./auth.service');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var auth_service_1 = require("./auth.service");
 var UserCred = (function () {
     function UserCred() {
     }
@@ -21,6 +21,8 @@ var LoginComponent = (function () {
     function LoginComponent(authService, router) {
         this.authService = authService;
         this.router = router;
+        this.newUserWelcomeMessage = "";
+        this.isAnewUser = false;
         this.userCred = {
             id: 0,
             userName: '',
@@ -31,26 +33,17 @@ var LoginComponent = (function () {
     LoginComponent.prototype.setMessage = function () {
         this.message = 'Logged ' + (this.authService.isLoggedIn ? 'In' : 'Out');
     };
-    /*
-      login() {
-        this.message = 'Trying to log in ...';
-        this.authService.login().subscribe(() => {
-          this.setMessage();
-          if(this.authService.isLoggedIn) {
-            //If no redirect was set, use the defautl
-            let redirect = this.authService.redirectUrl ? this.authService.redirectUrl: '/crisis-center/admin';
-            //redirect the user to the target URL
-            this.router.navigate([redirect]);
-          }
-        })
-      }
-    */
+    LoginComponent.prototype.ngOnInit = function () {
+        this.newUserWelcomeMessage = this.authService.newUserWelcomeMessage;
+        this.isAnewUser = this.authService.isAnewUser;
+    };
     LoginComponent.prototype.login = function (userName, password) {
         var _this = this;
         this.message = 'Trying to log in ...';
         this.authService.login(userName, password).subscribe(function () {
             _this.setMessage();
             if (_this.authService.isLoggedIn) {
+                _this.authService.isAnewUser = false;
                 //If no redirect was set, use the defautl
                 var redirect = _this.authService.redirectUrl ? _this.authService.redirectUrl : '/users';
                 //redirect the user to the target URL
@@ -71,19 +64,21 @@ var LoginComponent = (function () {
     LoginComponent.prototype.logout = function () {
         this.authService.isLoggedIn = false;
         this.authService.authFailed = false;
+        this.authService.isAnewUser = false;
+        this.isAnewUser = false;
         this.authService.logout();
         this.setMessage();
     };
-    LoginComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'arm-login',
-            templateUrl: 'login.component.html',
-            styleUrls: ['login.comp.css']
-        }), 
-        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.Router])
-    ], LoginComponent);
     return LoginComponent;
 }());
+LoginComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'arm-login',
+        templateUrl: 'login.component.html',
+        styleUrls: ['login.comp.css']
+    }),
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
+], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

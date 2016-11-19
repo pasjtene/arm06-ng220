@@ -22,4 +22,4 @@ import { UserComponent } from './user.comp';
 
 })
 
-export class UserjRoutingModule {}
+export class UserRoutingModule {}

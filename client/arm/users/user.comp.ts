@@ -1,13 +1,13 @@
 /*
 *Author: Pascal Tene
 *Created: Sept 2016
-*last Updated: Nov 06, 2016
+*last Updated: Nov 19, 2016
 */
 import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
 import { MdSidenav } from '@angular/material';
-//import { Asset } from './userj';
 import { User } from './user';
 import { UserService } from './user.service';
+import { AuthService } from '../auth.service';
 import { Location } from '../locations/location';
 import { LocationService } from '../locations/location.service';
 import { Router } from '@angular/router';
@@ -75,7 +75,7 @@ export class UserComponent implements OnInit {
 
     constructor(
         private locationService: LocationService,
-        //private assetService: UserjService,
+        private authService: AuthService,
         private userService: UserService,
         private router: Router,
         public viewContainerRef: ViewContainerRef,
@@ -109,19 +109,10 @@ export class UserComponent implements OnInit {
 
     getUsers(): void {
       this.userService.getUsers().then(users => {
-        this.users = users;
-        console.log("Users: ", users);
+        this.users = users;        
       });
 
     }
-
-  //  getAssets(): void {
-        //this.assetService.getAssets().then((assets) => {
-        //  console.log("Assets from server: ", assets)
-          //  this.assets = assets;
-      //  })
-  //  }
-
 
     delete(user: User): void {
       this.userService
@@ -142,14 +133,19 @@ export class UserComponent implements OnInit {
         // the _id property is added be the mongo db and should not be send when creating an object.
         delete user._id;
         this.userService.create(user).then((res) => {
-          console.log("Response after post user: ",res);
           if(res.username === 'ex') {
             this.userNameExist = 'A user with this username already exist';
             return;
-            //this.userExist = true;
+
           } else {
-            this.getUsers();
             this.createUserSidenav.close();
+            if(!this.authService.isLoggedIn) {
+                this.authService.newUserWelcomeMessage = "Welcome " + user.username + ". Please login with username: " + user.username + ", and your  password";
+                this.authService.isAnewUser = true;
+                this.router.navigate(['/login']);
+            } else {
+              this.getUsers();
+            }
           }
 
         }, (err) => {
@@ -170,7 +166,6 @@ export class UserComponent implements OnInit {
       this.dialogRef.afterClosed().subscribe((result) => {
         if(result === 'Yes') {
           this.delete(user);
-          console.log(user);
         }
       });
 
@@ -178,9 +173,11 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit(): void {
+      if(this.authService.isLoggedIn) {
         this.getLocations();
-        //this.getAssets();
         this.getUsers();
+      }
+
     }
 
 

@@ -8,25 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var location_service_1 = require('../location.service');
+var core_1 = require("@angular/core");
+var location_service_1 = require("../location.service");
 var material_1 = require("@angular/material");
-var forms_1 = require('@angular/forms');
-var router_1 = require('@angular/router');
-var user_service_1 = require('../../users/user.service');
+var forms_1 = require("@angular/forms");
+var router_1 = require("@angular/router");
+var user_service_1 = require("../../users/user.service");
 var SettingsDialog = (function () {
     function SettingsDialog(dialogRef) {
         this.dialogRef = dialogRef;
     }
-    SettingsDialog = __decorate([
-        core_1.Component({
-            selector: 'settings-dialog',
-            template: "\n  <h2>Hi! I am the first dialog!</h2>\n<p>I'm working on a POC app, and I'm trying get the MdDialog component working. Does any one have a working example of what to pass to the MdDialog open method?</p>\n<button md-raised-button (click)=\"dialogRef.close()\">Close dialog</button>\n  "
-        }), 
-        __metadata('design:paramtypes', [material_1.MdDialogRef])
-    ], SettingsDialog);
     return SettingsDialog;
 }());
+SettingsDialog = __decorate([
+    core_1.Component({
+        selector: 'settings-dialog',
+        template: "\n  <h2>Hi! I am the first dialog!</h2>\n<p>I'm working on a POC app, and I'm trying get the MdDialog component working. Does any one have a working example of what to pass to the MdDialog open method?</p>\n<button md-raised-button (click)=\"dialogRef.close()\">Close dialog</button>\n  "
+    }),
+    __metadata("design:paramtypes", [material_1.MdDialogRef])
+], SettingsDialog);
 exports.SettingsDialog = SettingsDialog;
 var ConfirmDeleteDialog = (function () {
     function ConfirmDeleteDialog(dialogRef, locationService) {
@@ -46,28 +46,29 @@ var ConfirmDeleteDialog = (function () {
         //the location to delete is set in openConfirmDeleteDialog via locationService
         this.dlocation = this.locationService.locationToDelete;
     };
-    ConfirmDeleteDialog = __decorate([
-        core_1.Component({
-            selector: 'confirm-delete-dialog',
-            template: "\n  <h2>Are you sure you want to delete this location? {{ dlocation.name}}</h2>\n<p>Click yes to permanently delete the location </p>\n<button class=\"btn btn-success\" (click)=\"dialogRef.close() \" >Cancel</button> <button class=\"btn btn-danger\" (click)=\"dialogRef.close('Yes')\">Yes delete</button>\n  "
-        }), 
-        __metadata('design:paramtypes', [material_1.MdDialogRef, location_service_1.LocationService])
-    ], ConfirmDeleteDialog);
     return ConfirmDeleteDialog;
 }());
+ConfirmDeleteDialog = __decorate([
+    core_1.Component({
+        selector: 'confirm-delete-dialog',
+        template: "\n  <h2>Are you sure you want to delete this location? {{ dlocation.name}}</h2>\n<p>Click yes to permanently delete the location </p>\n<button class=\"btn btn-success\" (click)=\"dialogRef.close() \" >Cancel</button> <button class=\"btn btn-danger\" (click)=\"dialogRef.close('Yes')\">Yes delete</button>\n  "
+    }),
+    __metadata("design:paramtypes", [material_1.MdDialogRef,
+        location_service_1.LocationService])
+], ConfirmDeleteDialog);
 exports.ConfirmDeleteDialog = ConfirmDeleteDialog;
 var ConfirmLogout = (function () {
     function ConfirmLogout() {
     }
-    ConfirmLogout = __decorate([
-        core_1.Component({
-            selector: 'confirm-logout',
-            template: "\n  <label>You will be logget out of the application ok ?<label>\n  <md-slide-toggle>Yes </md-slide-toggle>\n  "
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ConfirmLogout);
     return ConfirmLogout;
 }());
+ConfirmLogout = __decorate([
+    core_1.Component({
+        selector: 'confirm-logout',
+        template: "\n  <label>You will be logget out of the application ok ?<label>\n  <md-slide-toggle>Yes </md-slide-toggle>\n  "
+    }),
+    __metadata("design:paramtypes", [])
+], ConfirmLogout);
 exports.ConfirmLogout = ConfirmLogout;
 var ListLocationsComponent = (function () {
     function ListLocationsComponent(locationService, userService, confirmLogoutDialog, vcr, dialog, formBuilder, 
@@ -150,42 +151,30 @@ var ListLocationsComponent = (function () {
     ListLocationsComponent.prototype.createLocation = function (location) {
         var _this = this;
         delete location._id; // the _id will be automatically created by mongoDb. Providing an empty _id will cause a database failure
-        console.log(this.location1.value);
-        console.log(JSON.stringify(this.location1.value));
         this.locationService.create(location).then(function (res) {
             //When location creation fails, the returned location values are undefined
             if (res.name !== undefined) {
                 _this.isLocationCreated = true;
                 _this.isLocationNotCreated = false;
                 _this.createdLocationName = location.name;
-                //this.locations.push(location);
-                //populate the displayed array with locations fron database.
-                //This gives the ability to delete what we see on screen soon after creating.
                 _this.getLocations();
                 _this.resetView();
             }
             else {
-                console.log("Not saved the name is undefined");
                 _this.isLocationCreated = false;
                 _this.createdLocationName = location.name;
                 _this.isLocationNotCreated = true;
                 _this.resetView();
             }
         });
-        console.log("The new location is: ", location);
         this.router.navigate(['/locations']);
     };
     ListLocationsComponent.prototype.delete = function (loc) {
         var _this = this;
-        console.log("deleting location....: " + JSON.stringify(loc));
         this.locationService
             .delete(loc._id)
             .then(function (res) {
             _this.locations = _this.locations.filter(function (h) { return h !== loc; });
-            console.log("Response after delete: ", res);
-            //if (this.selectedUser === user ) {
-            //this.selectedUser = null;
-            // }
         });
     };
     ListLocationsComponent.prototype.resetView = function () {
@@ -195,20 +184,26 @@ var ListLocationsComponent = (function () {
             _this.isLocationNotCreated = false;
         }, 3000);
     };
-    __decorate([
-        core_1.ViewChild('sidenav'), 
-        __metadata('design:type', material_1.MdSidenav)
-    ], ListLocationsComponent.prototype, "sidenav", void 0);
-    ListLocationsComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'list-locations',
-            templateUrl: 'list-locations.comp.html',
-            styleUrls: ['list-locations.comp.css']
-        }), 
-        __metadata('design:paramtypes', [location_service_1.LocationService, user_service_1.UserService, material_1.MdDialog, core_1.ViewContainerRef, material_1.MdDialog, forms_1.FormBuilder, router_1.Router])
-    ], ListLocationsComponent);
     return ListLocationsComponent;
 }());
+__decorate([
+    core_1.ViewChild('sidenav'),
+    __metadata("design:type", material_1.MdSidenav)
+], ListLocationsComponent.prototype, "sidenav", void 0);
+ListLocationsComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'list-locations',
+        templateUrl: 'list-locations.comp.html',
+        styleUrls: ['list-locations.comp.css']
+    }),
+    __metadata("design:paramtypes", [location_service_1.LocationService,
+        user_service_1.UserService,
+        material_1.MdDialog,
+        core_1.ViewContainerRef,
+        material_1.MdDialog,
+        forms_1.FormBuilder,
+        router_1.Router])
+], ListLocationsComponent);
 exports.ListLocationsComponent = ListLocationsComponent;
 //# sourceMappingURL=list-locations.comp.js.map

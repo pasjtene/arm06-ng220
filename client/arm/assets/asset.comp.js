@@ -27,7 +27,6 @@ var ConfirmDeleteAssetComponent = (function () {
     }
     ConfirmDeleteAssetComponent.prototype.ngOnInit = function () {
         this.assetToDelete = this.assetService.assetToDelete;
-        console.log("Init confirm delete: ", this.assetToDelete);
     };
     return ConfirmDeleteAssetComponent;
 }());
@@ -83,7 +82,6 @@ var AssetComponent = (function () {
     AssetComponent.prototype.getAssets = function () {
         var _this = this;
         this.assetService.getAssets().then(function (assets) {
-            console.log("Assets from server: ", assets);
             _this.assets = assets;
         });
     };
@@ -107,7 +105,7 @@ var AssetComponent = (function () {
                     _this.assetCreated = false;
                 }
             }).catch(function (err) {
-                console.log(err);
+                //console.log(err);
             });
         }
     };
@@ -122,16 +120,14 @@ var AssetComponent = (function () {
     };
     AssetComponent.prototype.delete = function (asset) {
         var _this = this;
-        console.log("Asset to delete: ", asset);
         this.assetService.delete(asset).then(function () {
-            console.log("Asset deleted");
             _this.assets = _this.assets.filter(function (arr) {
                 //return ann array with all values different from asset
                 return arr !== asset;
             });
         })
             .catch(function (err) {
-            console.log(err);
+            //console.log(err);
         });
     };
     AssetComponent.prototype.showDetails = function (asset) {

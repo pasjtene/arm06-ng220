@@ -13,29 +13,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 *Created: Sept 2016
 *
 */
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var asset_comp_1 = require('./asset.comp');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var asset_comp_1 = require("./asset.comp");
+var auth_guard_service_1 = require("../auth-guard.service");
 var AssetRoutingModule = (function () {
     function AssetRoutingModule() {
     }
-    AssetRoutingModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                router_1.RouterModule.forChild([
-                    {
-                        path: 'assets',
-                        component: asset_comp_1.AssetComponent
-                    }
-                ])
-            ],
-            exports: [
-                router_1.RouterModule
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AssetRoutingModule);
     return AssetRoutingModule;
 }());
+AssetRoutingModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            router_1.RouterModule.forChild([
+                {
+                    path: 'assets',
+                    component: asset_comp_1.AssetComponent,
+                    canActivate: [auth_guard_service_1.AuthGuard]
+                }
+            ])
+        ],
+        exports: [
+            router_1.RouterModule
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], AssetRoutingModule);
 exports.AssetRoutingModule = AssetRoutingModule;
 //# sourceMappingURL=asset-routing.module.js.map

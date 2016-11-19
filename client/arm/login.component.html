@@ -7,7 +7,9 @@
                 </div>
                 <div class="login-form">
                     <div id="login">
-
+                      <div *ngIf="isAnewUser">
+                        <span class="alert alert-success"> {{newUserWelcomeMessage}} </span>
+                      </div>
                       <span *ngIf="!authService.authFailed">{{message}}</span>
                       <div *ngIf="authService.authFailed" class="alert alert-danger">
                       <strong>Oh Snap!</strong> authentication failed...Wrong username and password!!!
@@ -34,7 +36,7 @@
                         <button (click)="login(userName, password)" class="btn btn-info">Log In</button>
                         <br/>
                         <h6>This is a demo link for user creation. no prior  authentication required </h6>
-                        <a href="/users/register">Create your account</a>
+                        <a href="/users">Create your account</a>
                         <br/><br/><br/>
 
                     </div>

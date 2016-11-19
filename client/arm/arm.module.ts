@@ -16,7 +16,7 @@ import { LoginComponent } from './login.component';
 import { ArmRoutingModule } from './arm-routing.module';
 import { PageNotFoundComponent } from './page-not-found.component'
 //import { UserModule } from './users/user.module';
-import { UserjModule } from './users/userj.module';
+import { UserModule } from './users/user.module';
 //import { CrisisModule } from './crisis-center/crisis.module';
 import { AdminModule } from './admin/admin.module';
 
@@ -25,13 +25,8 @@ import { LocationModule } from './locations/location.module';
 import { AssetModule } from './assets/asset.module';
 
 import { MaterialModule } from '@angular/material';
-
 import { DialogService } from './dialog.service';
-
 import { LocationChartDirective } from './d3ng/location-chart.component';
-
-//import { ArmStatsBarChartDirective } from './d3ng/bar-chart.directive';
-//import { ArmStatsBarChartDirective2 } from './d3ng/bar-chart.directive2';
 import { ArmStatsBarChartComponent } from './d3ng/bar-chart.component';
 
 @NgModule({
@@ -45,7 +40,7 @@ import { ArmStatsBarChartComponent } from './d3ng/bar-chart.component';
     AdminModule,
     LoginRoutingModule,
     ArmRoutingModule,
-    UserjModule,
+    UserModule,
     MaterialModule.forRoot()
   ],
   declarations: [
@@ -53,8 +48,6 @@ import { ArmStatsBarChartComponent } from './d3ng/bar-chart.component';
     LoginComponent,
     HomeComponent,
     LocationChartDirective,
-    //ArmStatsBarChartDirective,
-    //ArmStatsBarChartDirective2,
     ArmStatsBarChartComponent,
     PageNotFoundComponent
       ],

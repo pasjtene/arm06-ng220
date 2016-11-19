@@ -23,7 +23,7 @@ var login_component_1 = require("./login.component");
 var arm_routing_module_1 = require("./arm-routing.module");
 var page_not_found_component_1 = require("./page-not-found.component");
 //import { UserModule } from './users/user.module';
-var userj_module_1 = require("./users/userj.module");
+var user_module_1 = require("./users/user.module");
 //import { CrisisModule } from './crisis-center/crisis.module';
 var admin_module_1 = require("./admin/admin.module");
 var login_routing_module_1 = require("./login-routing.module");
@@ -32,8 +32,6 @@ var asset_module_1 = require("./assets/asset.module");
 var material_1 = require("@angular/material");
 var dialog_service_1 = require("./dialog.service");
 var location_chart_component_1 = require("./d3ng/location-chart.component");
-//import { ArmStatsBarChartDirective } from './d3ng/bar-chart.directive';
-//import { ArmStatsBarChartDirective2 } from './d3ng/bar-chart.directive2';
 var bar_chart_component_1 = require("./d3ng/bar-chart.component");
 var ArmModule = (function () {
     function ArmModule() {
@@ -52,7 +50,7 @@ ArmModule = __decorate([
             admin_module_1.AdminModule,
             login_routing_module_1.LoginRoutingModule,
             arm_routing_module_1.ArmRoutingModule,
-            userj_module_1.UserjModule,
+            user_module_1.UserModule,
             material_1.MaterialModule.forRoot()
         ],
         declarations: [
@@ -60,8 +58,6 @@ ArmModule = __decorate([
             login_component_1.LoginComponent,
             home_component_1.HomeComponent,
             location_chart_component_1.LocationChartDirective,
-            //ArmStatsBarChartDirective,
-            //ArmStatsBarChartDirective2,
             bar_chart_component_1.ArmStatsBarChartComponent,
             page_not_found_component_1.PageNotFoundComponent
         ],

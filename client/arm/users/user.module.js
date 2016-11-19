@@ -10,22 +10,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
-var userj_routing_module_1 = require("./userj-routing.module");
+var user_routing_module_1 = require("./user-routing.module");
 var user_comp_1 = require("./user.comp");
 var forms_1 = require("@angular/forms");
 var material_1 = require("@angular/material");
 //import { UserjService } from './userj.service';
 var user_service_1 = require("./user.service");
-var UserjModule = (function () {
-    function UserjModule() {
+var UserModule = (function () {
+    function UserModule() {
     }
-    return UserjModule;
+    return UserModule;
 }());
-UserjModule = __decorate([
+UserModule = __decorate([
     core_1.NgModule({
         imports: [
             common_1.CommonModule,
-            userj_routing_module_1.UserjRoutingModule,
+            user_routing_module_1.UserRoutingModule,
             forms_1.FormsModule,
             material_1.MaterialModule.forRoot()
         ],
@@ -41,6 +41,6 @@ UserjModule = __decorate([
         ]
     }),
     __metadata("design:paramtypes", [])
-], UserjModule);
-exports.UserjModule = UserjModule;
-//# sourceMappingURL=userj.module.js.map
+], UserModule);
+exports.UserModule = UserModule;
+//# sourceMappingURL=user.module.js.map

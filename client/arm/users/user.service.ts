@@ -35,6 +35,7 @@ export class UserService {
   constructor(private http: Http){}
 
   getUsers(): Promise<User[]> {
+    this.headers = new Headers({'Content-Type': 'application/json' , 'arm_auth_token': localStorage.getItem('arm_auth_token')});
     return this.http.get(this.usersUrl, {headers: this.headers})
                 .toPromise()
                 .then(response => {

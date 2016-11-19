@@ -6,13 +6,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AssetComponent } from './asset.comp';
+import { AuthGuard } from '../auth-guard.service';
 
 @NgModule ({
   imports: [
     RouterModule.forChild ([
         {
           path: 'assets',
-          component: AssetComponent
+          component: AssetComponent,
+          canActivate: [AuthGuard]
         }
     ])
   ],

@@ -11,11 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /*
 *Author: Pascal Tene
 *Created: Sept 2016
-*last Updated: Nov 06, 2016
+*last Updated: Nov 19, 2016
 */
 var core_1 = require("@angular/core");
 var material_1 = require("@angular/material");
 var user_service_1 = require("./user.service");
+var auth_service_1 = require("../auth.service");
 var location_service_1 = require("../locations/location.service");
 var router_1 = require("@angular/router");
 var material_2 = require("@angular/material");
@@ -41,10 +42,9 @@ ConfirmDeleteUserComponent = __decorate([
 ], ConfirmDeleteUserComponent);
 exports.ConfirmDeleteUserComponent = ConfirmDeleteUserComponent;
 var UserComponent = (function () {
-    function UserComponent(locationService, 
-        //private assetService: UserjService,
-        userService, router, viewContainerRef, dialog) {
+    function UserComponent(locationService, authService, userService, router, viewContainerRef, dialog) {
         this.locationService = locationService;
+        this.authService = authService;
         this.userService = userService;
         this.router = router;
         this.viewContainerRef = viewContainerRef;
@@ -90,15 +90,8 @@ var UserComponent = (function () {
         var _this = this;
         this.userService.getUsers().then(function (users) {
             _this.users = users;
-            console.log("Users: ", users);
         });
     };
-    //  getAssets(): void {
-    //this.assetService.getAssets().then((assets) => {
-    //  console.log("Assets from server: ", assets)
-    //  this.assets = assets;
-    //  })
-    //  }
     UserComponent.prototype.delete = function (user) {
         var _this = this;
         this.userService
@@ -120,14 +113,20 @@ var UserComponent = (function () {
         // the _id property is added be the mongo db and should not be send when creating an object.
         delete user._id;
         this.userService.create(user).then(function (res) {
-            console.log("Response after post user: ", res);
             if (res.username === 'ex') {
                 _this.userNameExist = 'A user with this username already exist';
                 return;
             }
             else {
-                _this.getUsers();
                 _this.createUserSidenav.close();
+                if (!_this.authService.isLoggedIn) {
+                    _this.authService.newUserWelcomeMessage = "Welcome " + user.username + ". Please login with username: " + user.username + ", and your  password";
+                    _this.authService.isAnewUser = true;
+                    _this.router.navigate(['/login']);
+                }
+                else {
+                    _this.getUsers();
+                }
             }
         }, function (err) {
             console.log("Could not save the user...");
@@ -145,15 +144,15 @@ var UserComponent = (function () {
         this.dialogRef.afterClosed().subscribe(function (result) {
             if (result === 'Yes') {
                 _this.delete(user);
-                console.log(user);
             }
         });
         this.dialogRef = null;
     };
     UserComponent.prototype.ngOnInit = function () {
-        this.getLocations();
-        //this.getAssets();
-        this.getUsers();
+        if (this.authService.isLoggedIn) {
+            this.getLocations();
+            this.getUsers();
+        }
     };
     return UserComponent;
 }());
@@ -173,6 +172,7 @@ UserComponent = __decorate([
         styleUrls: ['user.comp.css']
     }),
     __metadata("design:paramtypes", [location_service_1.LocationService,
+        auth_service_1.AuthService,
         user_service_1.UserService,
         router_1.Router,
         core_1.ViewContainerRef,

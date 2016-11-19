@@ -1,31 +1,32 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'
-import { MaterialModule } from '@angular/material'
-
-import { UserRoutingModule } from './user-routing.module';
+import { CommonModule } from '@angular/common'
+import { UserRoutingModule } from './user-routing.module'
 import { UserComponent, ConfirmDeleteUserComponent } from './user.comp';
-//import { UserDetailComponent } from './user-detail.component';
-//import { userRegisterComponent } from './user-register.comp';
-
+import { FormsModule } from '@angular/forms';
+import { MaterialModule } from '@angular/material';
+//import { UserjService } from './userj.service';
 import { UserService } from './user.service';
 
-@NgModule({
+@NgModule ({
   imports: [
     CommonModule,
-    FormsModule,
     UserRoutingModule,
+    FormsModule,
     MaterialModule.forRoot()
+
   ],
+
   declarations: [
     UserComponent,
     ConfirmDeleteUserComponent
   ],
+
   entryComponents: [
     ConfirmDeleteUserComponent
   ],
+
   providers: [
-    UserService
+    UserService, UserService
   ]
 })
 

@@ -175,21 +175,17 @@ export class ListLocationsComponent implements OnInit {
 
  createLocation(location: Location): void {
    delete location._id; // the _id will be automatically created by mongoDb. Providing an empty _id will cause a database failure
-   console.log(this.location1.value);
-   console.log(JSON.stringify(this.location1.value));
+
    this.locationService.create(location).then((res) => {
      //When location creation fails, the returned location values are undefined
      if(res.name !== undefined) {
        this.isLocationCreated = true;
        this.isLocationNotCreated = false;
-       this.createdLocationName = location.name;
-       //this.locations.push(location);
-       //populate the displayed array with locations fron database.
-       //This gives the ability to delete what we see on screen soon after creating.
+       this.createdLocationName = location.name;       
        this.getLocations();
        this.resetView();
      } else {
-       console.log("Not saved the name is undefined")
+
        this.isLocationCreated = false;
        this.createdLocationName = location.name;
        this.isLocationNotCreated = true;
@@ -197,21 +193,15 @@ export class ListLocationsComponent implements OnInit {
      }
 
    });
-   console.log("The new location is: ", location);
 
    this.router.navigate(['/locations']);
  }
 
  delete(loc: Location): void {
-   console.log("deleting location....: "+JSON.stringify(loc));
    this.locationService
    .delete(loc._id)
    .then((res) => {
      this.locations = this.locations.filter(h => h !== loc );
-     console.log("Response after delete: ",res);
-     //if (this.selectedUser === user ) {
-       //this.selectedUser = null;
-    // }
   });
  }
 

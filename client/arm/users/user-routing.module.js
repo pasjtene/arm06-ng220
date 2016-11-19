@@ -16,12 +16,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var user_comp_1 = require("./user.comp");
-var UserjRoutingModule = (function () {
-    function UserjRoutingModule() {
+var UserRoutingModule = (function () {
+    function UserRoutingModule() {
     }
-    return UserjRoutingModule;
+    return UserRoutingModule;
 }());
-UserjRoutingModule = __decorate([
+UserRoutingModule = __decorate([
     core_1.NgModule({
         imports: [
             router_1.RouterModule.forChild([
@@ -36,6 +36,6 @@ UserjRoutingModule = __decorate([
         ]
     }),
     __metadata("design:paramtypes", [])
-], UserjRoutingModule);
-exports.UserjRoutingModule = UserjRoutingModule;
-//# sourceMappingURL=userj-routing.module.js.map
+], UserRoutingModule);
+exports.UserRoutingModule = UserRoutingModule;
+//# sourceMappingURL=user-routing.module.js.map

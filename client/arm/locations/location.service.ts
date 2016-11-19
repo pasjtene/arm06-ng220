@@ -37,15 +37,10 @@ export class LocationService {
     }
 
     create(location: Location) : Promise<Location> {
-
-        console.log("location created");
-        console.log(location);
         var loc = this.http.post(this.locationUrl, { location }, { headers: this.headers })
             .toPromise()
             .then((response) => {
-                console.log("response for location: ", response);
                 this.router.navigate(['/locations']);
-
                 return response.json();
             })
             .catch(() => {
@@ -58,17 +53,15 @@ export class LocationService {
 
     deleteLocation(id: string) : Promise<Location> {
         const url = `${this.locationUrl}/${id}`;
-        console.log(location);
-        console.log(JSON.stringify(location));
+
         return  this.http.delete(url, { headers: this.headers })
             .toPromise()
             .then((response) => {
-                console.log("response for location: ", response);
+
                 this.router.navigate(['/locations']);
                 return response.json();
             })
             .catch((err) => {
-                console.log("Errors while creating Location");
                 return err;
 
             });
@@ -87,11 +80,10 @@ export class LocationService {
         return this.http.get(this.locationUrl, { headers: this.headers })
             .toPromise()
             .then((locations) => {
-                console.log("Locations from server: ", locations.json())
                 return locations.json() as Location[]
             })
             .catch((err) => {
-                console.log(err)
+                //console.log(err)
             })
 
     }

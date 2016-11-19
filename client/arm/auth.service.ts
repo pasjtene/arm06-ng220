@@ -14,6 +14,8 @@ import {UserCredentials} from './users/user';
 export class AuthService {
   isLoggedIn: boolean = false;
   authFailed: boolean = false;
+  newUserWelcomeMessage: string = "";
+  isAnewUser: boolean = false;
   isAuthenticated: string = localStorage.getItem('arm_auth_token');
   // the user remains logged in untill they click logout
   //isLoggedIn : boolean;
