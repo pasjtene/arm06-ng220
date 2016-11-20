@@ -90,7 +90,7 @@ var UserComponent = (function () {
         this.mouseIn = i;
     };
     UserComponent.prototype.mout = function () {
-        this.mouseIn = 100;
+        this.mouseIn = 10000;
     };
     UserComponent.prototype.setMouseOnButton = function (i) {
         this.mouseOnButton = i;

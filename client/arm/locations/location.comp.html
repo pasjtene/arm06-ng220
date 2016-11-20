@@ -6,9 +6,8 @@
     </button>
 </md-toolbar>
 <md-menu x-position="before" #menu="mdMenu">
-    <button md-menu-item (click)="openDialog(SettingsDialog)">Settings</button>
-    <button md-menu-item>Toggle theme</button>
-    <button md-menu-item (click)="confirmLogout()">Help</button>
+    <button md-menu-item (click)="help=help">Help</button>
+    <button md-menu-item (click)="logout()">Logout</button>
 </md-menu>
 
 <md-sidenav-layout>
@@ -140,22 +139,31 @@
             <th>City</th>
             <th>Country</th>
             <th>contacts</th>
+            <th></th>
         </thead>
 
 
-        <tr *ngFor="let location of locations ">
-            <td>{{location.name}}
-            <button md-icon-button (click)="createLocationSidenav.close(); showDetails(location)">
-                <md-icon class="icon-20">info</md-icon>
-            </button>
-            <button md-icon-button (click)="openConfirmDeleteDialog(ConfirmDeleteDialog, location); 'dlocation=location' " >
-                <md-icon class="icon-20">delete</md-icon>
-            </button>
+        <tr *ngFor="let location of locations; let i=index;" on-mouseout="mouseOut()">
+            <td on-mouseover="setMouseOnRow(i)">
+              <span *ngIf="mouseIn === i || mouseOnButton === i"  >
+                  <button md-icon-button (click)="createLocationSidenav.close(); showDetails(location)">
+                      <md-icon class="icon-20">info</md-icon>
+                  </button>
+              </span>
+              {{location.name}}
 
             </td>
-            <td>{{location.city}}</td>
-            <td>{{location.country}}</td>
-            <td><span *ngFor="let contact of location.contacts "> {{contact.firstName}} {{contact.lastName}}</span> </td>
+            <td on-mouseover="setMouseOnRow(i)">{{location.city}}</td>
+            <td on-mouseover="setMouseOnRow(i)">{{location.country}}</td>
+            <td on-mouseover="setMouseOnRow(i)"><span *ngFor="let contact of location.contacts "> {{contact.firstName}} {{contact.lastName}}</span> </td>
+
+            <td on-mouseover="setMouseOnRow(i)" >
+              <span *ngIf="mouseIn === i || mouseOnButton === i"  >
+              <button md-icon-button (click)= "openConfirmDeleteDialog(ConfirmDeleteDialog, location); 'dlocation=location' ">
+                  <md-icon class="icon-20">delete</md-icon>
+              </button>
+            </span>
+            </td>
         </tr>
     </table>
     <button class="btn btn-default btn-sm" (click)="createLocationSidenav.open(); sidenav.close()">Create new location </button>

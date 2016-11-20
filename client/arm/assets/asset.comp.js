@@ -16,6 +16,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var material_1 = require("@angular/material");
 var asset_service_1 = require("./asset.service");
+var auth_service_1 = require("../auth.service");
 var location_service_1 = require("../locations/location.service");
 var router_1 = require("@angular/router");
 var material_2 = require("@angular/material");
@@ -40,9 +41,10 @@ ConfirmDeleteAssetComponent = __decorate([
 ], ConfirmDeleteAssetComponent);
 exports.ConfirmDeleteAssetComponent = ConfirmDeleteAssetComponent;
 var AssetComponent = (function () {
-    function AssetComponent(locationService, assetService, router, viewContainerRef, dialog) {
+    function AssetComponent(locationService, assetService, authService, router, viewContainerRef, dialog) {
         this.locationService = locationService;
         this.assetService = assetService;
+        this.authService = authService;
         this.router = router;
         this.viewContainerRef = viewContainerRef;
         this.dialog = dialog;
@@ -150,6 +152,10 @@ var AssetComponent = (function () {
         this.getLocations();
         this.getAssets();
     };
+    AssetComponent.prototype.logout = function () {
+        this.authService.logout();
+        this.router.navigate(['/login']);
+    };
     return AssetComponent;
 }());
 __decorate([
@@ -169,6 +175,7 @@ AssetComponent = __decorate([
     }),
     __metadata("design:paramtypes", [location_service_1.LocationService,
         asset_service_1.AssetService,
+        auth_service_1.AuthService,
         router_1.Router,
         core_1.ViewContainerRef,
         material_2.MdDialog])

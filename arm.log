@@ -418,3 +418,7 @@
 {"level":"debug","message":"Now my debug messages are written to console!","timestamp":"2016-11-20T10:09:17.347Z"}
 {"level":"debug","message":"Database connection successful: mongodb://localhost/dev_arm_db","timestamp":"2016-11-20T10:09:17.355Z"}
 {"level":"info","message":"Listenning on port 80","timestamp":"2016-11-20T10:09:18.750Z"}
+{"level":"info","message":"We are in dev mode. Console logging enable","timestamp":"2016-11-20T18:34:47.429Z"}
+{"level":"debug","message":"Now my debug messages are written to console!","timestamp":"2016-11-20T18:34:47.431Z"}
+{"level":"debug","message":"Database connection successful: mongodb://localhost/dev_arm_db","timestamp":"2016-11-20T18:34:47.439Z"}
+{"level":"info","message":"Listenning on port 80","timestamp":"2016-11-20T18:34:48.741Z"}

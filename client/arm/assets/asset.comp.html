@@ -6,9 +6,9 @@
     </button>
 </md-toolbar>
 <md-menu x-position="before" #menu="mdMenu">
-    <button md-menu-item (click)="openDialog(SettingsDialog)">Settings</button>
-    <button md-menu-item>Toggle theme</button>
-    <button md-menu-item (click)="confirmLogout()">Help</button>
+    <button md-menu-item (click)="help=help">help</button>
+    <hr>
+    <button md-menu-item (click)="logout()">Help</button>
 </md-menu>
 
 <!-- Right sidenav for object creation -->
@@ -115,37 +115,16 @@
 
     </md-sidenav>
 
-
-
-
     <md-sidenav align="start" mode="side" #leftSidenav>
-        <md-tab-group>
-            <md-tab>
-                <template md-tab-label>Details</template>
-                <template md-tab-content>
-                  <div class="objectDetails">
-                  <p> <strong>Name: </strong> {{currentAsset.name}}</p>
-                  <p><strong> Cost: </strong>{{currentAsset.cost}}</p>
-                  <p> <strong>Current Value: </strong>{{currentAsset.currentValue}}</p>
-                  <p> <strong>Location: </strong><span *ngIf="currentAsset.location">{{currentAsset.location.name}}</span></p>
-                  <button class="btn btn-info btn-sm" (click)="leftSidenav.close()">Hide details</button>
-                </div>
-                </template>
-            </md-tab>
+      <h5>Details for {{currentAsset.name}} </h5>
+      <div class="objectDetails">
+        <p> <strong>Name: </strong> {{currentAsset.name}}</p>
+        <p><strong> Cost: </strong>{{currentAsset.cost}}</p>
+        <p> <strong>Current Value: </strong>{{currentAsset.currentValue}}</p>
+        <p> <strong>Location: </strong><span *ngIf="currentAsset.location">{{currentAsset.location.name}}</span></p>
+          <button class="btn btn-info btn-sm" (click)="leftSidenav.close()">Hide details</button>
+    </div>
 
-            <md-tab>
-                <template md-tab-label>List</template>
-                <template md-tab-content>
-            <ol>
-                <li *ngFor="let asset of assets "> {{asset.name}}
-                </li>
-            </ol>
-                <a href="/location/create">Add new Asset</a> <br/>
-                  <button class="btn btn-info btn-xs" (click)="leftSidenav.close()">Hide asset list</button>
-                </template>
-            </md-tab>
-
-        </md-tab-group>
     </md-sidenav>
 
     <table width="100%">

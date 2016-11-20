@@ -104,9 +104,7 @@ export class UserComponent implements OnInit {
     }
 
     mout() {
-
-        this.mouseIn = 100;
-
+        this.mouseIn = 10000;
     }
 
     setMouseOnButton(i) {
@@ -170,7 +168,7 @@ export class UserComponent implements OnInit {
     }
 
     showDetails(user: User) {
-      this.currentUser = user;      
+      this.currentUser = user;
     }
 
     openConfirmDeleteDialog(exportClass, user:User) {

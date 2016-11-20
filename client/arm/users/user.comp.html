@@ -206,10 +206,10 @@
         <tr *ngFor="let user of users; let i = index;" on-mouseout="mout()">
             <td on-mouseover="setMouseOnButton(i)">
               <span *ngIf="mouseIn === i || mouseOnButton === i"  >
-            <button md-icon-button (click)="leftSidenav.open(); createUserSidenav.close(); showDetails(user)">
-                 <md-icon class="icon-20">info</md-icon>
-            </button>
-          </span>
+                  <button md-icon-button (click)="leftSidenav.open(); createUserSidenav.close(); showDetails(user)">
+                      <md-icon class="icon-20">info</md-icon>
+                  </button>
+              </span>
             {{user.firstName}}
 
             </td>

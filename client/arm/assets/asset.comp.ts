@@ -7,6 +7,7 @@ import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
 import { MdSidenav } from '@angular/material';
 import { Asset } from './asset';
 import { AssetService } from './asset.service';
+import { AuthService } from '../auth.service';
 import { Location } from '../locations/location';
 import { LocationService } from '../locations/location.service';
 import { Router } from '@angular/router';
@@ -68,6 +69,7 @@ export class AssetComponent implements OnInit {
     constructor(
         private locationService: LocationService,
         private assetService: AssetService,
+        private authService: AuthService,
         private router: Router,
         public viewContainerRef: ViewContainerRef,
         public dialog: MdDialog
@@ -172,6 +174,12 @@ export class AssetComponent implements OnInit {
         this.getLocations();
         this.getAssets();
     }
+
+    logout() {
+        this.authService.logout();
+        this.router.navigate(['/login']);
+    }
+
 
 
 }

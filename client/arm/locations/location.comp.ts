@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Location } from './location';
 import { User } from '../users/user';
 import { UserService } from '../users/user.service';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -76,6 +77,8 @@ export class ConfirmLogout {
 
 export class LocationsComponent implements OnInit {
   isLocationCreated = false;
+  mouseIn = 10000;
+  mouseOnButton = 10000;
   isLocationNotCreated = false;
   createdLocationName = '';
   location1: FormGroup;
@@ -99,6 +102,7 @@ export class LocationsComponent implements OnInit {
   constructor(
     private locationService: LocationService,
     private userService: UserService,
+    private authService: AuthService,
     public confirmLogoutDialog: MdDialog,
     public vcr: ViewContainerRef,
     public dialog: MdDialog,
@@ -114,6 +118,23 @@ export class LocationsComponent implements OnInit {
       state:['', Validators.compose([Validators.maxLength(30), Validators.minLength(2)])],
       country:['', Validators.compose([Validators.minLength(2), Validators.maxLength(30)])]
     });
+  }
+
+
+  mover(i) {
+      this.mouseIn = i;
+  }
+
+  mouseOut() {
+      this.mouseIn = 10000;
+  }
+
+  setMouseOnRow(i) {
+    this.mouseOnButton = i;
+  }
+
+  unSetMouseOnRow() {
+    this.mouseOnButton = 100;
   }
 
   getLocations() :void {
@@ -210,7 +231,11 @@ export class LocationsComponent implements OnInit {
       this.isLocationCreated = false;
       this.isLocationNotCreated = false;
     }, 3000);
+ }
 
+ logout() {
+     this.authService.logout();
+     this.router.navigate(['/login']);
  }
 
 

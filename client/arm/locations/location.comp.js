@@ -14,6 +14,7 @@ var material_1 = require("@angular/material");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var user_service_1 = require("../users/user.service");
+var auth_service_1 = require("../auth.service");
 var SettingsDialog = (function () {
     function SettingsDialog(dialogRef) {
         this.dialogRef = dialogRef;
@@ -71,17 +72,20 @@ ConfirmLogout = __decorate([
 ], ConfirmLogout);
 exports.ConfirmLogout = ConfirmLogout;
 var LocationsComponent = (function () {
-    function LocationsComponent(locationService, userService, confirmLogoutDialog, vcr, dialog, formBuilder, 
+    function LocationsComponent(locationService, userService, authService, confirmLogoutDialog, vcr, dialog, formBuilder, 
         //public locationService : LocationService,
         router) {
         this.locationService = locationService;
         this.userService = userService;
+        this.authService = authService;
         this.confirmLogoutDialog = confirmLogoutDialog;
         this.vcr = vcr;
         this.dialog = dialog;
         this.formBuilder = formBuilder;
         this.router = router;
         this.isLocationCreated = false;
+        this.mouseIn = 10000;
+        this.mouseOnButton = 10000;
         this.isLocationNotCreated = false;
         this.createdLocationName = '';
         this.currentLocation = {};
@@ -100,6 +104,18 @@ var LocationsComponent = (function () {
             country: ['', forms_1.Validators.compose([forms_1.Validators.minLength(2), forms_1.Validators.maxLength(30)])]
         });
     }
+    LocationsComponent.prototype.mover = function (i) {
+        this.mouseIn = i;
+    };
+    LocationsComponent.prototype.mouseOut = function () {
+        this.mouseIn = 10000;
+    };
+    LocationsComponent.prototype.setMouseOnRow = function (i) {
+        this.mouseOnButton = i;
+    };
+    LocationsComponent.prototype.unSetMouseOnRow = function () {
+        this.mouseOnButton = 100;
+    };
     LocationsComponent.prototype.getLocations = function () {
         var _this = this;
         this.locationService.getLocations().then(function (locations) {
@@ -184,6 +200,10 @@ var LocationsComponent = (function () {
             _this.isLocationNotCreated = false;
         }, 3000);
     };
+    LocationsComponent.prototype.logout = function () {
+        this.authService.logout();
+        this.router.navigate(['/login']);
+    };
     return LocationsComponent;
 }());
 __decorate([
@@ -199,6 +219,7 @@ LocationsComponent = __decorate([
     }),
     __metadata("design:paramtypes", [location_service_1.LocationService,
         user_service_1.UserService,
+        auth_service_1.AuthService,
         material_1.MdDialog,
         core_1.ViewContainerRef,
         material_1.MdDialog,
