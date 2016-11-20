@@ -1,0 +1,18 @@
+<h2> Help managing users </h2>
+<h3> Creating a user</h3>
+<ol>
+  <li> Click the create new user button
+  <li> Enter valid user details
+  <li> Click save. Any error will be reported
+  <li> if there is no Error, the navigation pan will close and the user can be seen in the list
+</ol>
+
+<h3> Deleting a user </h3>
+
+<ol>
+  <li> Hover the mouse over the user you want to delete
+  <li> A recycle bin icon will apear on the same line:  <button md-icon-button (clik)="nothing=nothing"><md-icon class="icon-20">delete</md-icon> </button>
+  <li> Click the recycle bin icon, then confirm or cancel the deletion
+</ol>
+
+<button class="btn btn-success" (click)="dialogRef.close() " >Got it</button>

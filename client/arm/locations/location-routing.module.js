@@ -8,29 +8,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var list_locations_comp_1 = require('./list/list-locations.comp');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var location_comp_1 = require("./location.comp");
 var LocationRoutingModule = (function () {
     function LocationRoutingModule() {
     }
-    LocationRoutingModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                router_1.RouterModule.forChild([
-                    {
-                        path: 'locations',
-                        component: list_locations_comp_1.ListLocationsComponent
-                    }
-                ])
-            ],
-            exports: [
-                router_1.RouterModule
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], LocationRoutingModule);
     return LocationRoutingModule;
 }());
+LocationRoutingModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            router_1.RouterModule.forChild([
+                {
+                    path: 'locations',
+                    component: location_comp_1.LocationsComponent
+                }
+            ])
+        ],
+        exports: [
+            router_1.RouterModule
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], LocationRoutingModule);
 exports.LocationRoutingModule = LocationRoutingModule;
 //# sourceMappingURL=location-routing.module.js.map

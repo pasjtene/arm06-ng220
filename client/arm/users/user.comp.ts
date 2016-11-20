@@ -33,15 +33,30 @@ export class ConfirmDeleteUserComponent implements OnInit {
 
   ngOnInit() : void {
     this.userToDelete = this.userService.userToDelete;
-    console.log("Init confirm delete: ", this.userToDelete);
   }
+}
+
+@Component({
+  moduleId: module.id,
+  selector: 'user-help-dialog',
+  templateUrl: 'user-help.comp.html'
+})
+
+
+export class UserHelpComponent  {
+
+  constructor(
+    private userService: UserService,
+    public dialogRef: MdDialogRef<any>
+  ){}
+
 }
 
 
 
 @Component({
     moduleId: module.id, //this is required for the template and css to load from html or css file
-    selector: 'manage-asset',
+    selector: 'manage-users',
     templateUrl: 'user.comp.html',
     styleUrls: ['user.comp.css']
 })
@@ -49,7 +64,7 @@ export class ConfirmDeleteUserComponent implements OnInit {
 export class UserComponent implements OnInit {
     currentUser = {};
     locations: Location[];
-    //assets: Asset[];
+    userHelpButtonClicked: boolean = false;
     users: User[];
     dialogRef: MdDialogRef<any>;
     mouseIn = 100;
@@ -61,6 +76,7 @@ export class UserComponent implements OnInit {
 
     @ViewChild('sidenav') sidenav: MdSidenav;
     @ViewChild('createUserSidenav') createUserSidenav: MdSidenav;
+    //@ViewChild('userHelpSidenav') userHelpSidenav: MdSidenav;
     newUser: User = {
       id: 0,
       _id: '',
@@ -109,7 +125,7 @@ export class UserComponent implements OnInit {
 
     getUsers(): void {
       this.userService.getUsers().then(users => {
-        this.users = users;        
+        this.users = users;
       });
 
     }
@@ -154,7 +170,7 @@ export class UserComponent implements OnInit {
     }
 
     showDetails(user: User) {
-      this.currentUser = user;
+      this.currentUser = user;      
     }
 
     openConfirmDeleteDialog(exportClass, user:User) {
@@ -168,8 +184,13 @@ export class UserComponent implements OnInit {
           this.delete(user);
         }
       });
-
       this.dialogRef = null;
+    }
+
+    openUserHelpDialog(exportClass) {
+      const config = new MdDialogConfig();
+      config.viewContainerRef = this.viewContainerRef;
+      this.dialogRef = this.dialog.open(UserHelpComponent);
     }
 
     ngOnInit(): void {
@@ -177,7 +198,16 @@ export class UserComponent implements OnInit {
         this.getLocations();
         this.getUsers();
       }
+    }
 
+    logout() {
+        this.authService.logout();
+        this.router.navigate(['/login']);
+    }
+
+    help() {
+      this.userHelpButtonClicked = true;
+      //this.userHelpSidenav.open();
     }
 
 

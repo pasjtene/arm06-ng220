@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CreateLocationComponent } from './create-location.comp';
-import { ListLocationsComponent } from './list/list-locations.comp';
+import { LocationsComponent } from './location.comp';
 
 @NgModule ({
   imports: [
@@ -9,7 +9,7 @@ import { ListLocationsComponent } from './list/list-locations.comp';
 
     {
       path: 'locations',
-      component: ListLocationsComponent
+      component: LocationsComponent
     }
   ])
   ],

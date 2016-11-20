@@ -1,4 +1,3 @@
-
 <md-toolbar color="primary">
     Manage  Locations
     <span class="move-right"></span>
@@ -105,33 +104,15 @@
 
 
     <md-sidenav align="start" mode="side" #sidenav>
-        <md-tab-group>
-            <md-tab>
-                <template md-tab-label>Details</template>
-                <template md-tab-content>
-                  <div class="locationDetails">
-                  <p> <strong>Name: </strong> {{currentLocation.name}}</p>
-                  <p><strong> City: </strong>{{currentLocation.city}}</p>
-                  <p> <strong>State: </strong>{{currentLocation.state}}</p>
-                  <p> <strong>Country: </strong>{{currentLocation.country}}</p>
-                  <button class="btn btn-info btn-sm" (click)="sidenav.close()">Hide details</button>
-                </div>
-                </template>
-            </md-tab>
+      <h5> Details for {{currentLocation.name}} </h5>
+      <div class="locationDetails">
+        <p> <strong>Name: </strong> {{currentLocation.name}}</p>
+        <p><strong> City: </strong>{{currentLocation.city}}</p>
+        <p> <strong>State: </strong>{{currentLocation.state}}</p>
+        <p> <strong>Country: </strong>{{currentLocation.country}}</p>
+      <button class="btn btn-info btn-sm" (click)="sidenav.close()">Hide details</button>
+    </div>
 
-            <md-tab>
-                <template md-tab-label>List</template>
-                <template md-tab-content>
-            <ul>
-                <li *ngFor="let location of locations "> {{location.name}}
-                </li>
-            </ul>
-                <a href="/location/create">Add new Location</a> <br/>
-                  <button class="btn btn-info btn-xs" (click)="sidenav.close()">Hide location list</button>
-                </template>
-            </md-tab>
-
-        </md-tab-group>
     </md-sidenav>
 
     <table width="100%">

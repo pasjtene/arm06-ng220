@@ -1,11 +1,11 @@
 import { Component, ViewChild, OnInit, ViewContainerRef } from '@angular/core';
-import { LocationService } from '../location.service';
+import { LocationService } from './location.service';
 import { MdSidenav, MdDialog, MdDialogConfig, MdDialogRef } from "@angular/material";
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Location } from '../location';
-import { User } from '../../users/user';
-import { UserService } from '../../users/user.service';
+import { Location } from './location';
+import { User } from '../users/user';
+import { UserService } from '../users/user.service';
 
 
 @Component({
@@ -69,12 +69,12 @@ export class ConfirmLogout {
 
 @Component({
   moduleId: module.id,
-  selector: 'list-locations',
-  templateUrl: 'list-locations.comp.html',
-  styleUrls: ['list-locations.comp.css']
+  selector: 'locations',
+  templateUrl: 'location.comp.html',
+  styleUrls: ['location.comp.css']
 })
 
-export class ListLocationsComponent implements OnInit {
+export class LocationsComponent implements OnInit {
   isLocationCreated = false;
   isLocationNotCreated = false;
   createdLocationName = '';
@@ -181,7 +181,7 @@ export class ListLocationsComponent implements OnInit {
      if(res.name !== undefined) {
        this.isLocationCreated = true;
        this.isLocationNotCreated = false;
-       this.createdLocationName = location.name;       
+       this.createdLocationName = location.name;
        this.getLocations();
        this.resetView();
      } else {

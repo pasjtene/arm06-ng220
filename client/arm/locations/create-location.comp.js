@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var forms_1 = require('@angular/forms');
-var router_1 = require('@angular/router');
-var location_service_1 = require('./location.service');
+var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var router_1 = require("@angular/router");
+var location_service_1 = require("./location.service");
 var CreateLocationComponent = (function () {
     function CreateLocationComponent(formBuilder, locationService, router) {
         this.formBuilder = formBuilder;
@@ -30,16 +30,18 @@ var CreateLocationComponent = (function () {
         this.locationService.create(this.location.value);
         this.router.navigate(['/locations']);
     };
-    CreateLocationComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'create-location',
-            templateUrl: 'create-location.comp.html',
-            styleUrls: ['create-location.comp.css']
-        }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, location_service_1.LocationService, router_1.Router])
-    ], CreateLocationComponent);
     return CreateLocationComponent;
 }());
+CreateLocationComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'create-location',
+        templateUrl: 'create-location.comp.html',
+        styleUrls: ['create-location.comp.css']
+    }),
+    __metadata("design:paramtypes", [forms_1.FormBuilder,
+        location_service_1.LocationService,
+        router_1.Router])
+], CreateLocationComponent);
 exports.CreateLocationComponent = CreateLocationComponent;
 //# sourceMappingURL=create-location.comp.js.map

@@ -8,7 +8,8 @@ import { LocationRoutingModule } from './location-routing.module';
 
 import { LocationService } from './location.service';
 import { CreateLocationComponent } from './create-location.comp';
-import { ListLocationsComponent, ConfirmLogout, SettingsDialog, ConfirmDeleteDialog } from './list/list-locations.comp';
+//import { ListLocationsComponent, ConfirmLogout, SettingsDialog, ConfirmDeleteDialog } from './list/list-locations.comp';
+import { LocationsComponent, ConfirmLogout, SettingsDialog, ConfirmDeleteDialog } from './location.comp';
 
 @NgModule({
   imports: [
@@ -19,13 +20,13 @@ import { ListLocationsComponent, ConfirmLogout, SettingsDialog, ConfirmDeleteDia
     MaterialModule.forRoot()
   ],
   declarations: [
-    ListLocationsComponent,
+    LocationsComponent,
     ConfirmLogout,
     SettingsDialog,
     ConfirmDeleteDialog
   ],
     entryComponents: [
-      ListLocationsComponent,
+      LocationsComponent,
       ConfirmLogout,
       SettingsDialog,
       ConfirmDeleteDialog

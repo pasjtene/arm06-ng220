@@ -31,10 +31,12 @@ UserModule = __decorate([
         ],
         declarations: [
             user_comp_1.UserComponent,
-            user_comp_1.ConfirmDeleteUserComponent
+            user_comp_1.ConfirmDeleteUserComponent,
+            user_comp_1.UserHelpComponent
         ],
         entryComponents: [
-            user_comp_1.ConfirmDeleteUserComponent
+            user_comp_1.ConfirmDeleteUserComponent,
+            user_comp_1.UserHelpComponent
         ],
         providers: [
             user_service_1.UserService, user_service_1.UserService

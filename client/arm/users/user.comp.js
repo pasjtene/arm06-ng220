@@ -28,7 +28,6 @@ var ConfirmDeleteUserComponent = (function () {
     }
     ConfirmDeleteUserComponent.prototype.ngOnInit = function () {
         this.userToDelete = this.userService.userToDelete;
-        console.log("Init confirm delete: ", this.userToDelete);
     };
     return ConfirmDeleteUserComponent;
 }());
@@ -41,6 +40,23 @@ ConfirmDeleteUserComponent = __decorate([
         material_2.MdDialogRef])
 ], ConfirmDeleteUserComponent);
 exports.ConfirmDeleteUserComponent = ConfirmDeleteUserComponent;
+var UserHelpComponent = (function () {
+    function UserHelpComponent(userService, dialogRef) {
+        this.userService = userService;
+        this.dialogRef = dialogRef;
+    }
+    return UserHelpComponent;
+}());
+UserHelpComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'user-help-dialog',
+        templateUrl: 'user-help.comp.html'
+    }),
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        material_2.MdDialogRef])
+], UserHelpComponent);
+exports.UserHelpComponent = UserHelpComponent;
 var UserComponent = (function () {
     function UserComponent(locationService, authService, userService, router, viewContainerRef, dialog) {
         this.locationService = locationService;
@@ -50,12 +66,14 @@ var UserComponent = (function () {
         this.viewContainerRef = viewContainerRef;
         this.dialog = dialog;
         this.currentUser = {};
+        this.userHelpButtonClicked = false;
         this.mouseIn = 100;
         this.mouseOnButton = 100;
         this.confirmPassword = '';
         this.passwordMissMatch = '';
         //userExist = false;
         this.userNameExist = '';
+        //@ViewChild('userHelpSidenav') userHelpSidenav: MdSidenav;
         this.newUser = {
             id: 0,
             _id: '',
@@ -148,11 +166,24 @@ var UserComponent = (function () {
         });
         this.dialogRef = null;
     };
+    UserComponent.prototype.openUserHelpDialog = function (exportClass) {
+        var config = new material_2.MdDialogConfig();
+        config.viewContainerRef = this.viewContainerRef;
+        this.dialogRef = this.dialog.open(UserHelpComponent);
+    };
     UserComponent.prototype.ngOnInit = function () {
         if (this.authService.isLoggedIn) {
             this.getLocations();
             this.getUsers();
         }
+    };
+    UserComponent.prototype.logout = function () {
+        this.authService.logout();
+        this.router.navigate(['/login']);
+    };
+    UserComponent.prototype.help = function () {
+        this.userHelpButtonClicked = true;
+        //this.userHelpSidenav.open();
     };
     return UserComponent;
 }());
@@ -167,7 +198,7 @@ __decorate([
 UserComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'manage-asset',
+        selector: 'manage-users',
         templateUrl: 'user.comp.html',
         styleUrls: ['user.comp.css']
     }),

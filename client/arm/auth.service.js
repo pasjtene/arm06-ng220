@@ -41,32 +41,26 @@ var AuthService = (function () {
         var _this = this;
         //auth_token = localStorage.getItem('auth_token');
         //if the auth token is set, we authenticate the user.
-        //The we run the request later for server side validation of the token.
+        //We run the request later for server side validation of the token.
         //iF validation failes, the user should be immediately looged out.
         if (localStorage.getItem('arm_auth_token') === null) {
-            console.log("Auth Toke is null ...again");
             this.isLoggedIn = false;
         }
         else {
             this.isLoggedIn = true;
         }
-        //console.log("In CheckUth the headers are:  "+JSON.stringify(this.headers));
         return this.http.post(this.authCheckUrl, { headers: this.headers })
             .toPromise()
             .then(function (res) {
-            //console.log("In check Auth got a responses: " +res.json());
             if (res.json().token !== "false") {
-                console.log("In check Auth got a positive responses: " + res.json().token);
                 _this.isLoggedIn = true;
             }
             else {
-                console.log("In check Auth got a negative responses: " + res.json().token);
                 _this.isLoggedIn = false;
             }
         })
             .catch(function (error) {
             _this.isLoggedIn = false;
-            console.log("In check Auth No Response");
         });
     };
     AuthService.prototype.login = function (userName, password) {
@@ -84,7 +78,6 @@ var AuthService = (function () {
             }
             else {
                 _this.isLoggedIn = false;
-                console.log("setting authFailed...");
                 _this.authFailed = true;
                 return res;
             }
@@ -92,7 +85,6 @@ var AuthService = (function () {
     };
     AuthService.prototype.logout = function () {
         localStorage.removeItem('arm_auth_token');
-        console.log("Logging Out in auth service...");
         this.isLoggedIn = false;
         this.authFailed = false;
     };

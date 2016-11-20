@@ -6,9 +6,9 @@
     </button>
 </md-toolbar>
 <md-menu x-position="before" #menu="mdMenu">
-    <button md-menu-item (click)="openDialog(SettingsDialog)">Settings</button>
-    <button md-menu-item>Toggle theme</button>
-    <button md-menu-item (click)="confirmLogout()">Help</button>
+    <button md-menu-item (click)="openUserHelpDialog(openUserHelpDialog)">Help</button>
+    <hr>
+    <button md-menu-item (click)="logout()">Logout</button>
 </md-menu>
 
 <!-- Right sidenav for object creation -->
@@ -136,6 +136,15 @@
 
 
     <md-sidenav align="start" mode="side" #leftSidenav>
+      <h5>Details for user {{currentUser.firstName}} {{currentUser.lastName}} </h5>
+      <div class="objectDetails">
+          <p> <strong>First Name: </strong> {{currentUser.firstName}}</p>
+          <p><strong> Last Name: </strong>{{currentUser.lastName}}</p>
+          <p> <strong>UserName: </strong>{{currentUser.username}}</p>
+          <p> <strong>Location: </strong><span *ngIf="currentUser.location">{{currentUser.location}}</span></p>
+      <button class="btn btn-info btn-sm" (click)="leftSidenav.close()">Hide details</button>
+      </div>
+
         <md-tab-group>
             <md-tab>
                 <template md-tab-label>Details</template>
@@ -149,6 +158,7 @@
                 </div>
                 </template>
             </md-tab>
+
 
             <md-tab>
                 <template md-tab-label>List</template>

@@ -9,11 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var location_service_1 = require("../location.service");
+var location_service_1 = require("./location.service");
 var material_1 = require("@angular/material");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
-var user_service_1 = require("../../users/user.service");
+var user_service_1 = require("../users/user.service");
 var SettingsDialog = (function () {
     function SettingsDialog(dialogRef) {
         this.dialogRef = dialogRef;
@@ -70,8 +70,8 @@ ConfirmLogout = __decorate([
     __metadata("design:paramtypes", [])
 ], ConfirmLogout);
 exports.ConfirmLogout = ConfirmLogout;
-var ListLocationsComponent = (function () {
-    function ListLocationsComponent(locationService, userService, confirmLogoutDialog, vcr, dialog, formBuilder, 
+var LocationsComponent = (function () {
+    function LocationsComponent(locationService, userService, confirmLogoutDialog, vcr, dialog, formBuilder, 
         //public locationService : LocationService,
         router) {
         this.locationService = locationService;
@@ -100,32 +100,32 @@ var ListLocationsComponent = (function () {
             country: ['', forms_1.Validators.compose([forms_1.Validators.minLength(2), forms_1.Validators.maxLength(30)])]
         });
     }
-    ListLocationsComponent.prototype.getLocations = function () {
+    LocationsComponent.prototype.getLocations = function () {
         var _this = this;
         this.locationService.getLocations().then(function (locations) {
             _this.locations = locations;
         });
     };
-    ListLocationsComponent.prototype.getUsers = function () {
+    LocationsComponent.prototype.getUsers = function () {
         var _this = this;
         this.userService.getUsers().then(function (users) {
             _this.users = users;
         });
     };
-    ListLocationsComponent.prototype.ngOnInit = function () {
+    LocationsComponent.prototype.ngOnInit = function () {
         this.getLocations();
         this.getUsers();
     };
-    ListLocationsComponent.prototype.confirmLogout = function () {
+    LocationsComponent.prototype.confirmLogout = function () {
         var config = new material_1.MdDialogConfig();
         config.viewContainerRef = this.vcr;
         this.dialogRef = this.confirmLogoutDialog.open(ConfirmLogout, config);
     };
-    ListLocationsComponent.prototype.showDetails = function (location) {
+    LocationsComponent.prototype.showDetails = function (location) {
         this.currentLocation = location;
         this.sidenav.open();
     };
-    ListLocationsComponent.prototype.openDialog = function (d) {
+    LocationsComponent.prototype.openDialog = function (d) {
         var _this = this;
         var config = new material_1.MdDialogConfig();
         config.viewContainerRef = this.vcr;
@@ -134,7 +134,7 @@ var ListLocationsComponent = (function () {
             _this.dialogRef = null;
         });
     };
-    ListLocationsComponent.prototype.openConfirmDeleteDialog = function (d, location) {
+    LocationsComponent.prototype.openConfirmDeleteDialog = function (d, location) {
         var _this = this;
         var config = new material_1.MdDialogConfig();
         config.viewContainerRef = this.vcr;
@@ -148,7 +148,7 @@ var ListLocationsComponent = (function () {
             _this.dialogRef = null;
         });
     };
-    ListLocationsComponent.prototype.createLocation = function (location) {
+    LocationsComponent.prototype.createLocation = function (location) {
         var _this = this;
         delete location._id; // the _id will be automatically created by mongoDb. Providing an empty _id will cause a database failure
         this.locationService.create(location).then(function (res) {
@@ -169,7 +169,7 @@ var ListLocationsComponent = (function () {
         });
         this.router.navigate(['/locations']);
     };
-    ListLocationsComponent.prototype.delete = function (loc) {
+    LocationsComponent.prototype.delete = function (loc) {
         var _this = this;
         this.locationService
             .delete(loc._id)
@@ -177,25 +177,25 @@ var ListLocationsComponent = (function () {
             _this.locations = _this.locations.filter(function (h) { return h !== loc; });
         });
     };
-    ListLocationsComponent.prototype.resetView = function () {
+    LocationsComponent.prototype.resetView = function () {
         var _this = this;
         setTimeout(function () {
             _this.isLocationCreated = false;
             _this.isLocationNotCreated = false;
         }, 3000);
     };
-    return ListLocationsComponent;
+    return LocationsComponent;
 }());
 __decorate([
     core_1.ViewChild('sidenav'),
     __metadata("design:type", material_1.MdSidenav)
-], ListLocationsComponent.prototype, "sidenav", void 0);
-ListLocationsComponent = __decorate([
+], LocationsComponent.prototype, "sidenav", void 0);
+LocationsComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'list-locations',
-        templateUrl: 'list-locations.comp.html',
-        styleUrls: ['list-locations.comp.css']
+        selector: 'locations',
+        templateUrl: 'location.comp.html',
+        styleUrls: ['location.comp.css']
     }),
     __metadata("design:paramtypes", [location_service_1.LocationService,
         user_service_1.UserService,
@@ -204,6 +204,6 @@ ListLocationsComponent = __decorate([
         material_1.MdDialog,
         forms_1.FormBuilder,
         router_1.Router])
-], ListLocationsComponent);
-exports.ListLocationsComponent = ListLocationsComponent;
-//# sourceMappingURL=list-locations.comp.js.map
+], LocationsComponent);
+exports.LocationsComponent = LocationsComponent;
+//# sourceMappingURL=location.comp.js.map
