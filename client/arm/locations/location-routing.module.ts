@@ -11,7 +11,7 @@ import { AuthGuard } from '../auth-guard.service';
     {
       path: 'locations',
       component: LocationsComponent,
-      canActivate: [AuthGuard]
+      //canActivate: [AuthGuard]
     }
   ])
   ],

@@ -47,10 +47,10 @@ ArmModule = __decorate([
             //UserModule,
             location_module_1.LocationModule,
             asset_module_1.AssetModule,
+            user_module_1.UserModule,
             admin_module_1.AdminModule,
             login_routing_module_1.LoginRoutingModule,
             arm_routing_module_1.ArmRoutingModule,
-            user_module_1.UserModule,
             material_1.MaterialModule.forRoot()
         ],
         declarations: [

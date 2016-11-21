@@ -37,10 +37,10 @@ import { ArmStatsBarChartComponent } from './d3ng/bar-chart.component';
     //UserModule,
     LocationModule,
     AssetModule,
+    UserModule,
     AdminModule,
     LoginRoutingModule,
     ArmRoutingModule,
-    UserModule,
     MaterialModule.forRoot()
   ],
   declarations: [
