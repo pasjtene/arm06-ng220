@@ -13,9 +13,7 @@ import { AuthService } from './auth.service';
 })
 
 export class ArmComponent implements OnInit{
-  title = " Welcome to ARM: Advanced Risk Manager";
-  //users : User[];
-  //selectedUser: User;
+  title = " Welcome to ARM: Asset and Risk Manager software";
 
   constructor(
     private authService: AuthService,
@@ -23,10 +21,6 @@ export class ArmComponent implements OnInit{
   ) {}
 
   isLoggedIn = this.authService.isLoggedIn;
-  //getUsers(): void {
-    //this.userService.getUsers().then(users => this.users = users);
-  //}
-
 
   ngOnInit(): void {
   this.authService.checkAuthToken().then(() =>{
@@ -48,7 +42,4 @@ export class ArmComponent implements OnInit{
     //this.setMessage();
   }
 
-  //onSelect(user: User): void {
-    //this.selectedUser = user;
-//  }
 }

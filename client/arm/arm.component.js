@@ -13,17 +13,12 @@ var router_1 = require("@angular/router");
 //import { User } from './user';
 var auth_service_1 = require("./auth.service");
 var ArmComponent = (function () {
-    //users : User[];
-    //selectedUser: User;
     function ArmComponent(authService, router) {
         this.authService = authService;
         this.router = router;
-        this.title = " Welcome to ARM: Advanced Risk Manager";
+        this.title = " Welcome to ARM: Asset and Risk Manager software";
         this.isLoggedIn = this.authService.isLoggedIn;
     }
-    //getUsers(): void {
-    //this.userService.getUsers().then(users => this.users = users);
-    //}
     ArmComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.authService.checkAuthToken().then(function () {

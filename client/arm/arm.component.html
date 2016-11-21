@@ -1,12 +1,10 @@
 <div class="container">
 <nav *ngIf="authService.isLoggedIn">
-<a routerLink="/home" routerLinkActive="active">Stats</a>
+
 <a routerLink="/assets" routerLinkActive="active">Assets</a>
 <a routerLink="/locations" routerLinkActive="active">Locations</a>
 <a routerLink="/users" routerLinkActive="active">Users</a>
-
-<a  routerLink="/login" (click)="logout()" routerLinkActive="active" *ngIf="authService.isLoggedIn">LogOut</a>
-
+<a routerLink="/home" routerLinkActive="active">Stats</a>
 </nav>
 <router-outlet></router-outlet>
 </div>
