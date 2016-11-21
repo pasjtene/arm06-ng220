@@ -10,10 +10,10 @@
                       <div *ngIf="isAnewUser">
                         <span class="alert alert-success"> {{newUserWelcomeMessage}} </span>
                       </div>
-                      <span *ngIf="!authService.authFailed">{{message}}</span>
+
                       <div *ngIf="authService.authFailed" class="alert alert-danger">
-                      <strong>Oh Snap!</strong> authentication failed...Wrong username and password!!!
-                    </div>
+                        <strong>Oh Snap!</strong> authentication failed...Wrong username and password!!!
+                      </div>
 
                         <div>
                             <div class="form-group flex-group">

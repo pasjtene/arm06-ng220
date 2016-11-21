@@ -9,7 +9,7 @@ import { LocationRoutingModule } from './location-routing.module';
 import { LocationService } from './location.service';
 import { CreateLocationComponent } from './create-location.comp';
 //import { ListLocationsComponent, ConfirmLogout, SettingsDialog, ConfirmDeleteDialog } from './list/list-locations.comp';
-import { LocationsComponent, ConfirmLogout, SettingsDialog, ConfirmDeleteDialog } from './location.comp';
+import { LocationsComponent, ConfirmLogout, LocationHelpDialog, ConfirmDeleteDialog } from './location.comp';
 
 @NgModule({
   imports: [
@@ -21,15 +21,15 @@ import { LocationsComponent, ConfirmLogout, SettingsDialog, ConfirmDeleteDialog 
   ],
   declarations: [
     LocationsComponent,
-    ConfirmLogout,
-    SettingsDialog,
-    ConfirmDeleteDialog
+    ConfirmLogout,    
+    ConfirmDeleteDialog,
+    LocationHelpDialog
   ],
     entryComponents: [
       LocationsComponent,
       ConfirmLogout,
-      SettingsDialog,
-      ConfirmDeleteDialog
+      ConfirmDeleteDialog,
+      LocationHelpDialog
 
     ],
     providers: [

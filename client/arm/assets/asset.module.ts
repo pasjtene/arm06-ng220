@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'
 import { AssetRoutingModule } from './asset-routing.module'
-import { AssetComponent, ConfirmDeleteAssetComponent } from './asset.comp';
+import { AssetComponent, ConfirmDeleteAssetComponent, AssetHelpComponent } from './asset.comp';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { AssetService } from './asset.service';
@@ -14,14 +14,16 @@ import { AssetService } from './asset.service';
     MaterialModule.forRoot()
 
   ],
-
+  
   declarations: [
     AssetComponent,
-    ConfirmDeleteAssetComponent
+    ConfirmDeleteAssetComponent,
+    AssetHelpComponent
   ],
 
   entryComponents: [
-    ConfirmDeleteAssetComponent
+    ConfirmDeleteAssetComponent,
+    AssetHelpComponent
   ],
 
   providers: [

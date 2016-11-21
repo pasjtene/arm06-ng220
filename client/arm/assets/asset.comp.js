@@ -40,6 +40,22 @@ ConfirmDeleteAssetComponent = __decorate([
         material_2.MdDialogRef])
 ], ConfirmDeleteAssetComponent);
 exports.ConfirmDeleteAssetComponent = ConfirmDeleteAssetComponent;
+//Asset help component
+var AssetHelpComponent = (function () {
+    function AssetHelpComponent(dialogRef) {
+        this.dialogRef = dialogRef;
+    }
+    return AssetHelpComponent;
+}());
+AssetHelpComponent = __decorate([
+    core_1.Component({
+        moduleId: module.id,
+        selector: 'asset-help-dialog',
+        templateUrl: 'asset-help.comp.html'
+    }),
+    __metadata("design:paramtypes", [material_2.MdDialogRef])
+], AssetHelpComponent);
+exports.AssetHelpComponent = AssetHelpComponent;
 var AssetComponent = (function () {
     function AssetComponent(locationService, assetService, authService, router, viewContainerRef, dialog) {
         this.locationService = locationService;
@@ -147,6 +163,11 @@ var AssetComponent = (function () {
             }
         });
         this.dialogRef = null;
+    };
+    AssetComponent.prototype.openAssetHelpDialog = function (exportClass) {
+        var config = new material_2.MdDialogConfig();
+        config.viewContainerRef = this.viewContainerRef;
+        this.dialogRef = this.dialog.open(AssetHelpComponent, config);
     };
     AssetComponent.prototype.ngOnInit = function () {
         this.getLocations();

@@ -1,0 +1,18 @@
+<h2> Help managing locations </h2>
+<h3> Adding a new location</h3>
+<ol>
+  <li> Click the create new location button
+  <li> Enter valid location details
+  <li> Click save. Any error will be reported
+  <li> if there is no Error, the navigation pan will close and the location can be seen in the list of locations
+</ol>
+
+<h3> Deleting a location </h3>
+
+<ol>
+  <li> Hover the mouse over the location you want to delete
+  <li> A recycle bin icon will apear on the same line:  <button md-icon-button (clik)="nothing=nothing"><md-icon class="icon-20">delete</md-icon> </button>
+  <li> Click the recycle bin icon, then confirm or cancel the deletion
+</ol>
+
+<button class="btn btn-success" (click)="dialogRef.close() " >Got it</button>

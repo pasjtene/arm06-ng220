@@ -1,0 +1,18 @@
+<h2> Help managing assets </h2>
+<h3> Adding a new asset</h3>
+<ol>
+  <li> Click the create new asset button
+  <li> Enter valid asset details
+  <li> Click save. Any error will be reported
+  <li> if there is no Error, the navigation pan will close and the asset can be seen in the list of assets
+</ol>
+
+<h3> Deleting an asset </h3>
+
+<ol>
+  <li> Hover the mouse over the asset you want to delete
+  <li> A recycle bin icon will apear on the same line:  <button md-icon-button (clik)="nothing=nothing"><md-icon class="icon-20">delete</md-icon> </button>
+  <li> Click the recycle bin icon, then confirm or cancel the deletion
+</ol>
+
+<button class="btn btn-success" (click)="dialogRef.close() " >Got it</button>

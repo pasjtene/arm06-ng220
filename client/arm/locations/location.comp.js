@@ -15,20 +15,21 @@ var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
 var user_service_1 = require("../users/user.service");
 var auth_service_1 = require("../auth.service");
-var SettingsDialog = (function () {
-    function SettingsDialog(dialogRef) {
+var LocationHelpDialog = (function () {
+    function LocationHelpDialog(dialogRef) {
         this.dialogRef = dialogRef;
     }
-    return SettingsDialog;
+    return LocationHelpDialog;
 }());
-SettingsDialog = __decorate([
+LocationHelpDialog = __decorate([
     core_1.Component({
-        selector: 'settings-dialog',
-        template: "\n  <h2>Hi! I am the first dialog!</h2>\n<p>I'm working on a POC app, and I'm trying get the MdDialog component working. Does any one have a working example of what to pass to the MdDialog open method?</p>\n<button md-raised-button (click)=\"dialogRef.close()\">Close dialog</button>\n  "
+        moduleId: module.id,
+        selector: 'location-help-dialog',
+        templateUrl: 'location-help.comp.html'
     }),
     __metadata("design:paramtypes", [material_1.MdDialogRef])
-], SettingsDialog);
-exports.SettingsDialog = SettingsDialog;
+], LocationHelpDialog);
+exports.LocationHelpDialog = LocationHelpDialog;
 var ConfirmDeleteDialog = (function () {
     function ConfirmDeleteDialog(dialogRef, locationService) {
         this.dialogRef = dialogRef;
@@ -141,11 +142,11 @@ var LocationsComponent = (function () {
         this.currentLocation = location;
         this.sidenav.open();
     };
-    LocationsComponent.prototype.openDialog = function (d) {
+    LocationsComponent.prototype.openLocationHelpDialog = function (exportClass) {
         var _this = this;
         var config = new material_1.MdDialogConfig();
         config.viewContainerRef = this.vcr;
-        this.dialogRef = this.dialog.open(SettingsDialog, config);
+        this.dialogRef = this.dialog.open(LocationHelpDialog, config);
         this.dialogRef.afterClosed().subscribe(function (result) {
             _this.dialogRef = null;
         });

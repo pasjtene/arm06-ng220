@@ -6,9 +6,9 @@
     </button>
 </md-toolbar>
 <md-menu x-position="before" #menu="mdMenu">
-    <button md-menu-item (click)="help=help">help</button>
+    <button md-menu-item (click)="openAssetHelpDialog(AssetHelpComponent)">help</button>
     <hr>
-    <button md-menu-item (click)="logout()">Help</button>
+    <button md-menu-item (click)="logout()">Logout</button>
 </md-menu>
 
 <!-- Right sidenav for object creation -->
@@ -157,10 +157,12 @@
 
 
         <tr *ngFor="let asset of assets; let i = index;" on-mouseout="mout();">
-            <td on-mouseover="mover(i); unSetMouseOnButton()" on-mouseout="mout()">
-            <button md-icon-button (click)="leftSidenav.open(); createAssetSidenav.close(); showDetails(asset)">
-                 <md-icon class="icon-20">info</md-icon>
-            </button>
+            <td on-mouseover="setMouseOnButton(i)">
+              <span *ngIf="mouseIn === i || mouseOnButton === i">
+                <button md-icon-button (click)="leftSidenav.open(); createAssetSidenav.close(); showDetails(asset)">
+                  <md-icon class="icon-20">info</md-icon>
+               </button>
+            </span>
             {{asset.name}}
 
             </td>

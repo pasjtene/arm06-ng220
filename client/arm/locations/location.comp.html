@@ -6,7 +6,8 @@
     </button>
 </md-toolbar>
 <md-menu x-position="before" #menu="mdMenu">
-    <button md-menu-item (click)="help=help">Help</button>
+    <button md-menu-item (click)="openLocationHelpDialog(LocationHelpDialog)">Help</button>
+    <hr>
     <button md-menu-item (click)="logout()">Logout</button>
 </md-menu>
 
@@ -83,7 +84,7 @@
                         </select>
                     </td>
                     <td>
-                        {{newLocation.contacts}}
+
                     </td>
                 </tr>
 

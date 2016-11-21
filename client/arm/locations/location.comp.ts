@@ -10,15 +10,14 @@ import { AuthService } from '../auth.service';
 
 
 @Component({
-  selector: 'settings-dialog',
-  template: `
-  <h2>Hi! I am the first dialog!</h2>
-<p>I'm working on a POC app, and I'm trying get the MdDialog component working. Does any one have a working example of what to pass to the MdDialog open method?</p>
-<button md-raised-button (click)="dialogRef.close()">Close dialog</button>
-  `
+  moduleId: module.id,
+  selector: 'location-help-dialog',
+  templateUrl: 'location-help.comp.html'
 })
-export class SettingsDialog {
-    constructor(public dialogRef: MdDialogRef<any>) { }
+export class LocationHelpDialog {
+    constructor(
+      public dialogRef: MdDialogRef<any>
+    ) { }
 }
 
 
@@ -166,10 +165,10 @@ export class LocationsComponent implements OnInit {
     this.sidenav.open();
   }
 
-  openDialog(d) {
+  openLocationHelpDialog(exportClass) {
    const config = new MdDialogConfig();
    config.viewContainerRef = this.vcr;
-   this.dialogRef = this.dialog.open(SettingsDialog, config);
+   this.dialogRef = this.dialog.open(LocationHelpDialog, config);
 
    this.dialogRef.afterClosed().subscribe(result => {
      this.dialogRef = null;

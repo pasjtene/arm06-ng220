@@ -8,38 +8,40 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var common_1 = require('@angular/common');
-var asset_routing_module_1 = require('./asset-routing.module');
-var asset_comp_1 = require('./asset.comp');
-var forms_1 = require('@angular/forms');
-var material_1 = require('@angular/material');
-var asset_service_1 = require('./asset.service');
+var core_1 = require("@angular/core");
+var common_1 = require("@angular/common");
+var asset_routing_module_1 = require("./asset-routing.module");
+var asset_comp_1 = require("./asset.comp");
+var forms_1 = require("@angular/forms");
+var material_1 = require("@angular/material");
+var asset_service_1 = require("./asset.service");
 var AssetModule = (function () {
     function AssetModule() {
     }
-    AssetModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                common_1.CommonModule,
-                asset_routing_module_1.AssetRoutingModule,
-                forms_1.FormsModule,
-                material_1.MaterialModule.forRoot()
-            ],
-            declarations: [
-                asset_comp_1.AssetComponent,
-                asset_comp_1.ConfirmDeleteAssetComponent
-            ],
-            entryComponents: [
-                asset_comp_1.ConfirmDeleteAssetComponent
-            ],
-            providers: [
-                asset_service_1.AssetService
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AssetModule);
     return AssetModule;
 }());
+AssetModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            common_1.CommonModule,
+            asset_routing_module_1.AssetRoutingModule,
+            forms_1.FormsModule,
+            material_1.MaterialModule.forRoot()
+        ],
+        declarations: [
+            asset_comp_1.AssetComponent,
+            asset_comp_1.ConfirmDeleteAssetComponent,
+            asset_comp_1.AssetHelpComponent
+        ],
+        entryComponents: [
+            asset_comp_1.ConfirmDeleteAssetComponent,
+            asset_comp_1.AssetHelpComponent
+        ],
+        providers: [
+            asset_service_1.AssetService
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], AssetModule);
 exports.AssetModule = AssetModule;
 //# sourceMappingURL=asset.module.js.map

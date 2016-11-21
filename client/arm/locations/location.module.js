@@ -33,14 +33,14 @@ LocationModule = __decorate([
         declarations: [
             location_comp_1.LocationsComponent,
             location_comp_1.ConfirmLogout,
-            location_comp_1.SettingsDialog,
-            location_comp_1.ConfirmDeleteDialog
+            location_comp_1.ConfirmDeleteDialog,
+            location_comp_1.LocationHelpDialog
         ],
         entryComponents: [
             location_comp_1.LocationsComponent,
             location_comp_1.ConfirmLogout,
-            location_comp_1.SettingsDialog,
-            location_comp_1.ConfirmDeleteDialog
+            location_comp_1.ConfirmDeleteDialog,
+            location_comp_1.LocationHelpDialog
         ],
         providers: [
             location_service_1.LocationService

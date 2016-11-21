@@ -36,6 +36,20 @@ export class ConfirmDeleteAssetComponent implements OnInit {
   }
 }
 
+//Asset help component
+
+@Component({
+  moduleId: module.id,
+  selector:'asset-help-dialog',
+  templateUrl:'asset-help.comp.html'
+})
+
+export class AssetHelpComponent {
+  constructor(
+    public dialogRef: MdDialogRef<any>
+  ){}
+}
+
 
 
 @Component({
@@ -168,6 +182,12 @@ export class AssetComponent implements OnInit {
       });
 
       this.dialogRef = null;
+    }
+
+    openAssetHelpDialog(exportClass) {
+      const config = new MdDialogConfig();
+      config.viewContainerRef = this.viewContainerRef;
+      this.dialogRef = this.dialog.open(AssetHelpComponent, config);
     }
 
     ngOnInit(): void {
