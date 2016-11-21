@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CreateLocationComponent } from './create-location.comp';
 import { LocationsComponent } from './location.comp';
+import { AuthGuard } from '../auth-guard.service';
 
 @NgModule ({
   imports: [
@@ -9,7 +10,8 @@ import { LocationsComponent } from './location.comp';
 
     {
       path: 'locations',
-      component: LocationsComponent
+      component: LocationsComponent,
+      canActivate: [AuthGuard]
     }
   ])
   ],

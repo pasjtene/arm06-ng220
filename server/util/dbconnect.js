@@ -1,3 +1,10 @@
+/*
+*Author Pascal Tene.
+*Created: Sep 2016
+*last Updated: Nov 21, 2016.
+Database connection is managed in this file
+*/
+
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 var config = require('../config/config');

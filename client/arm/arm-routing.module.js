@@ -8,11 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var home_component_1 = require('./home.component');
-var can_deactivate_guard_service_1 = require('./can-deactivate-guard.service');
-var auth_guard_service_1 = require('./auth-guard.service');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var home_component_1 = require("./home.component");
+var page_not_found_component_1 = require("./page-not-found.component");
+var can_deactivate_guard_service_1 = require("./can-deactivate-guard.service");
+var auth_guard_service_1 = require("./auth-guard.service");
 var routes = [
     {
         path: '',
@@ -30,27 +31,33 @@ var routes = [
     //  },
     {
         path: 'home',
-        component: home_component_1.HomeComponent
+        component: home_component_1.HomeComponent,
+        canActivate: [auth_guard_service_1.AuthGuard]
     },
+    {
+        path: '**',
+        component: page_not_found_component_1.PageNotFoundComponent,
+        canActivate: [auth_guard_service_1.AuthGuard]
+    }
 ];
 var ArmRoutingModule = (function () {
     function ArmRoutingModule() {
     }
-    ArmRoutingModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                router_1.RouterModule.forRoot(routes)
-            ],
-            exports: [
-                router_1.RouterModule
-            ],
-            providers: [
-                can_deactivate_guard_service_1.CanDeactivateGuard
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ArmRoutingModule);
     return ArmRoutingModule;
 }());
+ArmRoutingModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            router_1.RouterModule.forRoot(routes)
+        ],
+        exports: [
+            router_1.RouterModule
+        ],
+        providers: [
+            can_deactivate_guard_service_1.CanDeactivateGuard
+        ]
+    }),
+    __metadata("design:paramtypes", [])
+], ArmRoutingModule);
 exports.ArmRoutingModule = ArmRoutingModule;
 //# sourceMappingURL=arm-routing.module.js.map

@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var location_comp_1 = require("./location.comp");
+var auth_guard_service_1 = require("../auth-guard.service");
 var LocationRoutingModule = (function () {
     function LocationRoutingModule() {
     }
@@ -22,7 +23,8 @@ LocationRoutingModule = __decorate([
             router_1.RouterModule.forChild([
                 {
                     path: 'locations',
-                    component: location_comp_1.LocationsComponent
+                    component: location_comp_1.LocationsComponent,
+                    canActivate: [auth_guard_service_1.AuthGuard]
                 }
             ])
         ],

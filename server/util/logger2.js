@@ -1,3 +1,10 @@
+/*
+*Author Pascal Tene.
+*Created: Sep 2016
+*last Updated: Nov 21, 2016.
+using winston node module allows loggin to specified file arm.log
+*/
+
 var winston = require('winston');
 var config = require('../config/config');
 
@@ -25,10 +32,9 @@ if(config.consoleLog) {
   logger2.info("We are in dev mode. Console logging enable");
 } else {
   logger2.remove(winston.transports.Console);
-  logger2.info ("Only logging in file Production mode");  
+  logger2.info ("Only logging in file Production mode");
 }
 
  logger2.level = 'debug';
- logger2.log('debug', 'Now my debug messages are written to console!');
 
 module.exports = logger2;

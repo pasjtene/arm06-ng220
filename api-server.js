@@ -1,7 +1,7 @@
 /*
 *Author Pascal Tene.
 *Created: Sep 2016
-*last Updated: 02 Nov 2016.
+*last Updated: Nov 21, 2016.
 This is the main file that is run for the application to start.
 */
 var express = require('express');
@@ -19,10 +19,8 @@ var expressSession = require('express-session');
 
 var app = express();
 app.engine('.html', require('ejs').__express);
-//app.set('views', __dirname + './views');
 app.set('view engine', 'html');
 app.use(express.static(path.join(__dirname, 'client')));
-//+ add session store
 
 //morgan logs requests on CLI for debugging
 app.use(mLogger('dev'));
