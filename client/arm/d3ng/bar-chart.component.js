@@ -11,35 +11,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /// <reference path="../../typings/modules/d3/index.d.ts"/>
 var d3 = require("d3");
 var core_1 = require("@angular/core");
+var user_service_1 = require("../users/user.service");
+var location_service_1 = require("../locations/location.service");
+var asset_service_1 = require("../assets/asset.service");
 var ArmStatsBarChartComponent = (function () {
-    function ArmStatsBarChartComponent(elementRef) {
+    function ArmStatsBarChartComponent(elementRef, userService, locationService, assetService) {
         this.elementRef = elementRef;
+        this.userService = userService;
+        this.locationService = locationService;
+        this.assetService = assetService;
+        this.assetCount = 0;
+        this.locationCount = 0;
+        this.userCount = 0;
+    }
+    ArmStatsBarChartComponent.prototype.drawBarChart = function (assetCount, userCount, locationCount) {
+        var total = assetCount + userCount + locationCount;
         var el = this.elementRef.nativeElement;
         var width = 960, height = 500, barPadding = 2, data = [
             {
                 key: "ASSETS",
-                value: 0.53,
+                value: (assetCount * 100 / total) / 100,
                 color: "rgba(255,165,0,0.8)"
             },
             {
                 key: "LOCATIONS",
-                value: 0.11,
+                value: (locationCount * 100 / total) / 100,
                 color: "rgba(70,130,180,0.8)"
             },
             {
                 key: "USERS",
-                value: 0.36,
+                value: (userCount * 100 / total) / 100,
                 color: "rgba(120,200,180,0.9)"
             }
-        ], barWdth = (width / data.length) - barPadding, margin = { top: 10, right: 20, bottom: 30, left: 40 }, 
-        //x = d3.scaleBand().range([0, width]).padding(0.1),
-        y = d3.scaleLinear().range([height, 0]), 
-        //xScale = d3.scaleBand().domain(d3.range(0, data.length)).range([0, width]),
-        svg = d3.select(el).append("svg").attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom), 
-        //xScale = d3.scaleBand().domain(data).range([width, 0]).padding(0.1);
-        x = d3.scaleBand().domain(data).range([width, 0]).padding(0.1);
-        //yScale = d3.scaleLinear().domain([0, d3.max(data)]).range([height, 0]);
+        ], barWdth = (width / data.length) - barPadding, margin = { top: 10, right: 20, bottom: 30, left: 40 }, y = d3.scaleLinear().range([height, 0]), svg = d3.select(el).append("svg").attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom), x = d3.scaleBand().domain(data).range([width, 0]).padding(0.1);
         //map data to the x axis
         x.domain(data.map(function (d) { return d.key; }));
         y.domain([0, d3.max(data, function (d) { return d.value; })]);
@@ -89,21 +94,38 @@ var ArmStatsBarChartComponent = (function () {
             .attr("y", 16)
             .attr("dy", "0.71em")
             .attr("text-anchor", "end");
-    }
+    };
+    /*
+    We want to make sure that the drawBarChart Function only runs when we have the count of all objects
+    hense the nesting of calls
+    */
     ArmStatsBarChartComponent.prototype.ngOnInit = function () {
-        console.log("Bart chart directive loaded");
+        var _this = this;
+        this.assetService.getAssets().then(function (assets) {
+            _this.assetCount = assets.length;
+            _this.locationService.getLocations().then(function (locations) {
+                _this.locationCount = locations.length;
+                _this.userService.getUsers().then(function (users) {
+                    _this.userCount = users.length;
+                    _this.drawBarChart(_this.assetCount, _this.userCount, _this.locationCount);
+                });
+            });
+        });
     };
     return ArmStatsBarChartComponent;
 }());
 ArmStatsBarChartComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'bar-chart3',
+        selector: 'bar-chart',
         styleUrls: ['bar-chart.directive.css'],
         template: '',
         encapsulation: core_1.ViewEncapsulation.None
     }),
-    __metadata("design:paramtypes", [core_1.ElementRef])
+    __metadata("design:paramtypes", [core_1.ElementRef,
+        user_service_1.UserService,
+        location_service_1.LocationService,
+        asset_service_1.AssetService])
 ], ArmStatsBarChartComponent);
 exports.ArmStatsBarChartComponent = ArmStatsBarChartComponent;
 //# sourceMappingURL=bar-chart.component.js.map

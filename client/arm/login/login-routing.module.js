@@ -8,27 +8,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var auth_guard_service_1 = require('./auth-guard.service');
-var auth_service_1 = require('./auth.service');
-var login_component_1 = require('./login.component');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var auth_guard_service_1 = require("../auth-guard.service");
+var auth_service_1 = require("../auth.service");
+var login_comp_1 = require("./login.comp");
 var LoginRoutingModule = (function () {
     function LoginRoutingModule() {
     }
-    LoginRoutingModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                router_1.RouterModule.forChild([
-                    { path: 'login', component: login_component_1.LoginComponent }
-                ])
-            ],
-            exports: [router_1.RouterModule],
-            providers: [auth_guard_service_1.AuthGuard, auth_service_1.AuthService]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], LoginRoutingModule);
     return LoginRoutingModule;
 }());
+LoginRoutingModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            router_1.RouterModule.forChild([
+                { path: 'login', component: login_comp_1.LoginComponent }
+            ])
+        ],
+        exports: [router_1.RouterModule],
+        providers: [auth_guard_service_1.AuthGuard, auth_service_1.AuthService]
+    }),
+    __metadata("design:paramtypes", [])
+], LoginRoutingModule);
 exports.LoginRoutingModule = LoginRoutingModule;
 //# sourceMappingURL=login-routing.module.js.map

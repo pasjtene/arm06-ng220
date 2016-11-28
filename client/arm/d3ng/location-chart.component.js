@@ -81,7 +81,7 @@ var LocationChartDirective = (function () {
     };
     LocationChartDirective.prototype.ngOnInit = function () {
         var _this = this;
-        console.log("Data: ", this.data);
+        //console.log("Data: ",this.data);
         var vm = this;
         this.getUsers();
         this.userService.getUsers().then(function (users) {

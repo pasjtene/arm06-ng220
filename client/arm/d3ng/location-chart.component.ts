@@ -1,6 +1,6 @@
 /// <reference path="../../typings/modules/d3/index.d.ts"/>
 import { Component, Directive, OnInit, Input, ElementRef } from '@angular/core';
-import {  UserService } from "../users/user.service";
+import { UserService } from "../users/user.service";
 import { LocationService } from '../locations/location.service';
 import { AssetService } from '../assets/asset.service';
 //npm install d3 --save
@@ -115,7 +115,7 @@ export class LocationChartDirective implements OnInit {
     }
 
     ngOnInit() {
-      console.log("Data: ",this.data);
+      //console.log("Data: ",this.data);
         var vm = this;
         this.getUsers();
         this.userService.getUsers().then(users => {

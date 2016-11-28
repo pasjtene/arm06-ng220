@@ -34,3 +34,20 @@
   margin-right: 0px;
   text-align: right;
 }
+
+.button-link {
+	background-color: transparent;
+	border: none;
+	color: green;
+	cursor: pointer;
+}
+
+.button-link:focus {
+	outline: none;
+}
+
+.button-link:hover {
+	outline: none;
+	text-decoration: underline;
+	color:blue;
+}

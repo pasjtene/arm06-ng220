@@ -7,7 +7,6 @@ import { User, UserCredentials } from './user';
 
 
 
-
 @Injectable()
 export class UserService {
   userCount = 0;

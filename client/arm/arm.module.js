@@ -19,14 +19,14 @@ var http_1 = require("@angular/http");
 var arm_component_1 = require("./arm.component");
 //import { UserService } from './users/user.service';
 var home_component_1 = require("./home.component");
-var login_component_1 = require("./login.component");
+var login_comp_1 = require("./login/login.comp");
 var arm_routing_module_1 = require("./arm-routing.module");
 var page_not_found_component_1 = require("./page-not-found.component");
 //import { UserModule } from './users/user.module';
 var user_module_1 = require("./users/user.module");
 //import { CrisisModule } from './crisis-center/crisis.module';
 var admin_module_1 = require("./admin/admin.module");
-var login_routing_module_1 = require("./login-routing.module");
+var login_routing_module_1 = require("./login/login-routing.module");
 var location_module_1 = require("./locations/location.module");
 var asset_module_1 = require("./assets/asset.module");
 var material_1 = require("@angular/material");
@@ -44,7 +44,6 @@ ArmModule = __decorate([
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             http_1.HttpModule,
-            //UserModule,
             location_module_1.LocationModule,
             asset_module_1.AssetModule,
             user_module_1.UserModule,
@@ -55,7 +54,7 @@ ArmModule = __decorate([
         ],
         declarations: [
             arm_component_1.ArmComponent,
-            login_component_1.LoginComponent,
+            login_comp_1.LoginComponent,
             home_component_1.HomeComponent,
             location_chart_component_1.LocationChartDirective,
             bar_chart_component_1.ArmStatsBarChartComponent,

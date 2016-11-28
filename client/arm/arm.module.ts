@@ -12,7 +12,7 @@ import { HttpModule } from '@angular/http';
 import { ArmComponent } from './arm.component';
 //import { UserService } from './users/user.service';
 import { HomeComponent } from './home.component';
-import { LoginComponent } from './login.component';
+import { LoginComponent } from './login/login.comp';
 import { ArmRoutingModule } from './arm-routing.module';
 import { PageNotFoundComponent } from './page-not-found.component'
 //import { UserModule } from './users/user.module';
@@ -20,7 +20,7 @@ import { UserModule } from './users/user.module';
 //import { CrisisModule } from './crisis-center/crisis.module';
 import { AdminModule } from './admin/admin.module';
 
-import { LoginRoutingModule } from './login-routing.module';
+import { LoginRoutingModule } from './login/login-routing.module';
 import { LocationModule } from './locations/location.module';
 import { AssetModule } from './assets/asset.module';
 
@@ -29,12 +29,12 @@ import { DialogService } from './dialog.service';
 import { LocationChartDirective } from './d3ng/location-chart.component';
 import { ArmStatsBarChartComponent } from './d3ng/bar-chart.component';
 
+
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
-    //UserModule,
+    HttpModule,    
     LocationModule,
     AssetModule,
     UserModule,

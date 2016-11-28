@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth.service';
 
 export class UserCred {
   id: number;
@@ -11,7 +11,7 @@ export class UserCred {
 @Component({
   moduleId: module.id,
   selector: 'arm-login',
-  templateUrl: 'login.component.html',
+  templateUrl: 'login.comp.html',
   styleUrls: ['login.comp.css']
 })
 
@@ -51,12 +51,9 @@ export class LoginComponent implements OnInit {
           this.authService.isLoggedIn = true;
         });
       }else{
-        console.log("setting authFailed...")
         this.authService.authFailed = true;
       }
     }, err => {
-      console.log(err);
-      console.log("setting authFailed...")
       this.authService.authFailed = true;
     });
   }
@@ -68,5 +65,12 @@ export class LoginComponent implements OnInit {
     this.isAnewUser = false;
     this.authService.logout();
     this.setMessage();
+  }
+
+  /*When a non authenticated user clicks the create
+    your account link / button on login page
+  */
+  createNewUser() {
+    this.router.navigate(["/users"]);
   }
 }
