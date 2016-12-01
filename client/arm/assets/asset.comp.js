@@ -109,7 +109,10 @@ var AssetComponent = (function () {
     AssetComponent.prototype.create = function (asset) {
         var _this = this;
         if (this.contains(this.assets, asset.uniqueIdNumber)) {
+            console.log("Asset exits: ", asset.uniqueIdNumber);
             this.assetIdExist = true;
+            //refresh the local asset list
+            this.getAssets();
             return;
         }
         else {

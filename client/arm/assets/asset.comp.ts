@@ -127,6 +127,8 @@ export class AssetComponent implements OnInit {
     create(asset: Asset): void {
       if(this.contains(this.assets, asset.uniqueIdNumber)){
         this.assetIdExist = true;
+        //refresh the local asset list. useful when a user click update asset, then clicks create asset and only changes the asset uniqueId
+        this.getAssets();
         return;
       } else {
           this.assetIdExist = false;

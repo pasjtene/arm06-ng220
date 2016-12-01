@@ -79,7 +79,6 @@ var UserService = (function () {
         return this.http.put(url, JSON.stringify(user), { headers: this.headers })
             .toPromise()
             .then(function (response) {
-            console.log(" Still in put: " + response.json()._body);
             return response;
         })
             .catch(this.handleError);

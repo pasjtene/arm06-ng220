@@ -82,8 +82,7 @@ export class UserService {
     const url = `${this.usersUrl}/${user._id}`;
     return this.http.put(url, JSON.stringify(user), {headers: this.headers})
                 .toPromise()
-                .then(response => {
-                  console.log(" Still in put: "+response.json()._body);
+                .then(response => {                
 
                   return response;
                 })

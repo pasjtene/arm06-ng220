@@ -26,6 +26,15 @@ export class AssetService {
               });
   }
 
+  update(asset: Asset) {
+    return this.http.put(this.assetUrl, JSON.stringify(asset), {headers: this.headers})
+                .toPromise()
+                .then(asset => {
+                  console.log(asset);
+                })
+                .catch();
+  }
+
   delete(asset: Asset) : Promise<Asset> {
     const url = `${this.assetUrl}/${asset._id}`;
       return this.http.delete(url, { headers: this.headers })

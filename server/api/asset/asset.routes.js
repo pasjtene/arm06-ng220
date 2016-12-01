@@ -8,10 +8,12 @@ assetRoutes.get('/count', controller.count);
 
 assetRoutes.route('/')
   .get(controller.get)
-  .post(controller.post);
+  .post(controller.post)
+  .put(controller.put);
 
 assetRoutes.route('/:id')
     .delete(controller.delete);
+
 
 
 

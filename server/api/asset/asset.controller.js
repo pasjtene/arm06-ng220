@@ -2,11 +2,12 @@
 /*
 *Author Pascal Tene.
 *Created: Nov 02  2016
-*last Updated: 04 Nov 2016.
+*last Updated: Dec 01, 2016.
 This is the main Asset definition file. All asset fields and associated constraints must be defined in this file
 */
 var Asset = require('./asset.model');
 var logger = require('../../util/logger2');
+var _ = require('lodash');
 
 exports.params = function(req, res, next, id) {
     Asset.findById(id)
@@ -53,6 +54,29 @@ exports.post = function(req, res, next) {
       res.json(req.body.asset);
     }
   });
+};
+
+/* Asset updated are handeled here.
+req.body is the updated asset.
+res.json(updated) returns a copy of the updated asset.
+_ (lodash is used to merge updated fields with existing fields of the asset)
+*/
+exports.put = function(req, res, next) {
+  var update = req.body;
+  Asset.findById(req.body._id).then(asset => {
+    if(!asset) {
+      res.json("false");
+    } else {
+      _.merge(asset, update);
+      asset.save((err, updated) => {
+        if(err) {
+          next(err);
+        } else {
+          res.json(updated);
+        }
+      })
+    }
+  })
 };
 
 exports.get = function(req, res, next) {

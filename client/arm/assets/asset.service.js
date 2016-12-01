@@ -30,6 +30,14 @@ var AssetService = (function () {
             console.log(err);
         });
     };
+    AssetService.prototype.update = function (asset) {
+        return this.http.put(this.assetUrl, JSON.stringify(asset), { headers: this.headers })
+            .toPromise()
+            .then(function (asset) {
+            console.log(asset);
+        })
+            .catch();
+    };
     AssetService.prototype.delete = function (asset) {
         var url = this.assetUrl + "/" + asset._id;
         return this.http.delete(url, { headers: this.headers })
