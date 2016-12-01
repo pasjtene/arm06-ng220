@@ -79,15 +79,13 @@ export class UserService {
   }
 
   update(user: User): Promise<User> {
-    const url = `${this.usersUrl}/${user.id}`;
+    const url = `${this.usersUrl}/${user._id}`;
     return this.http.put(url, JSON.stringify(user), {headers: this.headers})
                 .toPromise()
                 .then(response => {
-                  console.log(" Still in put: "+response.json().user.userName);
-                  console.log(" Still in put: "+response.json().user.email);
-                  console.log(" Still in put: "+response.json().user.location);
-                  console.log(" Still in put updated ?: "+response.json().updated);
-                  return user;
+                  console.log(" Still in put: "+response.json()._body);
+
+                  return response;
                 })
                 .catch(this.handleError);
 

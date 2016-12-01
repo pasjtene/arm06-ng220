@@ -1,0 +1,9 @@
+
+<div *ngIf="currentAsset" class="objectDetails">
+  <h5>Details for {{currentAsset.name}} </h5>
+  <p> <strong>Name: </strong> {{currentAsset.name}}</p>
+  <p><strong> Cost: </strong>{{currentAsset.cost}}</p>
+  <p> <strong>Current Value: </strong>{{currentAsset.currentValue}}</p>
+      <p> <strong>Location: </strong><span *ngIf="currentAsset.location">{{currentAsset.location.name}}</span></p>
+    
+</div>

@@ -48,11 +48,54 @@ exports.getOne = function(req, res, next) {
 };
 
 exports.put = function(req, res, next) {
+	//var user = req.user;
+  var update = req.body;
+  console.log("The id is: ",req.body._id);
+  console.log(req.body);
+  User.findById(req.body._id).then(user => {
+    if(!user) {
+      res.json("false");
+    } else {
+      //updated fieads will win during the merge as they are in the right of the
+      //merge operation
+      _.merge(user, update)
+
+      //the pre save from user model is called before the user is saved
+      //user Password is encrypted in pre save.
+      user.save((err, saved) => {
+        if(err) {
+          next(err);
+        } else {
+          res.json(saved);
+        }
+      })
+    }
+  })
+
+
+  /*
+	_.merge(user, update);
+	user.save(function(err, saved) {
+		if(err){
+			next(err);
+		} else {
+			res.json(saved);
+		}
+	});
+
+  */
+};
+
+exports.put_orig = function(req, res, next) {
 	var user = req.user;
+
 	var update = req.body;
 	//updated fieads will win during the merge as they are in the right of the
 	//merge operation
 	_.merge(user, update);
+
+  //the pre save from user model is called before the user is saved
+  //user Password is encrypted in pre save.
 	user.save(function(err, saved) {
 		if(err){
 			next(err);

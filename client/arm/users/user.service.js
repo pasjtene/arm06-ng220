@@ -75,15 +75,12 @@ var UserService = (function () {
             .then(function () { return _this.getUsers(); });
     };
     UserService.prototype.update = function (user) {
-        var url = this.usersUrl + "/" + user.id;
+        var url = this.usersUrl + "/" + user._id;
         return this.http.put(url, JSON.stringify(user), { headers: this.headers })
             .toPromise()
             .then(function (response) {
-            console.log(" Still in put: " + response.json().user.userName);
-            console.log(" Still in put: " + response.json().user.email);
-            console.log(" Still in put: " + response.json().user.location);
-            console.log(" Still in put updated ?: " + response.json().updated);
-            return user;
+            console.log(" Still in put: " + response.json()._body);
+            return response;
         })
             .catch(this.handleError);
     };

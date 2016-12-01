@@ -14,11 +14,11 @@ import { AssetService } from './asset.service';
     MaterialModule.forRoot()
 
   ],
-  
+
   declarations: [
     AssetComponent,
     ConfirmDeleteAssetComponent,
-    AssetHelpComponent
+    AssetHelpComponent    
   ],
 
   entryComponents: [

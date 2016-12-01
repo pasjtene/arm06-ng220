@@ -119,6 +119,12 @@ var UserComponent = (function () {
             _this.getUsers();
         });
     };
+    UserComponent.prototype.update = function (user, confirmPassword) {
+        console.log("Updating the user id is: ", user._id);
+        this.userService.update(user).then(function (res) {
+            console.log(res);
+        });
+    };
     UserComponent.prototype.save = function (user, confirmPassword) {
         var _this = this;
         if (confirmPassword.trim() === user.password.trim()) {

@@ -102,9 +102,6 @@ export class ArmStatsBarChartComponent implements OnInit {
             .text((d) => d.key)
             .attr("text-anchor", "middle");
 
-
-
-
       // add the x Axis into the g container
       g.append("g")
           .attr("transform", "translate(0," + height + ")")

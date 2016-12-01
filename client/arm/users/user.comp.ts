@@ -137,6 +137,13 @@ export class UserComponent implements OnInit {
       })
     }
 
+    update(user:User, confirmPassword: string) {
+      console.log("Updating the user id is: ", user._id);
+      this.userService.update(user).then(res => {
+        console.log(res);
+      })
+    }
+
     save(user: User, confirmPassword: string): void {
         if (confirmPassword.trim() === user.password.trim()) {
             this.passwordMissMatch = "";

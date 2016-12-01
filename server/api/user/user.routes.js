@@ -17,7 +17,8 @@ userRoutes.route('/')
 
 userRoutes.route('/:id')
 		.get(userController.getOne)
-		.put(checkUser, userController.put)
+		//.put(checkUser, userController.put)
+		.put(userController.put)
 		.delete(userController.delete);
 
 

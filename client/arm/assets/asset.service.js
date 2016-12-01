@@ -13,8 +13,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 *Created: Sept 2016
 *
 */
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
 var AssetService = (function () {
     function AssetService(http) {
         this.http = http;
@@ -48,11 +48,11 @@ var AssetService = (function () {
             console.log(err);
         });
     };
-    AssetService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], AssetService);
     return AssetService;
 }());
+AssetService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], AssetService);
 exports.AssetService = AssetService;
 //# sourceMappingURL=asset.service.js.map

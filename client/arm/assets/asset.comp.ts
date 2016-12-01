@@ -1,7 +1,7 @@
 /*
 *Author: Pascal Tene
 *Created: Sept 2016
-*Last Updated: 11 Nov, 2016
+*Last Updated: 30 Nov, 2016
 */
 import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
 import { MdSidenav } from '@angular/material';
@@ -12,6 +12,7 @@ import { Location } from '../locations/location';
 import { LocationService } from '../locations/location.service';
 import { Router } from '@angular/router';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { AssetDetailsComponent } from  './details/asset-details.component';
 
 
 @Component({
@@ -56,11 +57,12 @@ export class AssetHelpComponent {
     moduleId: module.id, //this is required for the template and css to load from html or css file
     selector: 'manage-asset',
     templateUrl: 'asset.comp.html',
-    styleUrls: ['asset.comp.css']
+    styleUrls: ['asset.comp.css'],
 })
 
 export class AssetComponent implements OnInit {
     @ViewChild('sidenav') sidenav: MdSidenav;
+    @ViewChild('leftSidenav') leftSidenav: MdSidenav;
     @ViewChild('createAssetSidenav') createAssetSidenav: MdSidenav;
     assetCreated = false;
     currentAsset = {};
@@ -90,14 +92,16 @@ export class AssetComponent implements OnInit {
 
     ) { }
 
+    resetFormErrors() {
+      this.assetIdExist = false;
+    }
+
     mover(i) {
         this.mouseIn = i;
     }
 
     mout() {
-
         this.mouseIn = 100;
-
     }
 
     setMouseOnButton(i) {
@@ -167,6 +171,12 @@ export class AssetComponent implements OnInit {
 
     showDetails(asset: Asset) {
       this.currentAsset = asset;
+      this.leftSidenav.open();
+    }
+
+    update(asset: Asset) {
+      console.log("Updating asset: ", asset);
+      this.assetService.update(asset);
     }
 
     openConfirmDeleteDialog(exportClass, asset:Asset) {
@@ -194,6 +204,7 @@ export class AssetComponent implements OnInit {
         this.getLocations();
         this.getAssets();
     }
+
 
     logout() {
         this.authService.logout();

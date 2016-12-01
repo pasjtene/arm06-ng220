@@ -17,7 +17,7 @@
   <md-sidenav class="createUserSidenav" align="end" mode="side" #createUserSidenav>
     <div class="container">
 
-        <h2>Enter Details for new user</h2>
+        <h2>Enter Details for new user </h2>
 
         <form #userForm="ngForm">
         <table class="table table-hover">
@@ -122,19 +122,26 @@
             </tr>
               </table>
             </form>
-              <div class="col-md-6">
+
+              <div *ngIf="!isUpdate" class="col-md-6">
                 <button [disabled]="!userForm.valid" (click)="save(newUser, confirmPassword.value)" class="btn btn-success btn-xs">Save user</button>
                 <p *ngIf="!userForm.valid">Enter valid data to activate this button</p>
               </div>
+
+              <div *ngIf="isUpdate" class="col-md-6">
+                <button [disabled]="!userForm.valid" (click)="update(newUser, confirmPassword.value)" class="btn btn-success btn-xs">Update user</button>
+                <p *ngIf="!userForm.valid">Enter valid data to activate this button</p>
+              </div>
+
               <div class="col-md-4">
-                  <button (click)="createUserSidenav.close()" class="btn btn-warning btn-xs">Cancel</button>
+                  <button (click)="createUserSidenav.close(); isUpdate=false;" class="btn btn-warning btn-xs">Cancel</button>
               </div>
             </div>
   </md-sidenav>
 
 
 
-
+  <!-- user details sidenav -->
     <md-sidenav align="start" mode="side" #leftSidenav>
       <h5>Details for user {{currentUser.firstName}} {{currentUser.lastName}} </h5>
       <div class="objectDetails">
@@ -142,7 +149,8 @@
           <p><strong> Last Name: </strong>{{currentUser.lastName}}</p>
           <p> <strong>UserName: </strong>{{currentUser.username}}</p>
           <p> <strong>Location: </strong><span *ngIf="currentUser.location">{{currentUser.location}}</span></p>
-      <button class="btn btn-info btn-sm" (click)="leftSidenav.close()">Hide details</button>
+      <button class="btn btn-success btn-xs" (click)="leftSidenav.close()">Hide details</button>
+      <button class="btn btn-info btn-xs" (click)="leftSidenav.close(); newUser=currentUser; createUserSidenav.open(); isUpdate=true">Update user</button>
       </div>
 
         <md-tab-group>
@@ -155,6 +163,7 @@
                   <p> <strong>UserName: </strong>{{currentUser.username}}</p>
                   <p> <strong>Location: </strong><span *ngIf="currentUser.location">{{currentUser.location}}</span></p>
                   <button class="btn btn-info btn-sm" (click)="leftSidenav.close()">Hide details</button>
+
                 </div>
                 </template>
             </md-tab>
@@ -190,7 +199,7 @@
     </tr>
 </table>
 
-<!-- Main Asset List Table -->
+<!-- User List Table -->
 
     <table class="table table-striped table-hover table-bordered" on-mouseout="mout();">
 
@@ -227,6 +236,6 @@
             </td>
         </tr>
     </table>
-    <button class="btn btn-default btn-sm" (click)="createUserSidenav.open(); leftSidenav.close()">Create new user </button>
+    <button class="btn btn-default btn-sm" (click)="createUserSidenav.open(); leftSidenav.close(); isUpdate=false">Create new user </button>
     <!-- End Asset list Table -->
 </md-sidenav-layout>

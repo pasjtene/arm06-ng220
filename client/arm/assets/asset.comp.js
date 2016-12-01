@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /*
 *Author: Pascal Tene
 *Created: Sept 2016
-*Last Updated: 11 Nov, 2016
+*Last Updated: 30 Nov, 2016
 */
 var core_1 = require("@angular/core");
 var material_1 = require("@angular/material");
@@ -79,6 +79,9 @@ var AssetComponent = (function () {
             location: ''
         };
     }
+    AssetComponent.prototype.resetFormErrors = function () {
+        this.assetIdExist = false;
+    };
     AssetComponent.prototype.mover = function (i) {
         this.mouseIn = i;
     };
@@ -150,6 +153,11 @@ var AssetComponent = (function () {
     };
     AssetComponent.prototype.showDetails = function (asset) {
         this.currentAsset = asset;
+        this.leftSidenav.open();
+    };
+    AssetComponent.prototype.update = function (asset) {
+        console.log("Updating asset: ", asset);
+        this.assetService.update(asset);
     };
     AssetComponent.prototype.openConfirmDeleteDialog = function (exportClass, asset) {
         var _this = this;
@@ -184,6 +192,10 @@ __decorate([
     __metadata("design:type", material_1.MdSidenav)
 ], AssetComponent.prototype, "sidenav", void 0);
 __decorate([
+    core_1.ViewChild('leftSidenav'),
+    __metadata("design:type", material_1.MdSidenav)
+], AssetComponent.prototype, "leftSidenav", void 0);
+__decorate([
     core_1.ViewChild('createAssetSidenav'),
     __metadata("design:type", material_1.MdSidenav)
 ], AssetComponent.prototype, "createAssetSidenav", void 0);
@@ -192,7 +204,7 @@ AssetComponent = __decorate([
         moduleId: module.id,
         selector: 'manage-asset',
         templateUrl: 'asset.comp.html',
-        styleUrls: ['asset.comp.css']
+        styleUrls: ['asset.comp.css'],
     }),
     __metadata("design:paramtypes", [location_service_1.LocationService,
         asset_service_1.AssetService,
