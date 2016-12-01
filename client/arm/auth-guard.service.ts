@@ -7,10 +7,9 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   constructor (private authService: AuthService, private router: Router){}
 
+  //Called for all protected routes
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     let url: string = state.url;
-    console.log('AuthGuard#canActivate called... great');
-    console.log("In Auth guard service is logged in value: "+ this.authService.isLoggedIn);
     return this.checkLogin(url);
   }
 
@@ -19,7 +18,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   checkLogin(url: string): boolean {
-    
+
     if(this.authService.isLoggedIn) {
       return true;
     }

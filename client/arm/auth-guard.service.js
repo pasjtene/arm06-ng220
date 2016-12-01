@@ -8,18 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var auth_service_1 = require('./auth.service');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var auth_service_1 = require("./auth.service");
 var AuthGuard = (function () {
     function AuthGuard(authService, router) {
         this.authService = authService;
         this.router = router;
     }
+    //Called for all protected routes
     AuthGuard.prototype.canActivate = function (route, state) {
         var url = state.url;
-        console.log('AuthGuard#canActivate called... great');
-        console.log("In Auth guard service is logged in value: " + this.authService.isLoggedIn);
         return this.checkLogin(url);
     };
     AuthGuard.prototype.canActivateChild = function (route, state) {
@@ -34,11 +33,11 @@ var AuthGuard = (function () {
         this.router.navigate(['/login']);
         return false;
     };
-    AuthGuard = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [auth_service_1.AuthService, router_1.Router])
-    ], AuthGuard);
     return AuthGuard;
 }());
+AuthGuard = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [auth_service_1.AuthService, router_1.Router])
+], AuthGuard);
 exports.AuthGuard = AuthGuard;
 //# sourceMappingURL=auth-guard.service.js.map
