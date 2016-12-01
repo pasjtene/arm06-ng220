@@ -1,4 +1,8 @@
 /*jshint esversion: 6 */
+/*Author Pascal Tene
+Created: Sep 2016
+last modified: Dec 01 2016
+*/
 var Location = require('./location.model');
 
 

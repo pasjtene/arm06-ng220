@@ -69,6 +69,7 @@ var AssetComponent = (function () {
         this.mouseIn = 100;
         this.mouseOnButton = 100;
         this.assetIdExist = false;
+        this.defaultStr = 'Select a location';
         this.newAsset = {
             _id: '',
             name: '',
@@ -109,9 +110,8 @@ var AssetComponent = (function () {
     AssetComponent.prototype.create = function (asset) {
         var _this = this;
         if (this.contains(this.assets, asset.uniqueIdNumber)) {
-            console.log("Asset exits: ", asset.uniqueIdNumber);
             this.assetIdExist = true;
-            //refresh the local asset list
+            //refresh the local asset list. useful when a user click update asset, then clicks create asset and only changes the asset uniqueId
             this.getAssets();
             return;
         }

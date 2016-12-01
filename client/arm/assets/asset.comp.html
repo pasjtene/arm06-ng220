@@ -95,11 +95,11 @@
                   </td>
                   <td>
                       <select [(ngModel)]="newAsset.location" class="form-control" name="location" id="location" required>
-                        <option *ngFor="let location of locations" [value]="[location._id]">{{location.name}}</option>
+                        <option  [selected]="newAsset.location.name"  *ngFor="let location of locations" [value]="[location._id]">{{location.name}}</option>
                       </select>
                   </td>
                   <td>
-
+                    {{newAsset.location.name}}
                   </td>
               </tr>
 
@@ -127,6 +127,7 @@
       <div class="objectDetails">
         <h5>Details for {{currentAsset.name}} </h5>
         <p> <strong>Name: </strong> {{currentAsset.name}}</p>
+        <p> <strong>Asset Id: </strong> {{currentAsset.uniqueIdNumber}}</p>
         <p><strong> Cost: </strong>{{currentAsset.cost}}</p>
         <p> <strong>Current Value: </strong>{{currentAsset.currentValue}}</p>
             <p> <strong>Location: </strong><span *ngIf="currentAsset.location">{{currentAsset.location.name}}</span></p>
@@ -161,6 +162,7 @@
 
         <thead>
             <th width="30%">Name</th>
+            <th> AssetId </th>
             <th>Cost</th>
             <th>Current value</th>
             <th>Location</th>
@@ -178,6 +180,7 @@
             {{asset.name}}
 
             </td>
+            <td on-mouseover="mover(i); unSetMouseOnButton()" on-mouseout="mout()">{{asset.uniqueIdNumber}}</td>
             <td on-mouseover="mover(i); unSetMouseOnButton()" on-mouseout="mout()">{{asset.cost}}</td>
             <td on-mouseover="mover(i); unSetMouseOnButton()" on-mouseout="mout()">{{asset.currentValue}}</td>
             <!-- We should check if fields exists before trying to read their properties-->

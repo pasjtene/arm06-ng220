@@ -72,6 +72,7 @@ export class AssetComponent implements OnInit {
     mouseIn = 100;
     mouseOnButton = 100;
     assetIdExist = false;
+    defaultStr = 'Select a location';
     newAsset: Asset = {
         _id: '',
         name: '',
