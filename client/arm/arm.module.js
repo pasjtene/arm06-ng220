@@ -31,7 +31,7 @@ var location_module_1 = require("./locations/location.module");
 var asset_module_1 = require("./assets/asset.module");
 var material_1 = require("@angular/material");
 var dialog_service_1 = require("./dialog.service");
-var location_chart_component_1 = require("./d3ng/location-chart.component");
+var donut_chart_directive_1 = require("./d3ng/donut-chart.directive");
 var bar_chart_component_1 = require("./d3ng/bar-chart.component");
 var ArmModule = (function () {
     function ArmModule() {
@@ -56,7 +56,7 @@ ArmModule = __decorate([
             arm_component_1.ArmComponent,
             login_comp_1.LoginComponent,
             home_component_1.HomeComponent,
-            location_chart_component_1.LocationChartDirective,
+            donut_chart_directive_1.DonutChartDirective,
             bar_chart_component_1.ArmStatsBarChartComponent,
             page_not_found_component_1.PageNotFoundComponent
         ],

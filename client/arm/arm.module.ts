@@ -26,7 +26,7 @@ import { AssetModule } from './assets/asset.module';
 
 import { MaterialModule } from '@angular/material';
 import { DialogService } from './dialog.service';
-import { LocationChartDirective } from './d3ng/location-chart.component';
+import { DonutChartDirective } from './d3ng/donut-chart.directive';
 import { ArmStatsBarChartComponent } from './d3ng/bar-chart.component';
 
 
@@ -34,7 +34,7 @@ import { ArmStatsBarChartComponent } from './d3ng/bar-chart.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,    
+    HttpModule,
     LocationModule,
     AssetModule,
     UserModule,
@@ -47,7 +47,7 @@ import { ArmStatsBarChartComponent } from './d3ng/bar-chart.component';
     ArmComponent,
     LoginComponent,
     HomeComponent,
-    LocationChartDirective,
+    DonutChartDirective,
     ArmStatsBarChartComponent,
     PageNotFoundComponent
       ],

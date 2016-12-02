@@ -1,5 +1,5 @@
 /// <reference path="../../typings/modules/d3/index.d.ts"/>
-import { Component, Directive, OnInit, Input, ElementRef } from '@angular/core';
+import { Directive, OnInit, Input, ElementRef } from '@angular/core';
 import { UserService } from "../users/user.service";
 import { LocationService } from '../locations/location.service';
 import { AssetService } from '../assets/asset.service';
@@ -10,13 +10,13 @@ import { AssetService } from '../assets/asset.service';
 
 import * as d3 from 'd3';
 
-@Component({
-    selector: 'location-chart',
-    template: ''
+@Directive({
+    selector: 'donut-chart'
+    //template: ''
 })
 
 
-export class LocationChartDirective implements OnInit {
+export class DonutChartDirective implements OnInit {
     vm = this;
     userCount = 0;
     tau = 2 * Math.PI; // http://tauday.com/tau-manifesto

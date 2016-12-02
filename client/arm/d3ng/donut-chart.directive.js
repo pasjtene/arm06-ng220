@@ -18,8 +18,8 @@ var asset_service_1 = require("../assets/asset.service");
 //typings install d3 --save
 //npm install @types/d3 --save-dev
 var d3 = require("d3");
-var LocationChartDirective = (function () {
-    function LocationChartDirective(elementRef, userService, assetService, locationService) {
+var DonutChartDirective = (function () {
+    function DonutChartDirective(elementRef, userService, assetService, locationService) {
         this.elementRef = elementRef;
         this.userService = userService;
         this.assetService = assetService;
@@ -72,14 +72,14 @@ var LocationChartDirective = (function () {
         this.textEl3 = g3.append("text")
             .attr("text-anchor", "middle");
     }
-    LocationChartDirective.prototype.getUsers = function () {
+    DonutChartDirective.prototype.getUsers = function () {
         var _this = this;
         this.userService.getUsers().then(function (users) {
             _this.userCount = users.length;
             console.log("in Chart com: Users: ", users.length);
         });
     };
-    LocationChartDirective.prototype.ngOnInit = function () {
+    DonutChartDirective.prototype.ngOnInit = function () {
         var _this = this;
         //console.log("Data: ",this.data);
         var vm = this;
@@ -116,7 +116,7 @@ var LocationChartDirective = (function () {
             });
         });
     };
-    LocationChartDirective.prototype.arcTween = function (newAngle) {
+    DonutChartDirective.prototype.arcTween = function (newAngle) {
         var vm = this;
         return function (d) {
             var interpolate = d3.interpolate(d.endAngle, newAngle);
@@ -126,17 +126,16 @@ var LocationChartDirective = (function () {
             };
         };
     };
-    return LocationChartDirective;
+    return DonutChartDirective;
 }());
-LocationChartDirective = __decorate([
-    core_1.Component({
-        selector: 'location-chart',
-        template: ''
+DonutChartDirective = __decorate([
+    core_1.Directive({
+        selector: 'donut-chart'
     }),
     __metadata("design:paramtypes", [core_1.ElementRef,
         user_service_1.UserService,
         asset_service_1.AssetService,
         location_service_1.LocationService])
-], LocationChartDirective);
-exports.LocationChartDirective = LocationChartDirective;
-//# sourceMappingURL=location-chart.component.js.map
+], DonutChartDirective);
+exports.DonutChartDirective = DonutChartDirective;
+//# sourceMappingURL=donut-chart.directive.js.map
