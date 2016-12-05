@@ -85,6 +85,7 @@ export class LocationsComponent implements OnInit {
   users: User[];
   currentLocation = {};
   @ViewChild('sidenav') sidenav: MdSidenav;
+  @ViewChild('createLocationSidenav') createLocationSidenav: MdSidenav;
 
   dialogRef: MdDialogRef<any>;
 
@@ -203,12 +204,47 @@ export class LocationsComponent implements OnInit {
        this.isLocationNotCreated = false;
        this.createdLocationName = location.name;
        this.getLocations();
+       this.createLocationSidenav.close();
        this.resetView();
      } else {
 
        this.isLocationCreated = false;
        this.createdLocationName = location.name;
        this.isLocationNotCreated = true;
+       //this.createLocationSidenav.open();
+       this.resetView();
+     }
+
+   });
+
+   this.router.navigate(['/locations']);
+ }
+
+ setLocation(location: Location) : void {
+   console.log("Location to update: ", location);
+   this.newLocation = location;
+   //refresh locations view or ng Error when contact is selected. (KI)
+   this.getLocations();
+ }
+
+ update(location: Location): void {   
+
+   this.locationService.update(location).then((location) => {
+     //When location creation fails, the returned location values are undefined
+
+     if(location.name !== undefined) {
+       this.isLocationCreated = true;
+       this.isLocationNotCreated = false;
+       this.createdLocationName = location.name;
+       this.getLocations();
+        this.createLocationSidenav.close();
+       this.resetView();
+     } else {
+
+       this.isLocationCreated = false;
+       this.createdLocationName = location.name;
+       this.isLocationNotCreated = true;
+       this.getLocations();
        this.resetView();
      }
 

@@ -94,7 +94,7 @@ export class DonutChartDirective implements OnInit {
 
         this.textEl = g.append("text")
             .attr("text-anchor", "middle");
-        //.text(d3.format(".0%")(0.55) + " Assets");
+        
 
         this.textEl2 = g2.append("text")
             .attr("text-anchor", "middle");
@@ -109,13 +109,12 @@ export class DonutChartDirective implements OnInit {
     getUsers(): void {
         this.userService.getUsers().then(users => {
             this.userCount = users.length;
-            console.log("in Chart com: Users: ", users.length);
         });
 
     }
 
     ngOnInit() {
-      //console.log("Data: ",this.data);
+
         var vm = this;
         this.getUsers();
         this.userService.getUsers().then(users => {
@@ -134,7 +133,7 @@ export class DonutChartDirective implements OnInit {
                             .attrTween("d", vm.arcTween(((+assets.length * 100) / t) / 100 * vm.tau));
                     }, 3000);
 
-                    //var total = locations.length + uc;
+
                     this.textEl2 = this.textEl2
                         .text(lc + " Locations: " + d3.format(".2%")(((+locations.length * 100) / t) / 100));
                     setTimeout(() => {
@@ -148,7 +147,6 @@ export class DonutChartDirective implements OnInit {
                     setTimeout(() => {
                         vm.fg3.transition()
                             .attrTween("d", vm.arcTween(((+users.length * 100) / t) / 100 * vm.tau));
-                        console.log("in Chart com: Users: ", this.userCount);
                     }, 2000);
                 });
             });

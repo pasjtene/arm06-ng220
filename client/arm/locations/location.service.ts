@@ -51,6 +51,15 @@ export class LocationService {
               return loc;
     }
 
+    update(location: Location) : Promise<Location> {
+      return this.http.put(this.locationUrl, { location }, {headers: this.headers})
+                  .toPromise()
+                  .then(location => location.json())
+                  .catch(
+                    //error the server may be down or invalid data send
+                  )
+    }
+
     deleteLocation(id: string) : Promise<Location> {
         const url = `${this.locationUrl}/${id}`;
 

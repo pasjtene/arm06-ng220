@@ -1,0 +1,57 @@
+<md-toolbar color="primary">
+  Manage Organizations
+</md-toolbar>
+<md-sidenav-layout>
+
+  <md-sidenav class="create-organization-sidenav" align="end" #createOrganization>
+      <h2> Details for new Organization </h2>
+      <form novalidate [formGroup]="organizationForm">
+        <div>
+          <label>Name: </label>
+          <input formControlName="name" placeholder="Organization name">
+        </div>
+
+        <div>
+        <label>unique ID: </label>
+          <input formControlName="id" placeholder="Organization Location">
+        </div>
+
+
+      <div>
+        <label>Head: </label>
+        <input formControlName="head" placeholder="Org Head">
+      </div>
+
+          <span>
+            <button [disabled]="!organizationForm.valid" (click)="save(organizationForm.value); createOrganization.close()" class="btn btn-success btn-xs">Create Organization</button>
+          </span>
+
+            <span>
+              <button (click)="createOrganization.close()" class="btn btn-warning btn-xs">cancel</button>
+            </span>
+      </form>
+
+      {{ organizationForm.status }} {{ organizationForm.valid }}
+  </md-sidenav>
+
+<!--Organization list table -->
+
+  <table class="table table-hover taable-striped table-bordered">
+    <thead>
+      <th> Organization name</th>
+      <th> Organization ID</th>
+
+      <th> Head name</th>
+    </thead>
+
+    <tr *ngFor="let o of organizations">
+      <td>{{o.name}} </td>
+      <td>{{o.id}} </td>
+      <td>{{o.head}} </td>
+    </tr>
+  </table>
+
+  <button (click)="createOrganization.open()">Create Organization</button>
+
+
+</md-sidenav-layout>

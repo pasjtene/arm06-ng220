@@ -3,6 +3,12 @@
 md-sidenav-layout {
   height: 100vh;
 }
+
+#warning-message-table {
+  width: 100%;
+  word-wrap: break-word;
+  table-layout: fixed;
+}
 .alert {
   display:inline-block;
   width: 100%;

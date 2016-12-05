@@ -4,7 +4,7 @@ Created: Sep 2016
 last modified: Dec 01 2016
 */
 var Location = require('./location.model');
-
+var _ = require('lodash');
 
 exports.params = function(req, res, next, id) {
     Location.findById(id)
@@ -42,6 +42,30 @@ exports.post = function(req, res, next) {
     }
   });
 };
+
+exports.put = function(req, res, next) {
+  var update = req.body.location;
+  Location.findById(req.body.location._id).then(location => {
+    if(!location) {
+    console.log("Location not found: ",location);
+  } else {
+    _.merge(location, update);
+    location.save((err, location) =>{
+      if(err) {
+        console.log("Error saving");
+        res.json("false")
+      } else {
+        console.log("updated: ", location);
+        res.json(location);
+
+      }
+    })
+  }
+  });
+
+  //console.log(location.json());
+  console.log("Updated location: ", req.body);
+}
 
 
 exports.get = function(req, res, next) {

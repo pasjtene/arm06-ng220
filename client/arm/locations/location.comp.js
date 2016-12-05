@@ -175,12 +175,42 @@ var LocationsComponent = (function () {
                 _this.isLocationNotCreated = false;
                 _this.createdLocationName = location.name;
                 _this.getLocations();
+                _this.createLocationSidenav.close();
                 _this.resetView();
             }
             else {
                 _this.isLocationCreated = false;
                 _this.createdLocationName = location.name;
                 _this.isLocationNotCreated = true;
+                //this.createLocationSidenav.open();
+                _this.resetView();
+            }
+        });
+        this.router.navigate(['/locations']);
+    };
+    LocationsComponent.prototype.setLocation = function (location) {
+        console.log("Location to update: ", location);
+        this.newLocation = location;
+        //refresh locations view or ng Error when contact is selected. (KI)
+        this.getLocations();
+    };
+    LocationsComponent.prototype.update = function (location) {
+        var _this = this;
+        this.locationService.update(location).then(function (location) {
+            //When location creation fails, the returned location values are undefined
+            if (location.name !== undefined) {
+                _this.isLocationCreated = true;
+                _this.isLocationNotCreated = false;
+                _this.createdLocationName = location.name;
+                _this.getLocations();
+                _this.createLocationSidenav.close();
+                _this.resetView();
+            }
+            else {
+                _this.isLocationCreated = false;
+                _this.createdLocationName = location.name;
+                _this.isLocationNotCreated = true;
+                _this.getLocations();
                 _this.resetView();
             }
         });
@@ -211,6 +241,10 @@ __decorate([
     core_1.ViewChild('sidenav'),
     __metadata("design:type", material_1.MdSidenav)
 ], LocationsComponent.prototype, "sidenav", void 0);
+__decorate([
+    core_1.ViewChild('createLocationSidenav'),
+    __metadata("design:type", material_1.MdSidenav)
+], LocationsComponent.prototype, "createLocationSidenav", void 0);
 LocationsComponent = __decorate([
     core_1.Component({
         moduleId: module.id,

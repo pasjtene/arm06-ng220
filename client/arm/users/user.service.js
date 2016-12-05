@@ -84,7 +84,6 @@ var UserService = (function () {
             .catch(this.handleError);
     };
     UserService.prototype.create = function (user) {
-        console.log("The user to create is: .." + JSON.stringify(user));
         return this.http
             .post(this.usersUrl, { user: user }, { headers: this.headers })
             .toPromise()
@@ -96,21 +95,17 @@ var UserService = (function () {
             .post(this.usersUrl, JSON.stringify({ firstName: firstName, userName: userName, password: password }), { headers: this.headers })
             .toPromise()
             .then(function (response) {
-            console.log("Response for create2: " + JSON.stringify(response.json()));
             return response.json();
         })
             .catch(this.handleError);
     };
     UserService.prototype.getUserToDelete = function () {
-        console.log("in Get The user to delete is: ", this.userToDelete);
         return this.userToDelete;
     };
     UserService.prototype.setUserToDelete = function (user) {
-        console.log("in Set The user is: ", user);
         this.userToDelete = user;
     };
     UserService.prototype.delete = function (_id) {
-        console.log("In Service : The user to Delete is:  ", this.userToDelete);
         var url = this.usersUrl + "/" + _id;
         return this.http.delete(url, { headers: this.headers })
             .toPromise().then(function (response) { return null; })

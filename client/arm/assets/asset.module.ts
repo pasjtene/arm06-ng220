@@ -18,7 +18,7 @@ import { AssetService } from './asset.service';
   declarations: [
     AssetComponent,
     ConfirmDeleteAssetComponent,
-    AssetHelpComponent    
+    AssetHelpComponent
   ],
 
   entryComponents: [

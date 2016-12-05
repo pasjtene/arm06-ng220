@@ -82,17 +82,14 @@ export class UserService {
     const url = `${this.usersUrl}/${user._id}`;
     return this.http.put(url, JSON.stringify(user), {headers: this.headers})
                 .toPromise()
-                .then(response => {                
-
+                .then(response => {
                   return response;
                 })
                 .catch(this.handleError);
-
   }
 
 
   create(user: User): Promise<User> {
-    console.log("The user to create is: .."+JSON.stringify(user));
     return this.http
           .post(this.usersUrl,  {user}, {headers: this.headers})
           .toPromise()
@@ -106,25 +103,22 @@ export class UserService {
           .post(this.usersUrl, JSON.stringify({firstName:firstName, userName:userName, password:password}), {headers: this.headers})
           .toPromise()
           .then(response => {
-            console.log("Response for create2: "+JSON.stringify(response.json()));
             return response.json();
           })
           .catch(this.handleError);
   }
 
   getUserToDelete(): User {
-    console.log("in Get The user to delete is: ",this.userToDelete);
     return this.userToDelete;
   }
 
   setUserToDelete(user: User){
-    console.log("in Set The user is: ", user);
     this.userToDelete = user;
   }
 
 
   delete(_id: string): Promise<void> {
-    console.log("In Service : The user to Delete is:  ",this.userToDelete);
+
     const url = `${this.usersUrl}/${_id}`;
     return this.http.delete(url, {headers: this.headers})
            .toPromise().then((response) => null)

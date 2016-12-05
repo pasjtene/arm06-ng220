@@ -49,6 +49,12 @@ var LocationService = (function () {
         });
         return loc;
     };
+    LocationService.prototype.update = function (location) {
+        return this.http.put(this.locationUrl, { location: location }, { headers: this.headers })
+            .toPromise()
+            .then(function (location) { return location.json(); })
+            .catch();
+    };
     LocationService.prototype.deleteLocation = function (id) {
         var _this = this;
         var url = this.locationUrl + "/" + id;

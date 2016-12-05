@@ -1,0 +1,16 @@
+label {
+  float: left;
+  width: 150px;
+  margin-left: 10px;
+}
+
+input {
+  width: 210px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  height: 35px;
+}
+
+button {
+  margin-left: 10px;
+}

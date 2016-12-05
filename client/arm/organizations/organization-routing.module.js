@@ -1,6 +1,6 @@
 /*
 *Author: Pascal Tene
-*Created: Sept 2016
+*Created: dec 2016
 *
 */
 "use strict";
@@ -15,20 +15,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var asset_comp_1 = require("./asset.comp");
+var organization_component_1 = require("./organization.component");
 var auth_guard_service_1 = require("../auth-guard.service");
-var AssetRoutingModule = (function () {
-    function AssetRoutingModule() {
+var OrganizationRoutingModule = (function () {
+    function OrganizationRoutingModule() {
     }
-    return AssetRoutingModule;
+    return OrganizationRoutingModule;
 }());
-AssetRoutingModule = __decorate([
+OrganizationRoutingModule = __decorate([
     core_1.NgModule({
         imports: [
             router_1.RouterModule.forChild([
                 {
-                    path: 'assets',
-                    component: asset_comp_1.AssetComponent,
+                    path: 'organizations',
+                    component: organization_component_1.OrganizationComponent,
                     canActivate: [auth_guard_service_1.AuthGuard]
                 }
             ])
@@ -38,6 +38,6 @@ AssetRoutingModule = __decorate([
         ]
     }),
     __metadata("design:paramtypes", [])
-], AssetRoutingModule);
-exports.AssetRoutingModule = AssetRoutingModule;
-//# sourceMappingURL=asset-routing.module.js.map
+], OrganizationRoutingModule);
+exports.OrganizationRoutingModule = OrganizationRoutingModule;
+//# sourceMappingURL=organization-routing.module.js.map

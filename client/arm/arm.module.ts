@@ -23,6 +23,7 @@ import { AdminModule } from './admin/admin.module';
 import { LoginRoutingModule } from './login/login-routing.module';
 import { LocationModule } from './locations/location.module';
 import { AssetModule } from './assets/asset.module';
+import { OrganizationModule } from './organizations/organization.module';
 
 import { MaterialModule } from '@angular/material';
 import { DialogService } from './dialog.service';
@@ -37,6 +38,7 @@ import { ArmStatsBarChartComponent } from './d3ng/bar-chart.component';
     HttpModule,
     LocationModule,
     AssetModule,
+    OrganizationModule,
     UserModule,
     AdminModule,
     LoginRoutingModule,

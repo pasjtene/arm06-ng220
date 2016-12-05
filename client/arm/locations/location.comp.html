@@ -14,8 +14,19 @@
 <md-sidenav-layout>
 
     <md-sidenav class="createLocation" align="end" mode="side" #createLocationSidenav>
+
         <div class="container">
-            <h2>Enter Details for new Location</h2>
+          <table id="warning-message-table">
+              <tr class="danger" *ngIf="isLocationNotCreated">
+                  <td>
+                    <span class="alert alert-danger"> New location not Created please doube check details for :  {{createdLocationName}}</span>
+                  <td>
+              </tr>
+          </table>
+
+
+            <h2 *ngIf="!isUpdate">Enter Details for new Location</h2>
+            <h4 *ngIf="isUpdate">Enter update details for {{currentLocation.name}}</h4>
 
             <form>
             <table class="table table-hover">
@@ -92,9 +103,14 @@
             </table>
           </form>
 
-            <div class="col-md-4">
+            <div *ngIf="!isUpdate" class="col-md-4">
                 <button (click)="createLocationSidenav.close(); resetView()" class="btn btn-warning btn-xs">Cancel</button>
-                <button class="btn btn-success btn-xs" (click)="createLocationSidenav.close(); createLocation(newLocation)">Create location</button>
+                <button class="btn btn-success btn-xs" (click)="createLocation(newLocation)">Create location</button>
+            </div>
+
+            <div *ngIf="isUpdate" class="col-md-4">
+                <button (click)="createLocationSidenav.close(); resetView()" class="btn btn-warning btn-xs">Cancel</button>
+                <button class="btn btn-success btn-xs" (click)="update(newLocation)">Update location</button>
             </div>
         </div>
 
@@ -110,7 +126,8 @@
         <p><strong> City: </strong>{{currentLocation.city}}</p>
         <p> <strong>State: </strong>{{currentLocation.state}}</p>
         <p> <strong>Country: </strong>{{currentLocation.country}}</p>
-      <button class="btn btn-info btn-sm" (click)="sidenav.close()">Hide details</button>
+      <button class="btn btn-info btn-xs" (click)="sidenav.close()">Hide details</button>
+      <button class="btn btn-success btn-xs" (click)="setLocation(currentLocation); isUpdate=true; sidenav.close(); createLocationSidenav.open();">Update location</button>
     </div>
 
     </md-sidenav>
@@ -156,7 +173,7 @@
             </td>
             <td on-mouseover="setMouseOnRow(i)">{{location.city}}</td>
             <td on-mouseover="setMouseOnRow(i)">{{location.country}}</td>
-            <td on-mouseover="setMouseOnRow(i)"><span *ngFor="let contact of location.contacts "> {{contact.firstName}} {{contact.lastName}}</span> </td>
+            <td on-mouseover="setMouseOnRow(i)"><span *ngIf="location.contacts"> <span *ngFor="let contact of location.contacts" > {{contact.firstName}} {{contact.lastName}}</span> </span></td>
 
             <td on-mouseover="setMouseOnRow(i)" >
               <span *ngIf="mouseIn === i || mouseOnButton === i"  >
@@ -167,6 +184,6 @@
             </td>
         </tr>
     </table>
-    <button class="btn btn-default btn-sm" (click)="createLocationSidenav.open(); sidenav.close()">Create new location </button>
+    <button class="btn btn-default btn-sm" (click)="isUpdate=false; createLocationSidenav.open(); sidenav.close()">Create new location </button>
     <!-- End Location list Table -->
 </md-sidenav-layout>

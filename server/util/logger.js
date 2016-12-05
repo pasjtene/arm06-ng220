@@ -4,7 +4,7 @@ var _ = require('lodash');
 
 var config = require('../config/config');
 
-
+//We are currently using loger2 to log to a file
 //if logging is enable, we use console.log
 //otherwise we use nolog to do nothing
 var nolog = function(){};
@@ -27,7 +27,6 @@ var logger = {
 				});
 			consoleLog.apply(console, args);
 		},
-
 
 error: function() {
 	var args = _.toArray(arguments)

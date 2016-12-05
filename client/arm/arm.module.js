@@ -29,6 +29,7 @@ var admin_module_1 = require("./admin/admin.module");
 var login_routing_module_1 = require("./login/login-routing.module");
 var location_module_1 = require("./locations/location.module");
 var asset_module_1 = require("./assets/asset.module");
+var organization_module_1 = require("./organizations/organization.module");
 var material_1 = require("@angular/material");
 var dialog_service_1 = require("./dialog.service");
 var donut_chart_directive_1 = require("./d3ng/donut-chart.directive");
@@ -46,6 +47,7 @@ ArmModule = __decorate([
             http_1.HttpModule,
             location_module_1.LocationModule,
             asset_module_1.AssetModule,
+            organization_module_1.OrganizationModule,
             user_module_1.UserModule,
             admin_module_1.AdminModule,
             login_routing_module_1.LoginRoutingModule,

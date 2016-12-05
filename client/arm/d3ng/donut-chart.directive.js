@@ -66,7 +66,6 @@ var DonutChartDirective = (function () {
             .attr("d", this.arc);
         this.textEl = g.append("text")
             .attr("text-anchor", "middle");
-        //.text(d3.format(".0%")(0.55) + " Assets");
         this.textEl2 = g2.append("text")
             .attr("text-anchor", "middle");
         this.textEl3 = g3.append("text")
@@ -76,12 +75,10 @@ var DonutChartDirective = (function () {
         var _this = this;
         this.userService.getUsers().then(function (users) {
             _this.userCount = users.length;
-            console.log("in Chart com: Users: ", users.length);
         });
     };
     DonutChartDirective.prototype.ngOnInit = function () {
         var _this = this;
-        //console.log("Data: ",this.data);
         var vm = this;
         this.getUsers();
         this.userService.getUsers().then(function (users) {
@@ -97,7 +94,6 @@ var DonutChartDirective = (function () {
                         vm.fg.transition()
                             .attrTween("d", vm.arcTween(((+assets.length * 100) / t) / 100 * vm.tau));
                     }, 3000);
-                    //var total = locations.length + uc;
                     _this.textEl2 = _this.textEl2
                         .text(lc + " Locations: " + d3.format(".2%")(((+locations.length * 100) / t) / 100));
                     setTimeout(function () {
@@ -110,7 +106,6 @@ var DonutChartDirective = (function () {
                     setTimeout(function () {
                         vm.fg3.transition()
                             .attrTween("d", vm.arcTween(((+users.length * 100) / t) / 100 * vm.tau));
-                        console.log("in Chart com: Users: ", _this.userCount);
                     }, 2000);
                 });
             });

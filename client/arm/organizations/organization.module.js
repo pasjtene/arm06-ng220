@@ -1,8 +1,3 @@
-/*
-*Author: Pascal Tene
-*Created: Sept 2016
-*
-*/
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -14,30 +9,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var asset_comp_1 = require("./asset.comp");
-var auth_guard_service_1 = require("../auth-guard.service");
-var AssetRoutingModule = (function () {
-    function AssetRoutingModule() {
+var common_1 = require("@angular/common");
+var forms_1 = require("@angular/forms");
+var organization_component_1 = require("./organization.component");
+var organization_routing_module_1 = require("./organization-routing.module");
+var material_1 = require("@angular/material");
+var OrganizationModule = (function () {
+    function OrganizationModule() {
     }
-    return AssetRoutingModule;
+    return OrganizationModule;
 }());
-AssetRoutingModule = __decorate([
+OrganizationModule = __decorate([
     core_1.NgModule({
-        imports: [
-            router_1.RouterModule.forChild([
-                {
-                    path: 'assets',
-                    component: asset_comp_1.AssetComponent,
-                    canActivate: [auth_guard_service_1.AuthGuard]
-                }
-            ])
+        declarations: [
+            organization_component_1.OrganizationComponent
         ],
-        exports: [
-            router_1.RouterModule
+        imports: [
+            forms_1.FormsModule,
+            common_1.CommonModule,
+            forms_1.ReactiveFormsModule,
+            organization_routing_module_1.OrganizationRoutingModule,
+            material_1.MaterialModule.forRoot()
         ]
     }),
     __metadata("design:paramtypes", [])
-], AssetRoutingModule);
-exports.AssetRoutingModule = AssetRoutingModule;
-//# sourceMappingURL=asset-routing.module.js.map
+], OrganizationModule);
+exports.OrganizationModule = OrganizationModule;
+//# sourceMappingURL=organization.module.js.map
