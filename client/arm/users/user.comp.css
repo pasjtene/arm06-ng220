@@ -8,6 +8,10 @@
   flex: 1 1 auto;
 }
 
+md-sidenav-layout {
+  position: relative;
+}
+
 .objectDetails {
   margin-left:20px;
 }

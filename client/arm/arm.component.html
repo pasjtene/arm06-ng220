@@ -1,4 +1,4 @@
-<div class="container">
+
 <nav *ngIf="authService.isLoggedIn">
 
 <a routerLink="/assets" routerLinkActive="active">Assets</a>
@@ -6,6 +6,23 @@
 <a routerLink="/organizations" routerLinkActive="active">Organizations</a>
 <a routerLink="/users" routerLinkActive="active">Users</a>
 <a routerLink="/home" routerLinkActive="active">Stats</a>
-</nav>
-<router-outlet></router-outlet>
+
+<span id="dropdown-menu">
+
+<li class="category top_level">
+
+<a routerLink="/home" routerLinkActive="active" class="dropdown-btn">User first Name</a>
+<div class="dropdown-content">
+  <a href="#">Settings test</a>
+  <a href="#">Logout</a>
 </div>
+
+</li>
+
+</span>
+
+</nav>
+
+
+
+<router-outlet></router-outlet>

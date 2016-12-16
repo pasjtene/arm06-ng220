@@ -10,21 +10,74 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var user_service_1 = require("../users/user.service");
+function showDate() {
+    //showdateandTime is a closure as it contains a function.
+    // this function is run at the interval 1000 tu return the time
+    var showDateAndTime = getDate();
+    window.setInterval(showDateAndTime, 1000);
+}
+//getDate creates a closure by returning a function
+function getDate() {
+    return function () {
+        document.getElementById("date_and_time").innerHTML = new Date();
+    };
+}
 var OrganizationComponent = (function () {
-    function OrganizationComponent(formBuilder) {
+    function OrganizationComponent(formBuilder, userService) {
         this.formBuilder = formBuilder;
+        this.userService = userService;
+        this.users = {};
+        this.active_text = "Click me";
+        this.currentOrganization = {};
         this.organizationForm = this.formBuilder.group({
             name: ['', forms_1.Validators.required],
             id: ['', forms_1.Validators.required],
-            head: ''
+            head: '',
+            contacts: this.formBuilder.array([
+                this.newContact(),
+            ])
         });
         this.organizations = [];
+        showDate();
     }
+    OrganizationComponent.prototype.newContact = function () {
+        return this.formBuilder.group({
+            contactName: ['', forms_1.Validators.required],
+            contactEmail: ['']
+        });
+    };
+    OrganizationComponent.prototype.addContact = function () {
+        var control = this.organizationForm.controls['contacts'];
+        control.push(this.newContact());
+    };
+    OrganizationComponent.prototype.removeContact = function (i) {
+        var control = this.organizationForm.controls['contacts'];
+        control.removeAt(i);
+    };
+    OrganizationComponent.prototype.getUsers = function () {
+        var _this = this;
+        this.userService.getUsers().then(function (users) {
+            _this.users = users;
+            console.log(users);
+        });
+    };
+    OrganizationComponent.prototype.ngOnInit = function () {
+        this.getUsers();
+    };
     OrganizationComponent.prototype.save = function (organization) {
-        console.log(this.organizations);
         this.organizations.push(organization);
-        //console.log(organization.uniqueId);
-        //console.log(form.controls);
+    };
+    OrganizationComponent.prototype.showDetails = function (organization) {
+        this.currentOrganization = organization;
+    };
+    OrganizationComponent.prototype.moDown = function () {
+        this.active_text = "Thank You";
+        //obj.style.backgroundColor = "#1ec5e5";
+        //obj.innerHTML = "Release Me";
+    };
+    OrganizationComponent.prototype.mUp = function (obj) {
+        this.active_text = "Click me";
     };
     return OrganizationComponent;
 }());
@@ -35,7 +88,8 @@ OrganizationComponent = __decorate([
         templateUrl: 'organization.component.html',
         styleUrls: ['organization.component.css']
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder])
+    __metadata("design:paramtypes", [forms_1.FormBuilder,
+        user_service_1.UserService])
 ], OrganizationComponent);
 exports.OrganizationComponent = OrganizationComponent;
 //# sourceMappingURL=organization.component.js.map

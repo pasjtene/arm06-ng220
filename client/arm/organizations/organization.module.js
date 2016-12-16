@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
 var organization_component_1 = require("./organization.component");
+var organization_details_component_1 = require("./details/organization-details.component");
 var organization_routing_module_1 = require("./organization-routing.module");
 var material_1 = require("@angular/material");
 var OrganizationModule = (function () {
@@ -22,6 +23,7 @@ var OrganizationModule = (function () {
 OrganizationModule = __decorate([
     core_1.NgModule({
         declarations: [
+            organization_details_component_1.OrganizationDetailsComponent,
             organization_component_1.OrganizationComponent
         ],
         imports: [
