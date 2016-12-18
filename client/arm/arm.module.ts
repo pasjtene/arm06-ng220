@@ -24,6 +24,7 @@ import { LoginRoutingModule } from './login/login-routing.module';
 import { LocationModule } from './locations/location.module';
 import { AssetModule } from './assets/asset.module';
 import { OrganizationModule } from './organizations/organization.module';
+import { JtestModule } from './jtest/jtest.module';
 
 import { MaterialModule } from '@angular/material';
 import { DialogService } from './dialog.service';
@@ -41,6 +42,7 @@ import { ArmStatsBarChartComponent } from './d3ng/bar-chart.component';
     OrganizationModule,
     UserModule,
     AdminModule,
+    JtestModule, /* for some features test, to be removed */
     LoginRoutingModule,
     ArmRoutingModule,
     MaterialModule.forRoot()

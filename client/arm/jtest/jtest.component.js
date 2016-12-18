@@ -23,25 +23,28 @@ function getDate() {
         document.getElementById("date_and_time").innerHTML = new Date();
     };
 }
-var OrganizationComponent = (function () {
-    function OrganizationComponent(formBuilder, userService) {
+var JtestComponent = (function () {
+    function JtestComponent(formBuilder, userService) {
         this.formBuilder = formBuilder;
         this.userService = userService;
-        this.formSubmitted = false;
-        this.users = [];
-        this.contactList = [
+        this.themes = [
             {
-                id: 0,
-                _id: "testtt",
-                username: 'teststststststsst',
-                password: 'sshshshshshshs',
-                firstName: 'Select a new contact',
-                lastName: '',
-                email: '',
-                organization: 'hsgsfsfsfsfs',
-                location: 'hshsghsssgh'
-            }
+                bgColor: 'black',
+                fColor: 'white',
+                display: 'Dark'
+            },
+            {
+                bgColor: 'black',
+                fColor: 'white',
+                display: 'Light'
+            },
+            {
+                bgColor: 'black',
+                fColor: 'white',
+                display: 'Sleek'
+            },
         ];
+        this.users = {};
         this.active_text = "Click me";
         this.currentOrganization = {};
         this.organizationForm = this.formBuilder.group({
@@ -54,66 +57,60 @@ var OrganizationComponent = (function () {
         });
         this.organizations = [];
         showDate();
-        this.getUsers();
+        this.juser = {
+            name: '',
+            theme: this.themes[0]
+        };
     }
-    //The fist contact in dropdown list is initialized to the fake user with name "Select a new user"
-    OrganizationComponent.prototype.newContact = function () {
+    JtestComponent.prototype.newContact = function () {
         return this.formBuilder.group({
-            user: [this.contactList[0], forms_1.Validators.required],
+            contactName: ['', forms_1.Validators.required],
             contactEmail: ['']
         });
     };
-    OrganizationComponent.prototype.addContact = function () {
+    JtestComponent.prototype.addContact = function () {
         var control = this.organizationForm.controls['contacts'];
-        console.log("New contact: ", control.controls[0]);
         control.push(this.newContact());
     };
-    OrganizationComponent.prototype.removeContact = function (i) {
+    JtestComponent.prototype.removeContact = function (i) {
         var control = this.organizationForm.controls['contacts'];
         control.removeAt(i);
     };
-    OrganizationComponent.prototype.getUsers = function () {
+    JtestComponent.prototype.getUsers = function () {
         var _this = this;
-        return this.userService.getUsers().then(function (users) {
+        this.userService.getUsers().then(function (users) {
             _this.users = users;
-            return users;
+            console.log(users);
         });
     };
-    OrganizationComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        //control.controls[0].value.contactName.firstName = "Select"
-        this.getUsers().then(function (users) {
-            _this.users = users;
-            //we transfer all users into contactList for manipulation.
-            //contacList contains the dropdown list for contact selection.
-            //contactlist[0] is initialized with the default value: A fake user with name = "Select a new user"
-            for (var i = 1; i <= users.length; i++) {
-                _this.contactList[i] = users[i - 1];
-            }
-        });
+    JtestComponent.prototype.ngOnInit = function () {
+        this.getUsers();
     };
-    OrganizationComponent.prototype.onChangeUser = function (user, Obj) {
-        //console.log("The user is: ", user);
-    };
-    OrganizationComponent.prototype.save = function (organization) {
+    JtestComponent.prototype.save = function (organization) {
         this.organizations.push(organization);
-        console.log("Organization...", this.organizations);
-        this.formSubmitted = true;
     };
-    OrganizationComponent.prototype.showDetails = function (organization) {
+    JtestComponent.prototype.showDetails = function (organization) {
         this.currentOrganization = organization;
     };
-    return OrganizationComponent;
+    JtestComponent.prototype.moDown = function () {
+        this.active_text = "Thank You";
+        //obj.style.backgroundColor = "#1ec5e5";
+        //obj.innerHTML = "Release Me";
+    };
+    JtestComponent.prototype.mUp = function (obj) {
+        this.active_text = "Click me";
+    };
+    return JtestComponent;
 }());
-OrganizationComponent = __decorate([
+JtestComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'location-component',
-        templateUrl: 'organization.component.html',
-        styleUrls: ['organization.component.css']
+        templateUrl: 'jtest.component.html',
+        styleUrls: ['jtest.component.css']
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder,
         user_service_1.UserService])
-], OrganizationComponent);
-exports.OrganizationComponent = OrganizationComponent;
-//# sourceMappingURL=organization.component.js.map
+], JtestComponent);
+exports.JtestComponent = JtestComponent;
+//# sourceMappingURL=jtest.component.js.map

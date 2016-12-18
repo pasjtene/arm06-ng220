@@ -227,7 +227,7 @@ export class LocationsComponent implements OnInit {
    this.getLocations();
  }
 
- update(location: Location): void {   
+ update(location: Location): void {
 
    this.locationService.update(location).then((location) => {
      //When location creation fails, the returned location values are undefined

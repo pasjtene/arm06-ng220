@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Organization } from './organization';
 import { UserService } from '../users/user.service';
+import { User } from '../users/user';
 
 
 
@@ -27,12 +28,28 @@ function getDate() {
   styleUrls: ['organization.component.css']
 })
 
-export class OrganizationComponent implements OnInit {
-  users = {};
+export class OrganizationComponent implements OnInit, AfterContentInit {
+  public formSubmitted: boolean = false;
+  users: User[] = [];
+  contactList: User[] = [
+    {
+      id: 0,
+      _id: "testtt",
+      username: 'teststststststsst', //no camel case for user name. as set in database.
+      password: 'sshshshshshshs',
+      firstName: 'Select a new contact',
+      lastName: '',
+      email: '',
+      organization: 'hsgsfsfsfsfs',
+      location: 'hshsghsssgh'
+    }
+  ];
+
   active_text = "Click me";
   organizationForm: FormGroup;
-  organizations: Organization[];
-  currentOrganization: Organization = {};
+  public organizations: Organization[];
+
+  public currentOrganization: Organization = {};
 
   constructor(
     public formBuilder: FormBuilder,
@@ -48,18 +65,25 @@ export class OrganizationComponent implements OnInit {
       });
 
       this.organizations = [];
+
+
       showDate();
+      this.getUsers();
+
   }
 
+
+//The fist contact in dropdown list is initialized to the fake user with name "Select a new user"
   newContact() {
     return this.formBuilder.group({
-      contactName: ['', Validators.required],
+      user: [this.contactList[0], Validators.required],
       contactEmail: ['']
     });
   }
 
   addContact() {
     const control = <FormArray>this.organizationForm.controls['contacts'];
+    console.log("New contact: ", control.controls[0]);
     control.push(this.newContact());
   }
 
@@ -68,34 +92,40 @@ export class OrganizationComponent implements OnInit {
     control.removeAt(i);
   }
 
-  getUsers() : void {
-    this.userService.getUsers().then(users => {
+  getUsers() : Promise<User[]> {
+    return this.userService.getUsers().then(users => {
       this.users = users;
-      console.log(users);
+      return users;
     });
   }
 
   ngOnInit() {
-    this.getUsers();
+    //control.controls[0].value.contactName.firstName = "Select"
+    this.getUsers().then(users => {
+      this.users = users;
+      //we transfer all users into contactList for manipulation.
+      //contacList contains the dropdown list for contact selection.
+      //contactlist[0] is initialized with the default value: A fake user with name = "Select a new user"
+      for(var i=1; i <= users.length; i++) {
+        this.contactList[i] = users[i-1];
+      }
+    });
+  }
+
+
+  onChangeUser(user, Obj) {
+    //console.log("The user is: ", user);
   }
 
   save(organization) {
     this.organizations.push(organization);
+    console.log("Organization...",this.organizations);
+    this.formSubmitted = true;
   }
-
 
 
   showDetails(organization) {
     this.currentOrganization = organization;
   }
 
-  moDown() {
-    this.active_text = "Thank You";
-    //obj.style.backgroundColor = "#1ec5e5";
-    //obj.innerHTML = "Release Me";
-}
-
-mUp(obj) {
-  this.active_text = "Click me";
-}
 }

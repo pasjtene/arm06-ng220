@@ -30,6 +30,7 @@ var login_routing_module_1 = require("./login/login-routing.module");
 var location_module_1 = require("./locations/location.module");
 var asset_module_1 = require("./assets/asset.module");
 var organization_module_1 = require("./organizations/organization.module");
+var jtest_module_1 = require("./jtest/jtest.module");
 var material_1 = require("@angular/material");
 var dialog_service_1 = require("./dialog.service");
 var donut_chart_directive_1 = require("./d3ng/donut-chart.directive");
@@ -50,6 +51,7 @@ ArmModule = __decorate([
             organization_module_1.OrganizationModule,
             user_module_1.UserModule,
             admin_module_1.AdminModule,
+            jtest_module_1.JtestModule,
             login_routing_module_1.LoginRoutingModule,
             arm_routing_module_1.ArmRoutingModule,
             material_1.MaterialModule.forRoot()

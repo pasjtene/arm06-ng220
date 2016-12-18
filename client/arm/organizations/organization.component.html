@@ -33,18 +33,27 @@
                 remove -
               </a>
           </div>
-          <!--the Array index is the formgroup nae by default -->
+          <!--the Array index is the formgroup name by default
+
+        -->
           <div [formGroupName]="i">
             <div>
               <label> contact name</label>
-              <input type="text" formControlName="contactName">
-              <small [hidden]="organizationForm.controls.contacts.controls[i].controls.contactName.valid">
+              <select formControlName="user" class="form-control" placeholder="Select a contact" name="user" id="user" (ngModelChange)="onChangeUser($event, organizationForm.controls.contacts.controls[i].controls.user.value.email)">
+                <option *ngFor="let user of contactList"  [ngValue]="user">{{user.firstName}} {{user.lastName}}</option>
+              </select>
+              <small [hidden]="organizationForm.controls.contacts.controls[i].controls.user.valid">
                 Contact name is required
               </small>
+              <small class="formError" *ngIf="organizationForm.controls.contacts.controls[i].controls.user.value.firstName==='Select a new contact' && formSubmitted" >
+                Contact name is required
+              </small>
+              {{organizationForm.controls.contacts.controls[i].controls.user.value.firstName !=='Select a new contact'}}
             </div>
             <div>
               <label> contact email</label>
-              <input type="text" formControlName="contactEmail">
+              <input type="text" formControlName="contactEmail" [value]= "organizationForm.controls.contacts.controls[i].controls.user.value.email || ' ' " readonly>
+
             </div>
       </div>
     </div>
@@ -66,6 +75,7 @@
       </form>
 
       {{ organizationForm.status }} {{ organizationForm.valid }}
+      <br> {{organizationForm.value | json }}
   </md-sidenav>
 
 <!--Organization details implemented in a different component and shared via @Input binding -->
@@ -82,6 +92,7 @@
       <th> Organization name</th>
       <th> Organization ID</th>
       <th> Head name</th>
+      <th> Contacts</th>
     </thead>
 
     <tr *ngFor="let o of organizations">
@@ -90,99 +101,9 @@
         {{o.name}} </td>
       <td>{{o.id}} </td>
       <td>{{o.head}} </td>
+      <td><span *ngFor="let contact of o.contacts; let i=index;">{{contact.user.firstName}} {{contact.user.lastName}}{{i === o.contacts.length -1 ? '': ', '}} </span> </td>
     </tr>
   </table>
   <button (click)="createOrganization.open()">Create Organization</button>
-<br><br>
-
-Test to be deleted
-<br>
-<span onmouseover="this.style.color='red'">Mouse over me!</span>
-
-<div class="activate" (mousedown)="moDown()" (mouseup)="mUp()">{{active_text}}</div>
-
-<div class="navj">
-Mouse Over 11</div>
-
-
-<div class="mainDiv">
-Mouse Over 3</div>
-
-<div class="myDiv">
-Mouse Over</div>
-
-<div class="myDiv">
-Mouse Over 2</div>
-
-<div class="myDiv">
-Mouse Over 3</div>
-
 
 </md-sidenav-layout>
-
-
-
-
-
-<div id="rcontainer">
-  <div id="logo"><img src="images/logo.png" alt="Logo here"> </div>
-  <nav>
-      <ul>
-        <li>History</li>
-        <li>about</li>
-        <li>contact</li>
-        <li>portfolio</li>
-      </ul>
-  </nav>
-
-  <header><img src="images/header.jpg"></header>
-
-  <ul id="cols">
-      <li>
-        <img src="images/pine-apple.jpg"/>
-        <h2> Column 1 </h2>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </p>
-      </li>
-      <li>
-        <img src="images/pine-apple.jpg"/>
-        <h2> Column 2 </h2>
-        <p>
-          but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </p>
-      </li>
-      <li>
-        <img src="images/pine-apple.jpg"/>
-        <h2> Column 3 </h2>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </p>
-      </li>
-      <li>
-        <img src="images/pine-apple.jpg"/>
-        <h2> Column 4 </h2>
-        <p>
-          but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </p>
-        <p>
-          but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </p>
-        <p>
-          but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </p>
-      </li>
-  </ul>
-
-  <footer>
-    <div id="footerleft">
-      <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-      </p>
-    </div>
-
-    <div id="footerright">
-      <img src="images/footer.jpg"/>
-    </div>
-  </footer>
-</div>

@@ -19,5 +19,5 @@ export class Organization {
   name: string;
   id: string;
   head: string;
-  contacts: Contact[]; /*should be a list of users */
+  contacts: User[]; /*should be a list of users */
 }
