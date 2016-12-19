@@ -8,20 +8,29 @@
 
       <form novalidate [formGroup]="organizationForm" class="organizationForm">
         <h2> Details for new Organization </h2>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Organization details
+          </div>
         <div>
           <label>Name: </label>
-          <input formControlName="name" placeholder="Organization name">
+          <input formControlName="name" placeholder="Organization name" class="form-input">
         </div>
 
         <div>
         <label>unique ID: </label>
-          <input formControlName="id" placeholder="Organization Location">
+          <input type="text" formControlName="id" placeholder="Organization Id">
         </div>
 
         <div>
           <label>Head: </label>
-          <input formControlName="head" placeholder="Org Head">
+
+          <select formControlName="head" placeholder="Select a user">
+              <option *ngFor="let user of userList" [ngValue]="user">{{user.firstName}} {{user.lastName}}</option>
+          </select>
         </div>
+      </div>
+
         <!--List of contacts -->
         <div formArrayName="contacts">
           <div *ngFor="let contact of organizationForm.controls.contacts.controls; let i=index" class="panel panel-default">
@@ -39,16 +48,16 @@
           <div [formGroupName]="i">
             <div>
               <label> contact name</label>
-              <select formControlName="user" class="form-control" placeholder="Select a contact" name="user" id="user" (ngModelChange)="onChangeUser($event, organizationForm.controls.contacts.controls[i].controls.user.value.email)">
-                <option *ngFor="let user of contactList"  [ngValue]="user">{{user.firstName}} {{user.lastName}}</option>
+              <select formControlName="user" placeholder="Select a contact" name="user" id="user" (ngModelChange)="onChangeUser($event, organizationForm.controls.contacts.controls[i].controls.user.value.email)">
+                <option *ngFor="let user of userList"  [ngValue]="user">{{user.firstName}} {{user.lastName}}</option>
               </select>
               <small [hidden]="organizationForm.controls.contacts.controls[i].controls.user.valid">
                 Contact name is required
               </small>
-              <small class="formError" *ngIf="organizationForm.controls.contacts.controls[i].controls.user.value.firstName==='Select a new contact' && formSubmitted" >
+              <small class="formError" *ngIf="organizationForm.controls.contacts.controls[i].controls.user.value.firstName==='Select...' && formSubmitted" >
                 Contact name is required
               </small>
-              {{organizationForm.controls.contacts.controls[i].controls.user.value.firstName !=='Select a new contact'}}
+              {{organizationForm.controls.contacts.controls[i].controls.user.value.firstName !=='Select...'}}
             </div>
             <div>
               <label> contact email</label>
@@ -61,12 +70,12 @@
   <!-- We can add up to 4 contacts for a given organization -->
   <div class="margin-20">
     <a (click)="addContact()" style="cursor: pointer" *ngIf="organizationForm.controls.contacts.controls.length < 4">
-      add another contact +
+            add another contact +
     </a>
-  </div>
 
+  </div>
         <span>
-          <button [disabled]="!organizationForm.valid" (click)="save(organizationForm.value); createOrganization.close()" class="btn btn-success btn-xs">Create Organization</button>
+          <button (click)="save(organizationForm.value, organizationForm.valid)" class="btn btn-success btn-xs">Create Organization</button>
         </span>
 
         <span>
@@ -100,7 +109,7 @@
         <button (click)=" organizationDetailsSidenav.open(); showDetails(o)">info</button>
         {{o.name}} </td>
       <td>{{o.id}} </td>
-      <td>{{o.head}} </td>
+      <td>{{o.head.firstName==="Select..." ? '': o.head.firstName}} {{o.head.lastName}} </td>
       <td><span *ngFor="let contact of o.contacts; let i=index;">{{contact.user.firstName}} {{contact.user.lastName}}{{i === o.contacts.length -1 ? '': ', '}} </span> </td>
     </tr>
   </table>

@@ -18,6 +18,6 @@ export class Organization {
   _id: string;
   name: string;
   id: string;
-  head: string;
+  head: User;
   contacts: User[]; /*should be a list of users */
 }

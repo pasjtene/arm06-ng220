@@ -1,8 +1,29 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
+import { MdSidenav } from '@angular/material';
 import { Organization } from './organization';
 import { UserService } from '../users/user.service';
 import { User } from '../users/user';
+
+
+//This function validates that the selected user from Select list is not the default value of (Select...)
+//returns null if a value is selected. returns 'not_selected' otherwise.
+//returning a value other than null automaticaly makes the form invalid.
+function selectedNameChecker(c: AbstractControl) {
+  var result = null;
+  if (c.get('head').value.firstName === 'Select...') {
+    result = {'not_selected':true};
+  }
+
+  //validate all contacts names in list
+  for(let i=0; i < c.get('contacts').value.length; i++) {
+    if(c.get('contacts').value[i].user.firstName === 'Select...') {
+      result = {'not_selected':true};
+    }
+  }
+  return result;
+  //return (c.get('head').value.firstName && c.get('contacts').value[0].user.firstName) !== 'Select...' ? null : {'not_selected':true};
+}
 
 
 
@@ -28,16 +49,19 @@ function getDate() {
   styleUrls: ['organization.component.css']
 })
 
-export class OrganizationComponent implements OnInit, AfterContentInit {
-  public formSubmitted: boolean = false;
+export class OrganizationComponent implements OnInit {
+  @ViewChild('createOrganization')createOrganization:MdSidenav;
+  formSubmitted: boolean = false;
   users: User[] = [];
-  contactList: User[] = [
+  //The user at index 0 is just a bogus user.
+  //The only purpose is to have the Select... at the top of the list.
+  userList: User[] = [
     {
       id: 0,
       _id: "testtt",
       username: 'teststststststsst', //no camel case for user name. as set in database.
       password: 'sshshshshshshs',
-      firstName: 'Select a new contact',
+      firstName: 'Select...',
       lastName: '',
       email: '',
       organization: 'hsgsfsfsfsfs',
@@ -45,7 +69,6 @@ export class OrganizationComponent implements OnInit, AfterContentInit {
     }
   ];
 
-  active_text = "Click me";
   organizationForm: FormGroup;
   public organizations: Organization[];
 
@@ -58,15 +81,13 @@ export class OrganizationComponent implements OnInit, AfterContentInit {
       this.organizationForm = this.formBuilder.group({
         name: ['', Validators.required ],
         id: ['', Validators.required ],
-        head: '',
+        head: [this.userList[0]],
         contacts: this.formBuilder.array([
           this.newContact(),
         ])
-      });
+      }, {validator : selectedNameChecker} );
 
       this.organizations = [];
-
-
       showDate();
       this.getUsers();
 
@@ -76,7 +97,10 @@ export class OrganizationComponent implements OnInit, AfterContentInit {
 //The fist contact in dropdown list is initialized to the fake user with name "Select a new user"
   newContact() {
     return this.formBuilder.group({
-      user: [this.contactList[0], Validators.required],
+      user: [this.userList[0],
+      //add more validator if needed
+       Validators.compose([Validators.required])
+     ],
       contactEmail: ['']
     });
   }
@@ -107,7 +131,7 @@ export class OrganizationComponent implements OnInit, AfterContentInit {
       //contacList contains the dropdown list for contact selection.
       //contactlist[0] is initialized with the default value: A fake user with name = "Select a new user"
       for(var i=1; i <= users.length; i++) {
-        this.contactList[i] = users[i-1];
+        this.userList[i] = users[i-1];
       }
     });
   }
@@ -117,10 +141,15 @@ export class OrganizationComponent implements OnInit, AfterContentInit {
     //console.log("The user is: ", user);
   }
 
-  save(organization) {
-    this.organizations.push(organization);
+  save(organization, isValid) {
+    if(isValid) {
+      this.organizations.push(organization);
+      this.createOrganization.close();
+    }
+
     console.log("Organization...",this.organizations);
     this.formSubmitted = true;
+    console.log("Form valid?: ",isValid);
   }
 
 

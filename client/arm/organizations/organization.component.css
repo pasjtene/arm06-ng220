@@ -1,5 +1,12 @@
 .organizationForm {
   margin: 20px;
+  border: 1px solid #dddddd;
+  padding-left:10px;
+  padding-bottom: 10px;
+}
+
+.margin-20 {
+  margin: 20px;
 }
 
 .create-organization-sidenav {
@@ -16,16 +23,33 @@ label {
   margin-left: 10px;
 }
 
+.form-input {
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+}
+
 input {
-  width: 210px;
+  width: 250px;
   margin:5px;
-  border-radius: 4px;
-  height: 35px;
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+  height: 40px;
+}
+
+select {
+  width: 250px;
+  margin:5px;
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+  height: 40px;
+}
+
+select:hover {
+  border: 1px solid rgba(158,158,158,0.9); /*shades of gray */
 }
 
 input:focus {
-  border: 1px solid #fc0;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 255, 0.6);
+  border: 1px solid rgba(0, 0, 255, 0.5); /*shades of blue */
 }
 
 input:hover {
