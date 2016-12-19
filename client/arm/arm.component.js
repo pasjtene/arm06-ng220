@@ -12,12 +12,27 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 //import { User } from './user';
 var auth_service_1 = require("./auth.service");
+function showDate() {
+    //showdateandTime is a closure as it contains a function.
+    // this function is run at the interval 1000 to return the time
+    var showDateAndTime = getDate();
+    window.setInterval(showDateAndTime, 1000);
+}
+//getDate creates a closure by returning a function
+function getDate() {
+    return function () {
+        var date_ = new Date().toString();
+        document.getElementById("date_").innerHTML = date_.substring(0, 15);
+        document.getElementById("time_").innerHTML = date_.substring(16, 28);
+    };
+}
 var ArmComponent = (function () {
     function ArmComponent(authService, router) {
         this.authService = authService;
         this.router = router;
         this.title = " Welcome to ARM: Asset and Risk Manager software";
         this.isLoggedIn = this.authService.isLoggedIn;
+        showDate();
     }
     ArmComponent.prototype.ngOnInit = function () {
         var _this = this;

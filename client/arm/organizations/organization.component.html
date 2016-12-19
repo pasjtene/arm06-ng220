@@ -16,10 +16,16 @@
           <label>Name: </label>
           <input formControlName="name" placeholder="Organization name" class="form-input">
         </div>
+        <div class="formError" *ngIf="!organizationForm.controls.name.valid && formSubmitted" >
+          Organization name is required
+        </div>
 
         <div>
         <label>unique ID: </label>
           <input type="text" formControlName="id" placeholder="Organization Id">
+        </div>
+        <div class="formError" *ngIf="!organizationForm.controls.id.valid && formSubmitted" >
+          Unique Id is required
         </div>
 
         <div>
@@ -54,10 +60,9 @@
               <small [hidden]="organizationForm.controls.contacts.controls[i].controls.user.valid">
                 Contact name is required
               </small>
-              <small class="formError" *ngIf="organizationForm.controls.contacts.controls[i].controls.user.value.firstName==='Select...' && formSubmitted" >
+              <div class="formError" *ngIf="organizationForm.controls.contacts.controls[i].controls.user.value.firstName==='Select...' && formSubmitted" >
                 Contact name is required
-              </small>
-              {{organizationForm.controls.contacts.controls[i].controls.user.value.firstName !=='Select...'}}
+              </div>              
             </div>
             <div>
               <label> contact email</label>

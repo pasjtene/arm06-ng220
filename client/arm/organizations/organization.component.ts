@@ -11,9 +11,12 @@ import { User } from '../users/user';
 //returning a value other than null automaticaly makes the form invalid.
 function selectedNameChecker(c: AbstractControl) {
   var result = null;
+  //uncomment folowing if head is required.
+  /*
   if (c.get('head').value.firstName === 'Select...') {
     result = {'not_selected':true};
   }
+  */
 
   //validate all contacts names in list
   for(let i=0; i < c.get('contacts').value.length; i++) {
@@ -22,7 +25,6 @@ function selectedNameChecker(c: AbstractControl) {
     }
   }
   return result;
-  //return (c.get('head').value.firstName && c.get('contacts').value[0].user.firstName) !== 'Select...' ? null : {'not_selected':true};
 }
 
 
@@ -96,6 +98,7 @@ export class OrganizationComponent implements OnInit {
 
 //The fist contact in dropdown list is initialized to the fake user with name "Select a new user"
   newContact() {
+    
     return this.formBuilder.group({
       user: [this.userList[0],
       //add more validator if needed
@@ -106,8 +109,10 @@ export class OrganizationComponent implements OnInit {
   }
 
   addContact() {
+    //remove errors from UI
+    this.formSubmitted = false;
     const control = <FormArray>this.organizationForm.controls['contacts'];
-    console.log("New contact: ", control.controls[0]);
+    //console.log("New contact: ", control.controls[0]);
     control.push(this.newContact());
   }
 

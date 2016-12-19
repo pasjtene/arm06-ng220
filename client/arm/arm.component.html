@@ -1,4 +1,41 @@
+<div class="nav-bar" *ngIf="authService.isLoggedIn">
+  <div class="header_content1">
+    <div>
+      <label>Date:</label>
+      <span id="date_"></span>
+    </div>
+    <div>
+      <label>Time:</label>
+      <span id="time_"></span>
+    </div>
+  </div>
 
+  <div class="header_content2">
+    <div>
+      <label>User:</label>
+      <span id="use">Pascal Tene</span>
+    </div>
+    <div>
+      <label>Role:</label>
+      <span id="rol">Risk Manager</span>
+    </div>
+  </div>
+
+  <div class="header_content3">
+    <div>
+      <label>System name:</label>
+      <span id="sys">Asset and Risk Manager (ARM)</span>
+    </div>
+    <div>
+      <label>IP Address:</label>
+      <span id="ipa">10.20.0.45</span>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="arm-container">
 <nav *ngIf="authService.isLoggedIn">
 
 <a routerLink="/assets" routerLinkActive="active">Assets</a>
@@ -20,9 +57,7 @@
 </li>
 
 </span>
-
 </nav>
 
-
-
 <router-outlet></router-outlet>
+</div>

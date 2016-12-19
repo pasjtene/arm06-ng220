@@ -4,6 +4,51 @@ html, body {
 
 html, body { height: 100%; }
 
+.nav-bar {
+  background-color: #666;
+  height: 45px;
+  width: 100%;
+  border-bottom: 2px solid #fc0;
+}
+
+.header_content1 {
+  display: inline-block;
+  margin-left: 50px;
+  border-right: 1px dotted #444;
+  width: 175px;
+  height: 98%;
+  color:#ccc;
+  font: 90% "FreeSans", Arial, Helvetica, sans-serif;
+  padding: 5px;
+}
+
+.header_content2 {
+  display: inline-block;
+  margin-left: 5px;
+  border-right: 1px dotted #444;
+  width: 175px;
+  height: 98%;
+  color:#ccc;
+  font: 90% "FreeSans", Arial, Helvetica, sans-serif;
+  padding: 5px;
+}
+
+.header_content3 {
+  display: inline-block;
+  margin-left: 5px;
+  border-right: 1px dotted #444;
+  width: 300px;
+  height: 98%;
+  color:#ccc;
+  font: 90% "FreeSans", Arial, Helvetica, sans-serif;
+  padding: 5px;
+}
+
+.arm-container {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 .dropdown {
   float:right;
   position:relative;

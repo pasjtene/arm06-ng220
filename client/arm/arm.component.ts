@@ -3,6 +3,21 @@ import { Router } from '@angular/router';
 //import { User } from './user';
 import { AuthService } from './auth.service';
 
+function showDate() {
+  //showdateandTime is a closure as it contains a function.
+  // this function is run at the interval 1000 to return the time
+  var showDateAndTime = getDate();
+    window.setInterval(showDateAndTime, 1000);
+}
+
+//getDate creates a closure by returning a function
+function getDate() {
+  return function () {
+  var date_ = new Date().toString();
+  document.getElementById("date_").innerHTML = date_.substring(0,15);
+  document.getElementById("time_").innerHTML = date_.substring(16,28);
+}
+}
 
 
 @Component({
@@ -18,7 +33,9 @@ export class ArmComponent implements OnInit{
   constructor(
     private authService: AuthService,
     public router: Router
-  ) {}
+  ) {
+    showDate();
+  }
 
   isLoggedIn = this.authService.isLoggedIn;
 

@@ -17,9 +17,12 @@ var user_service_1 = require("../users/user.service");
 //returning a value other than null automaticaly makes the form invalid.
 function selectedNameChecker(c) {
     var result = null;
+    //uncomment folowing if head is required.
+    /*
     if (c.get('head').value.firstName === 'Select...') {
-        result = { 'not_selected': true };
+      result = {'not_selected':true};
     }
+    */
     //validate all contacts names in list
     for (var i = 0; i < c.get('contacts').value.length; i++) {
         if (c.get('contacts').value[i].user.firstName === 'Select...') {
@@ -27,7 +30,6 @@ function selectedNameChecker(c) {
         }
     }
     return result;
-    //return (c.get('head').value.firstName && c.get('contacts').value[0].user.firstName) !== 'Select...' ? null : {'not_selected':true};
 }
 function showDate() {
     //showdateandTime is a closure as it contains a function.
@@ -86,8 +88,10 @@ var OrganizationComponent = (function () {
         });
     };
     OrganizationComponent.prototype.addContact = function () {
+        //remove errors from UI
+        this.formSubmitted = false;
         var control = this.organizationForm.controls['contacts'];
-        console.log("New contact: ", control.controls[0]);
+        //console.log("New contact: ", control.controls[0]);
         control.push(this.newContact());
     };
     OrganizationComponent.prototype.removeContact = function (i) {
