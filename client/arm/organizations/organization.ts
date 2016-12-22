@@ -21,3 +21,12 @@ export class Organization {
   head: User;
   contacts: User[]; /*should be a list of users */
 }
+
+/* dbOrganization is the organization formated to meet database requirements */
+export class dbOrganization {
+  _id: string;
+  name: string;
+  id: string;
+  head: string; /*the _id of the user. objectId for mongoose db */
+  contacts: string[]; /*list of user _ids */
+}

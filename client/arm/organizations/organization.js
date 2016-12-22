@@ -13,4 +13,11 @@ var Organization = (function () {
     return Organization;
 }());
 exports.Organization = Organization;
+/* dbOrganization is the organization formated to meet database requirements */
+var dbOrganization = (function () {
+    function dbOrganization() {
+    }
+    return dbOrganization;
+}());
+exports.dbOrganization = dbOrganization;
 //# sourceMappingURL=organization.js.map

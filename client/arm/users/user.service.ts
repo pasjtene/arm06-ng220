@@ -23,15 +23,17 @@ export class UserService {
   };
   nnn = "";
   private headers = new Headers({'Content-Type': 'application/json' , 'arm_auth_token': localStorage.getItem('arm_auth_token')});
+
   private handleError(error: any): Promise<any> {
     console.log('An error has occured while connecting to the server ', error);
     return Promise.reject(error.message || error);
   }
 
-  //private usersUrl = 'arm/users';
   private usersUrl = '/api/users';
-  //private loginUrl = 'arm/login';
-  constructor(private http: Http){}
+
+  constructor(
+    private http: Http
+  ){}
 
   getUsers(): Promise<User[]> {
     this.headers = new Headers({'Content-Type': 'application/json' , 'arm_auth_token': localStorage.getItem('arm_auth_token')});
@@ -45,8 +47,7 @@ export class UserService {
                   return;
                 })
                 //.catch(this.handleError);
-
-  }
+}
 
   getUserCount(): Promise<User[]> {
     return this.http.get(this.usersUrl, {headers: this.headers})

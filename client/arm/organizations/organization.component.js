@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var material_1 = require("@angular/material");
 var user_service_1 = require("../users/user.service");
+var organization_service_1 = require("./organization.service");
 //This function validates that the selected user from Select list is not the default value of (Select...)
 //returns null if a value is selected. returns 'not_selected' otherwise.
 //returning a value other than null automaticaly makes the form invalid.
@@ -44,11 +45,13 @@ function getDate() {
     };
 }
 var OrganizationComponent = (function () {
-    function OrganizationComponent(formBuilder, userService) {
+    function OrganizationComponent(formBuilder, userService, organizationService) {
         this.formBuilder = formBuilder;
         this.userService = userService;
+        this.organizationService = organizationService;
         this.formSubmitted = false;
         this.users = [];
+        this.dborganization = {};
         //The user at index 0 is just a bogus user.
         //The only purpose is to have the Select... at the top of the list.
         this.userList = [
@@ -117,18 +120,37 @@ var OrganizationComponent = (function () {
                 _this.userList[i] = users[i - 1];
             }
         });
+        this.organizationService.getOrganizations().then(function (organizations) {
+            console.log("Org in component: ", organizations);
+            _this.organizations = organizations;
+        });
     };
     OrganizationComponent.prototype.onChangeUser = function (user, Obj) {
         //console.log("The user is: ", user);
     };
-    OrganizationComponent.prototype.save = function (organization, isValid) {
+    OrganizationComponent.prototype.getOrganizations = function () {
+        var _this = this;
+        this.organizationService.getOrganizations().then(function (organizations) {
+            console.log("Org in component: ", organizations);
+            _this.organizations = organizations;
+        });
+    };
+    OrganizationComponent.prototype.create = function (organization, isValid) {
+        var oContacts = [];
         if (isValid) {
-            this.organizations.push(organization);
+            this.dborganization.name = organization.name;
+            this.dborganization.id = organization.id;
+            this.dborganization.head = organization.head._id;
+            for (var i = 0; i < organization.contacts.length; i++) {
+                oContacts.push(organization.contacts[i].user._id);
+            }
+            this.dborganization.contacts = oContacts;
+            //this.organizations.push(organization);
             this.createOrganization.close();
+            this.organizationService.create(this.dborganization);
         }
-        console.log("Organization...", this.organizations);
         this.formSubmitted = true;
-        console.log("Form valid?: ", isValid);
+        this.getOrganizations();
     };
     OrganizationComponent.prototype.showDetails = function (organization) {
         this.currentOrganization = organization;
@@ -147,7 +169,8 @@ OrganizationComponent = __decorate([
         styleUrls: ['organization.component.css']
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder,
-        user_service_1.UserService])
+        user_service_1.UserService,
+        organization_service_1.OrganizationService])
 ], OrganizationComponent);
 exports.OrganizationComponent = OrganizationComponent;
 //# sourceMappingURL=organization.component.js.map

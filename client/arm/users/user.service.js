@@ -12,7 +12,6 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
 var UserService = (function () {
-    //private loginUrl = 'arm/login';
     function UserService(http) {
         this.http = http;
         this.userCount = 0;
@@ -29,7 +28,6 @@ var UserService = (function () {
         };
         this.nnn = "";
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json', 'arm_auth_token': localStorage.getItem('arm_auth_token') });
-        //private usersUrl = 'arm/users';
         this.usersUrl = '/api/users';
     }
     UserService.prototype.handleError = function (error) {

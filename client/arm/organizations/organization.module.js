@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var forms_1 = require("@angular/forms");
 var organization_component_1 = require("./organization.component");
+var organization_service_1 = require("./organization.service");
 var organization_details_component_1 = require("./details/organization-details.component");
 var organization_routing_module_1 = require("./organization-routing.module");
 var material_1 = require("@angular/material");
@@ -32,6 +33,9 @@ OrganizationModule = __decorate([
             forms_1.ReactiveFormsModule,
             organization_routing_module_1.OrganizationRoutingModule,
             material_1.MaterialModule.forRoot()
+        ],
+        providers: [
+            organization_service_1.OrganizationService
         ]
     }),
     __metadata("design:paramtypes", [])

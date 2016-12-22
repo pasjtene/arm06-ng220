@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
 import { MdSidenav } from '@angular/material';
 import { Organization } from './organization';
+import { dbOrganization } from './organization';
 import { UserService } from '../users/user.service';
 import { User } from '../users/user';
+import { OrganizationService } from './organization.service';
 
 
 //This function validates that the selected user from Select list is not the default value of (Select...)
@@ -55,6 +57,7 @@ export class OrganizationComponent implements OnInit {
   @ViewChild('createOrganization')createOrganization:MdSidenav;
   formSubmitted: boolean = false;
   users: User[] = [];
+  private dborganization: dbOrganization = {};
   //The user at index 0 is just a bogus user.
   //The only purpose is to have the Select... at the top of the list.
   userList: User[] = [
@@ -71,14 +74,15 @@ export class OrganizationComponent implements OnInit {
     }
   ];
 
-  organizationForm: FormGroup;
+  public organizationForm: FormGroup;
   public organizations: Organization[];
 
   public currentOrganization: Organization = {};
 
   constructor(
     public formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private organizationService: OrganizationService
   ) {
       this.organizationForm = this.formBuilder.group({
         name: ['', Validators.required ],
@@ -98,7 +102,6 @@ export class OrganizationComponent implements OnInit {
 
 //The fist contact in dropdown list is initialized to the fake user with name "Select a new user"
   newContact() {
-    
     return this.formBuilder.group({
       user: [this.userList[0],
       //add more validator if needed
@@ -139,6 +142,12 @@ export class OrganizationComponent implements OnInit {
         this.userList[i] = users[i-1];
       }
     });
+
+
+    this.organizationService.getOrganizations().then((organizations) => {
+      console.log("Org in component: ",organizations);
+      this.organizations = organizations;
+    });
   }
 
 
@@ -146,15 +155,30 @@ export class OrganizationComponent implements OnInit {
     //console.log("The user is: ", user);
   }
 
-  save(organization, isValid) {
-    if(isValid) {
-      this.organizations.push(organization);
-      this.createOrganization.close();
-    }
+  getOrganizations() {
+    this.organizationService.getOrganizations().then((organizations) => {
+      console.log("Org in component: ",organizations);
+      this.organizations = organizations;
+    });
+  }
 
-    console.log("Organization...",this.organizations);
+  create(organization, isValid) {
+    var oContacts = [];
+    if(isValid) {
+      this.dborganization.name = organization.name;
+      this.dborganization.id = organization.id;
+      this.dborganization.head = organization.head._id;
+      for(var i=0; i< organization.contacts.length; i++) {
+        oContacts.push(organization.contacts[i].user._id);
+      }
+      this.dborganization.contacts= oContacts;
+      //this.organizations.push(organization);
+      this.createOrganization.close();
+      this.organizationService.create(this.dborganization);
+    }
+    
     this.formSubmitted = true;
-    console.log("Form valid?: ",isValid);
+    this.getOrganizations();
   }
 
 

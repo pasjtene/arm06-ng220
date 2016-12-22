@@ -75,8 +75,6 @@ var AssetSchema = new Schema({
       type: String,
       maxlength: 100
     }
-
-
 });
 
 

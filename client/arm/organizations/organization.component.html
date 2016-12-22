@@ -62,7 +62,7 @@
               </small>
               <div class="formError" *ngIf="organizationForm.controls.contacts.controls[i].controls.user.value.firstName==='Select...' && formSubmitted" >
                 Contact name is required
-              </div>              
+              </div>
             </div>
             <div>
               <label> contact email</label>
@@ -80,7 +80,7 @@
 
   </div>
         <span>
-          <button (click)="save(organizationForm.value, organizationForm.valid)" class="btn btn-success btn-xs">Create Organization</button>
+          <button (click)="create(organizationForm.value, organizationForm.valid)" class="btn btn-success btn-xs">Create Organization</button>
         </span>
 
         <span>
@@ -115,7 +115,7 @@
         {{o.name}} </td>
       <td>{{o.id}} </td>
       <td>{{o.head.firstName==="Select..." ? '': o.head.firstName}} {{o.head.lastName}} </td>
-      <td><span *ngFor="let contact of o.contacts; let i=index;">{{contact.user.firstName}} {{contact.user.lastName}}{{i === o.contacts.length -1 ? '': ', '}} </span> </td>
+      <td><span *ngFor="let contact of o.contacts; let i=index;">{{contact.firstName}} {{contact.lastName}}{{i === o.contacts.length -1 ? '': ', '}} </span> </td>
     </tr>
   </table>
   <button (click)="createOrganization.open()">Create Organization</button>
