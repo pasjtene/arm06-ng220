@@ -4,8 +4,10 @@ import { Organization } from './organization'
 
 @Injectable()
 export class OrganizationService {
+  public organizationToDelete = {};
   private organizationUrl = 'api/organizations';
   private headers = new Headers({'Content-Type':'application/json', 'arm_auth_token':localStorage.getItem('arm_auth_token')});
+
   constructor(private http: Http){
 
   }
@@ -28,5 +30,16 @@ export class OrganizationService {
                       })
                       .catch(//troubleshoot for errors
                       );
+  }
+
+  delete(id: string):Promise<Organization> {
+    console.log("deleting..");
+    const url = `${this.organizationUrl}/${id}`;
+    return this.http.delete(url, {headers: this.headers})
+                .toPromise()
+                .then((response) => response)
+                .catch((err) => {
+                  console.log(err);
+                })
   }
 }

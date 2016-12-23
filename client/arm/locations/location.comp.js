@@ -44,7 +44,6 @@ var ConfirmDeleteDialog = (function () {
         };
     }
     ConfirmDeleteDialog.prototype.ngOnInit = function () {
-        console.log("Started ");
         //the location to delete is set in openConfirmDeleteDialog via locationService
         this.dlocation = this.locationService.locationToDelete;
     };

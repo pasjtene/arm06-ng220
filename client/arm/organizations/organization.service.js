@@ -13,6 +13,7 @@ var http_1 = require("@angular/http");
 var OrganizationService = (function () {
     function OrganizationService(http) {
         this.http = http;
+        this.organizationToDelete = {};
         this.organizationUrl = 'api/organizations';
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json', 'arm_auth_token': localStorage.getItem('arm_auth_token') });
     }
@@ -32,6 +33,16 @@ var OrganizationService = (function () {
             return organizations.json();
         })
             .catch();
+    };
+    OrganizationService.prototype.delete = function (id) {
+        console.log("deleting..");
+        var url = this.organizationUrl + "/" + id;
+        return this.http.delete(url, { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response; })
+            .catch(function (err) {
+            console.log(err);
+        });
     };
     return OrganizationService;
 }());

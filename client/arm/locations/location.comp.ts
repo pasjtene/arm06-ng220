@@ -48,7 +48,6 @@ export class ConfirmDeleteDialog implements OnInit {
     ) { }
 
     ngOnInit(): void {
-      console.log("Started ");
       //the location to delete is set in openConfirmDeleteDialog via locationService
       this.dlocation = this.locationService.locationToDelete;
     }

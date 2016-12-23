@@ -99,23 +99,31 @@
   </md-sidenav>
 
 <!--Organization list table -->
-<span id="date_and_time">date and time</span>
-
   <table class="table table-hover taable-striped table-bordered">
     <thead>
       <th> Organization name</th>
       <th> Organization ID</th>
       <th> Head name</th>
       <th> Contacts</th>
+      <th> </th>
     </thead>
 
-    <tr *ngFor="let o of organizations">
-      <td>
-        <button (click)=" organizationDetailsSidenav.open(); showDetails(o)">info</button>
-        {{o.name}} </td>
-      <td>{{o.id}} </td>
-      <td>{{o.head.firstName==="Select..." ? '': o.head.firstName}} {{o.head.lastName}} </td>
-      <td><span *ngFor="let contact of o.contacts; let i=index;">{{contact.firstName}} {{contact.lastName}}{{i === o.contacts.length -1 ? '': ', '}} </span> </td>
+    <tr *ngFor="let o of organizations; let i=index">
+      <td on-mouseover="mouseIn=i">
+        <button [hidden]="!(mouseIn === i)" md-icon-button (click)=" organizationDetailsSidenav.open(); showDetails(o)">
+          <md-icon class="icon-20">info</md-icon>
+        </button>
+        {{o.name}}
+      </td>
+      <td on-mouseover="mouseIn=i">{{o.id}} </td>
+      <td on-mouseover="mouseIn=i">{{o.head.firstName==="Select..." ? '': o.head.firstName}} {{o.head.lastName}} </td>
+      <td on-mouseover="mouseIn=i"><span *ngFor="let contact of o.contacts; let i=index;">{{contact.firstName}} {{contact.lastName}}{{i === o.contacts.length -1 ? '': ', '}} </span> </td>
+      <td on-mouseover="mouseIn=i">
+        <button [hidden]="!(mouseIn === i)" md-icon-button (click)="openConfirmDeleteDialog(ConfirmDeleteDialog, o)">
+          <md-icon class="icon-20">delete</md-icon>
+        </button>
+
+      </td>
     </tr>
   </table>
   <button (click)="createOrganization.open()">Create Organization</button>

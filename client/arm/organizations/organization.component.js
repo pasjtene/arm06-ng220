@@ -32,20 +32,29 @@ function selectedNameChecker(c) {
     }
     return result;
 }
-function showDate() {
-    //showdateandTime is a closure as it contains a function.
-    // this function is run at the interval 1000 tu return the time
-    var showDateAndTime = getDate();
-    window.setInterval(showDateAndTime, 1000);
-}
-//getDate creates a closure by returning a function
-function getDate() {
-    return function () {
-        document.getElementById("date_and_time").innerHTML = new Date();
+var ConfirmDeleteDialog = (function () {
+    function ConfirmDeleteDialog(dialogRef, organizationService) {
+        this.dialogRef = dialogRef;
+        this.organizationService = organizationService;
+        this.organizationToDelete = {};
+    }
+    ConfirmDeleteDialog.prototype.ngOnInit = function () {
+        this.organizationToDelete = this.organizationService.organizationToDelete;
     };
-}
+    return ConfirmDeleteDialog;
+}());
+ConfirmDeleteDialog = __decorate([
+    core_1.Component({
+        selector: 'confirm-delete-dialog',
+        template: "<h2>Are you sure sure you whant to delete this organization ? {{organizationToDelete.name}}</h2>\n  <p>Click yes to permanently delete this Organization </p>\n  <button class=\"btn btn-danger\" (click)=\"dialogRef.close('Yes')\">Yes delete</button> <button class=\"btn btn-success\" (click)=\"dialogRef.close()\">Cancel</button>\n  "
+    }),
+    __metadata("design:paramtypes", [material_1.MdDialogRef,
+        organization_service_1.OrganizationService])
+], ConfirmDeleteDialog);
+exports.ConfirmDeleteDialog = ConfirmDeleteDialog;
 var OrganizationComponent = (function () {
-    function OrganizationComponent(formBuilder, userService, organizationService) {
+    function OrganizationComponent(dialog, formBuilder, userService, organizationService) {
+        this.dialog = dialog;
         this.formBuilder = formBuilder;
         this.userService = userService;
         this.organizationService = organizationService;
@@ -77,7 +86,6 @@ var OrganizationComponent = (function () {
             ])
         }, { validator: selectedNameChecker });
         this.organizations = [];
-        showDate();
         this.getUsers();
     }
     //The fist contact in dropdown list is initialized to the fake user with name "Select a new user"
@@ -152,8 +160,34 @@ var OrganizationComponent = (function () {
         this.formSubmitted = true;
         this.getOrganizations();
     };
+    OrganizationComponent.prototype.delete = function (organization) {
+        var _this = this;
+        this.organizationService.delete(organization._id)
+            .then(function (res) {
+            _this.organizations = _this.organizations.filter(function (o) { return o !== organization; });
+            //this.getOrganizations();
+        })
+            .catch(function (err) { });
+    };
     OrganizationComponent.prototype.showDetails = function (organization) {
+        console.log("Show details: ", organization);
         this.currentOrganization = organization;
+    };
+    OrganizationComponent.prototype.openConfirmDeleteDialog = function (d, organization) {
+        var _this = this;
+        var config = new material_1.MdDialogConfig();
+        config.viewContainerRef = this.viewContainerRef;
+        //set the location to delete so we can show it it the dialog
+        this.organizationService.organizationToDelete = organization;
+        this.dialogRef = this.dialog.open(ConfirmDeleteDialog, config);
+        this.dialogRef.afterClosed().subscribe(function (result) {
+            console.log("Deleting...1");
+            if (result === "Yes") {
+                _this.delete(organization);
+            }
+            _this.dialogRef = null;
+        });
+        console.log("Deleting...2");
     };
     return OrganizationComponent;
 }());
@@ -168,7 +202,8 @@ OrganizationComponent = __decorate([
         templateUrl: 'organization.component.html',
         styleUrls: ['organization.component.css']
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder,
+    __metadata("design:paramtypes", [material_1.MdDialog,
+        forms_1.FormBuilder,
         user_service_1.UserService,
         organization_service_1.OrganizationService])
 ], OrganizationComponent);

@@ -25,7 +25,11 @@ OrganizationModule = __decorate([
     core_1.NgModule({
         declarations: [
             organization_details_component_1.OrganizationDetailsComponent,
-            organization_component_1.OrganizationComponent
+            organization_component_1.OrganizationComponent,
+            organization_component_1.ConfirmDeleteDialog
+        ],
+        entryComponents: [
+            organization_component_1.ConfirmDeleteDialog
         ],
         imports: [
             forms_1.FormsModule,

@@ -5,8 +5,19 @@
   padding-bottom: 10px;
 }
 
+.organization-details-sidenav {
+  width: 35%;
+  padding-left: 20px;
+  padding-right: 10px;
+  border: 1px solid #fc0;
+}
+
 .margin-20 {
   margin: 20px;
+}
+
+.icon-20 {
+  font-size: 20px;
 }
 
 .create-organization-sidenav {

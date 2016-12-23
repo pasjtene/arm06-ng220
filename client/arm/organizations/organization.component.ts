@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
-import { MdSidenav } from '@angular/material';
+import { MdSidenav, MdDialogRef, MdDialog, MdDialogConfig } from '@angular/material';
 import { Organization } from './organization';
 import { dbOrganization } from './organization';
 import { UserService } from '../users/user.service';
@@ -30,20 +30,30 @@ function selectedNameChecker(c: AbstractControl) {
 }
 
 
+@Component({
+  selector: 'confirm-delete-dialog',
+  template:
+  `<h2>Are you sure sure you whant to delete this organization ? {{organizationToDelete.name}}</h2>
+  <p>Click yes to permanently delete this Organization </p>
+  <button class="btn btn-danger" (click)="dialogRef.close('Yes')">Yes delete</button> <button class="btn btn-success" (click)="dialogRef.close()">Cancel</button>
+  `
+})
 
-function showDate() {
-  //showdateandTime is a closure as it contains a function.
-  // this function is run at the interval 1000 tu return the time
-  var showDateAndTime = getDate();
-    window.setInterval(showDateAndTime, 1000);
+export class ConfirmDeleteDialog implements OnInit {
+  organizationToDelete : Organization = {};
+
+  constructor (
+    public dialogRef: MdDialogRef<any>,
+    private organizationService: OrganizationService
+  ) {}
+
+  ngOnInit() {
+    this.organizationToDelete = this.organizationService.organizationToDelete;
+  }
+
 }
 
-//getDate creates a closure by returning a function
-function getDate() {
-  return function () {
-  document.getElementById("date_and_time").innerHTML = new Date();
-}
-}
+
 
 
 @Component ({
@@ -55,7 +65,9 @@ function getDate() {
 
 export class OrganizationComponent implements OnInit {
   @ViewChild('createOrganization')createOrganization:MdSidenav;
-  formSubmitted: boolean = false;
+  public dialogRef: MdDialogRef<any>;
+  public viewContainerRef: ViewContainerRef;
+  public formSubmitted: boolean = false;
   users: User[] = [];
   private dborganization: dbOrganization = {};
   //The user at index 0 is just a bogus user.
@@ -80,6 +92,7 @@ export class OrganizationComponent implements OnInit {
   public currentOrganization: Organization = {};
 
   constructor(
+    public dialog : MdDialog,
     public formBuilder: FormBuilder,
     private userService: UserService,
     private organizationService: OrganizationService
@@ -94,7 +107,6 @@ export class OrganizationComponent implements OnInit {
       }, {validator : selectedNameChecker} );
 
       this.organizations = [];
-      showDate();
       this.getUsers();
 
   }
@@ -176,14 +188,46 @@ export class OrganizationComponent implements OnInit {
       this.createOrganization.close();
       this.organizationService.create(this.dborganization);
     }
-    
+
     this.formSubmitted = true;
     this.getOrganizations();
   }
 
+  delete(organization:Organization) {
+    this.organizationService.delete(organization._id)
+        .then((res) => {
+          this.organizations = this.organizations.filter(o => o !== organization);
+          //this.getOrganizations();
+        })
+        .catch((err) => {});
+  }
+
 
   showDetails(organization) {
+    console.log("Show details: ", organization);
     this.currentOrganization = organization;
   }
+
+  openConfirmDeleteDialog(d, organization:Organization) {
+   const config = new MdDialogConfig();
+   config.viewContainerRef = this.viewContainerRef;
+
+   //set the location to delete so we can show it it the dialog
+   this.organizationService.organizationToDelete = organization;
+
+   this.dialogRef = this.dialog.open(ConfirmDeleteDialog, config);
+
+   this.dialogRef.afterClosed().subscribe(result => {
+     console.log("Deleting...1");
+     if(result === "Yes") {
+       this.delete(organization);
+
+     }
+     this.dialogRef = null;
+   });
+
+   console.log("Deleting...2");
+ }
+
 
 }
