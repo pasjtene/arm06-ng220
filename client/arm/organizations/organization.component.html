@@ -57,9 +57,6 @@
               <select formControlName="user" placeholder="Select a contact" name="user" id="user" (ngModelChange)="onChangeUser($event, organizationForm.controls.contacts.controls[i].controls.user.value.email)">
                 <option *ngFor="let user of userList"  [ngValue]="user">{{user.firstName}} {{user.lastName}}</option>
               </select>
-              <small [hidden]="organizationForm.controls.contacts.controls[i].controls.user.valid">
-                Contact name is required
-              </small>
               <div class="formError" *ngIf="organizationForm.controls.contacts.controls[i].controls.user.value.firstName==='Select...' && formSubmitted" >
                 Contact name is required
               </div>
@@ -87,9 +84,6 @@
           <button (click)="createOrganization.close()" class="btn btn-warning btn-xs">cancel</button>
         </span>
       </form>
-
-      {{ organizationForm.status }} {{ organizationForm.valid }}
-      <br> {{organizationForm.value | json }}
   </md-sidenav>
 
 <!--Organization details implemented in a different component and shared via @Input binding -->
