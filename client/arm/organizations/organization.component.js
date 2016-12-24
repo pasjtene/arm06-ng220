@@ -46,7 +46,7 @@ var ConfirmDeleteDialog = (function () {
 ConfirmDeleteDialog = __decorate([
     core_1.Component({
         selector: 'confirm-delete-dialog',
-        template: "<h2>Are you sure sure you whant to delete this organization ? {{organizationToDelete.name}}</h2>\n  <p>Click yes to permanently delete this Organization </p>\n  <button class=\"btn btn-danger\" (click)=\"dialogRef.close('Yes')\">Yes delete</button> <button class=\"btn btn-success\" (click)=\"dialogRef.close()\">Cancel</button>\n  "
+        template: "<h2>Delete this organization ?: {{organizationToDelete.name}}</h2>\n  <p>Click yes to permanently delete this Organization </p>\n  <button class=\"btn btn-danger\" (click)=\"dialogRef.close('Yes')\">Yes delete</button> <button class=\"btn btn-success\" (click)=\"dialogRef.close()\">Cancel</button>\n  "
     }),
     __metadata("design:paramtypes", [material_1.MdDialogRef,
         organization_service_1.OrganizationService])

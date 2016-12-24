@@ -33,7 +33,7 @@ function selectedNameChecker(c: AbstractControl) {
 @Component({
   selector: 'confirm-delete-dialog',
   template:
-  `<h2>Are you sure sure you whant to delete this organization ? {{organizationToDelete.name}}</h2>
+  `<h2>Delete this organization ?: {{organizationToDelete.name}}</h2>
   <p>Click yes to permanently delete this Organization </p>
   <button class="btn btn-danger" (click)="dialogRef.close('Yes')">Yes delete</button> <button class="btn btn-success" (click)="dialogRef.close()">Cancel</button>
   `
