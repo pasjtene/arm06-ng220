@@ -102,7 +102,6 @@ var OrganizationComponent = (function () {
         //remove errors from UI
         this.formSubmitted = false;
         var control = this.organizationForm.controls['contacts'];
-        //console.log("New contact: ", control.controls[0]);
         control.push(this.newContact());
     };
     OrganizationComponent.prototype.removeContact = function (i) {

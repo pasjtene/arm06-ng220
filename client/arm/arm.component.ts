@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-//import { User } from './user';
+import { User } from './users/user';
 import { AuthService } from './auth.service';
 
 function showDate() {
@@ -12,13 +12,15 @@ function showDate() {
 
 //getDate creates a closure by returning a function
 function getDate() {
-  return function () {
-  var date_ = new Date().toString();
-  document.getElementById("date_").innerHTML = date_.substring(0,15);
-  document.getElementById("time_").innerHTML = date_.substring(16,28);
-}
-}
+    return function() {
+        var date_ = new Date().toString();
+        document.getElementById("date_") !== null ?
+            document.getElementById("date_").innerHTML = date_.substring(0, 15) : {};
 
+        document.getElementById("time_") !== null ?
+            document.getElementById("time_").innerHTML = date_.substring(16, 28) : {};
+    }
+}
 
 @Component({
   moduleId: module.id,
@@ -27,36 +29,49 @@ function getDate() {
   styleUrls: ['arm.component.css']
 })
 
-export class ArmComponent implements OnInit{
-  title = " Welcome to ARM: Asset and Risk Manager software";
+export class ArmComponent implements OnInit {
+    _date: string = "";
+    _time = "";
+    title = " Welcome to ARM: Asset and Risk Manager software";
+    authUserName: string = "";
+    authUserFirstName: string = "";
+    authUserLastName: string = "";
 
-  constructor(
-    private authService: AuthService,
-    public router: Router
-  ) {
-    showDate();
-  }
+    constructor(
+        private authService: AuthService,
+        public router: Router
+    ) {
+        authService.userLoggedIn$.subscribe((user) => this.onUserLoggedIn(user));
 
-  isLoggedIn = this.authService.isLoggedIn;
+    }
 
-  ngOnInit(): void {
-  this.authService.checkAuthToken().then(() =>{
-    this.isLoggedIn = this.authService.isLoggedIn;
+    isLoggedIn = this.authService.isLoggedIn;
 
-    //Uncomment the following to enable loggin for all links.
-    //if(!this.isLoggedIn){
-    //  this.router.navigate(['/login']);
-  //  }
-  } );
-  }
+    onUserLoggedIn(user: User) {
+        this.authUserName = user.username;
+        this.authUserFirstName = user.firstName;
+        this.authUserLastName = user.lastName;
+    }
 
-  logout() {
-    this.authService.isLoggedIn = false;
-    this.authService.logout();
-    this.router.navigate(['/login']).then(() =>{
-      this.isLoggedIn = false;
-    });
-    //this.setMessage();
-  }
+    ngOnInit(): void {
+        showDate();
+        this.authService.checkAuthToken().then(() => {
+            this.isLoggedIn = this.authService.isLoggedIn;
+            this.authUserName = this.authService.authUserName;
 
+            //Uncomment the following to enable loggin for all links.
+            //if(!this.isLoggedIn){
+            //  this.router.navigate(['/login']);
+            //  }
+        });
+    }
+
+    logout() {
+        this.authService.isLoggedIn = false;
+        this.authService.logout();
+        this.router.navigate(['/login']).then(() => {
+            this.isLoggedIn = false;
+        });
+        //this.setMessage();
+    }
 }

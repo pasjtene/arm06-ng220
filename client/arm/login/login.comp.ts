@@ -16,6 +16,7 @@ export class UserCred {
 })
 
 export class LoginComponent implements OnInit {
+  public userLoggedIn$: EventEmitter<string>;
   message: string;
   newUserWelcomeMessage: string = "";
   isAnewUser: boolean = false;
@@ -38,17 +39,22 @@ export class LoginComponent implements OnInit {
     this.newUserWelcomeMessage = this.authService.newUserWelcomeMessage;
     this.isAnewUser = this.authService.isAnewUser;
   }
+
   login(userName, password) {
     this.message = 'Trying to log in ...';
     this.authService.login(userName, password).subscribe(() => {
       this.setMessage();
       if(this.authService.isLoggedIn) {
         this.authService.isAnewUser = false;
+        this.authService.authUserName = userName;
+        localStorage.setItem('userName', userName);
+        console.log("in Login...",this.authService.authUserName);
         //If no redirect was set, use the defautl
         let redirect = this.authService.redirectUrl ? this.authService.redirectUrl: '/users';
         //redirect the user to the target URL
         this.router.navigate([redirect]).then(() =>{
           this.authService.isLoggedIn = true;
+          this.authService.authUserName = userName;
         });
       }else{
         this.authService.authFailed = true;

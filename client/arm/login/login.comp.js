@@ -44,11 +44,15 @@ var LoginComponent = (function () {
             _this.setMessage();
             if (_this.authService.isLoggedIn) {
                 _this.authService.isAnewUser = false;
+                _this.authService.authUserName = userName;
+                localStorage.setItem('userName', userName);
+                console.log("in Login...", _this.authService.authUserName);
                 //If no redirect was set, use the defautl
                 var redirect = _this.authService.redirectUrl ? _this.authService.redirectUrl : '/users';
                 //redirect the user to the target URL
                 _this.router.navigate([redirect]).then(function () {
                     _this.authService.isLoggedIn = true;
+                    _this.authService.authUserName = userName;
                 });
             }
             else {

@@ -28,11 +28,14 @@ export class ConfirmDeleteUserComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private authService: AuthService,
     public dialogRef: MdDialogRef<any>
   ){}
 
   ngOnInit() : void {
     this.userToDelete = this.userService.userToDelete;
+    //this.authUserName = this.authService.authUserName;
+    this.authService.authUserName = localStorage.getItem('userName');
   }
 }
 

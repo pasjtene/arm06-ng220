@@ -21,13 +21,16 @@ var location_service_1 = require("../locations/location.service");
 var router_1 = require("@angular/router");
 var material_2 = require("@angular/material");
 var ConfirmDeleteUserComponent = (function () {
-    function ConfirmDeleteUserComponent(userService, dialogRef) {
+    function ConfirmDeleteUserComponent(userService, authService, dialogRef) {
         this.userService = userService;
+        this.authService = authService;
         this.dialogRef = dialogRef;
         this.userToDelete = {};
     }
     ConfirmDeleteUserComponent.prototype.ngOnInit = function () {
         this.userToDelete = this.userService.userToDelete;
+        //this.authUserName = this.authService.authUserName;
+        this.authService.authUserName = localStorage.getItem('userName');
     };
     return ConfirmDeleteUserComponent;
 }());
@@ -37,6 +40,7 @@ ConfirmDeleteUserComponent = __decorate([
         template: "\n  <h3> Delete this user ?: {{ userToDelete.firstName }} {{ userToDelete.lastName }} </h3>\n  <p>Click yes to permanently delete the asset </p>\n  <button class=\"btn btn-success\" (click)=\"dialogRef.close() \" >Cancel</button> <button class=\"btn btn-danger\" (click)=\"dialogRef.close('Yes')\">Yes delete</button>\n  "
     }),
     __metadata("design:paramtypes", [user_service_1.UserService,
+        auth_service_1.AuthService,
         material_2.MdDialogRef])
 ], ConfirmDeleteUserComponent);
 exports.ConfirmDeleteUserComponent = ConfirmDeleteUserComponent;

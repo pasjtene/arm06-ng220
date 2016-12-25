@@ -2,18 +2,18 @@
   <div class="header_content1">
     <div>
       <label>Date:</label>
-      <span id="date_"></span>
+      <span id="date_">{{ _date}} a</span>
     </div>
     <div>
       <label>Time:</label>
-      <span id="time_"></span>
+      <span id="time_">{{ _time }} t</span>
     </div>
   </div>
 
-  <div class="header_content2">
+  <div class="header_content">
     <div>
       <label>User:</label>
-      <span id="use">Pascal Tene</span>
+      <span id="use">{{authUserFirstName}} {{authUserLastName}}</span>
     </div>
     <div>
       <label>Role:</label>
@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <div class="header_content3">
+  <div class="header_content">
     <div>
       <label>System name:</label>
       <span id="sys">Asset and Risk Manager (ARM)</span>
@@ -48,10 +48,10 @@
 
 <li class="category top_level">
 
-<a routerLink="/home" routerLinkActive="active" class="dropdown-btn">User first Name</a>
+<a routerLink="/home" routerLinkActive="active" class="dropdown-btn">{{authUserFirstName}} {{authUserLastName}}</a>
 <div class="dropdown-content">
   <a href="#">Settings test</a>
-  <a href="#">Logout</a>
+  <a (click)=logout()>Logout</a>
 </div>
 
 </li>

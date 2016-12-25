@@ -6,16 +6,18 @@
 var Organization = require('./organization.model');
 
 exports.params = function(req, res, next, id) {
-  console.log("in Params...");
-    Organization.findById(id).then((organization) => {
-      if(!organization) {
-        next(new Error("No organization with is: ",id));
-      } else {
-        req.organization = organization;
-        console.log("in Params...", organization);
-        next();
-      }
-    }, (err) => {next(err);});
+    console.log("in Params...");
+    Organization.findById(id)
+        .then((organization) => {
+            if (!organization) {
+                next(new Error("No organization with is: ", id));
+            } else {
+                req.organization = organization;
+                next();
+            }
+        }, (err) => {
+            next(err);
+        });
 };
 
 exports.post = function(req, res, next) {
@@ -29,9 +31,6 @@ exports.post = function(req, res, next) {
       res.json(organization);
     }
   });
-
-  console.log("######################");
-  console.log(req.body);
 };
 
 

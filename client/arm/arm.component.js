@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-//import { User } from './user';
 var auth_service_1 = require("./auth.service");
 function showDate() {
     //showdateandTime is a closure as it contains a function.
@@ -22,22 +21,37 @@ function showDate() {
 function getDate() {
     return function () {
         var date_ = new Date().toString();
-        document.getElementById("date_").innerHTML = date_.substring(0, 15);
-        document.getElementById("time_").innerHTML = date_.substring(16, 28);
+        document.getElementById("date_") !== null ?
+            document.getElementById("date_").innerHTML = date_.substring(0, 15) : {};
+        document.getElementById("time_") !== null ?
+            document.getElementById("time_").innerHTML = date_.substring(16, 28) : {};
     };
 }
 var ArmComponent = (function () {
     function ArmComponent(authService, router) {
+        var _this = this;
         this.authService = authService;
         this.router = router;
+        this._date = "";
+        this._time = "";
         this.title = " Welcome to ARM: Asset and Risk Manager software";
+        this.authUserName = "";
+        this.authUserFirstName = "";
+        this.authUserLastName = "";
         this.isLoggedIn = this.authService.isLoggedIn;
-        showDate();
+        authService.userLoggedIn$.subscribe(function (user) { return _this.onUserLoggedIn(user); });
     }
+    ArmComponent.prototype.onUserLoggedIn = function (user) {
+        this.authUserName = user.username;
+        this.authUserFirstName = user.firstName;
+        this.authUserLastName = user.lastName;
+    };
     ArmComponent.prototype.ngOnInit = function () {
         var _this = this;
+        showDate();
         this.authService.checkAuthToken().then(function () {
             _this.isLoggedIn = _this.authService.isLoggedIn;
+            _this.authUserName = _this.authService.authUserName;
             //Uncomment the following to enable loggin for all links.
             //if(!this.isLoggedIn){
             //  this.router.navigate(['/login']);

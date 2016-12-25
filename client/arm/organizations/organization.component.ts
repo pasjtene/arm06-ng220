@@ -68,7 +68,7 @@ export class OrganizationComponent implements OnInit {
   public dialogRef: MdDialogRef<any>;
   public viewContainerRef: ViewContainerRef;
   public formSubmitted: boolean = false;
-  users: User[] = [];
+  private users: User[] = [];
   private dborganization: dbOrganization = {};
   //The user at index 0 is just a bogus user.
   //The only purpose is to have the Select... at the top of the list.
@@ -126,8 +126,7 @@ export class OrganizationComponent implements OnInit {
   addContact() {
     //remove errors from UI
     this.formSubmitted = false;
-    const control = <FormArray>this.organizationForm.controls['contacts'];
-    //console.log("New contact: ", control.controls[0]);
+    const control = <FormArray>this.organizationForm.controls['contacts'];    
     control.push(this.newContact());
   }
 

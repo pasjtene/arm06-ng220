@@ -22,24 +22,18 @@ var AuthService = (function () {
         this.newUserWelcomeMessage = "";
         this.isAnewUser = false;
         this.isAuthenticated = localStorage.getItem('arm_auth_token');
+        this.authUserName = "";
         // the user remains logged in untill they click logout
         //isLoggedIn : boolean;
         //isLoggedIn = localStorage.getItem('auth_token') === 'jtp123' ? true : false;
         this.loginUrl = '/auth/login';
         this.authCheckUrl = '/auth/auth_check';
         this.headers = new http_1.Headers({ 'Conten-Type': 'application/json', 'arm_auth_token': localStorage.getItem('arm_auth_token'), 'userName': localStorage.getItem('userName') });
+        this.userLoggedIn$ = new core_1.EventEmitter();
     }
-    //login5(): Observable<boolean> {
-    //const url = `${this.authCheckUrl}/${userName}/${password}`;
-    //const url = `${this.authCheckUrl}`;
-    //console.log("Loging in in service");
-    //var resp = this.http.get(url).map((r: Response) => r.json());
-    //console.log("the response is "+ resp);
-    //return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
-    //}
     AuthService.prototype.checkAuthToken = function () {
         var _this = this;
-        //auth_token = localStorage.getItem('auth_token');
+        //arm_auth_token is set when the user logs in
         //if the auth token is set, we authenticate the user.
         //We run the request later for server side validation of the token.
         //iF validation failes, the user should be immediately looged out.
@@ -48,12 +42,15 @@ var AuthService = (function () {
         }
         else {
             this.isLoggedIn = true;
+            this.authUserName = localStorage.getItem("userName");
         }
         return this.http.post(this.authCheckUrl, { headers: this.headers })
             .toPromise()
             .then(function (res) {
             if (res.json().token !== "false") {
                 _this.isLoggedIn = true;
+                //this event is subscribed to and used in arm.component.ts to set the loggedin user details.
+                _this.userLoggedIn$.emit(res.json().user);
             }
             else {
                 _this.isLoggedIn = false;
@@ -74,6 +71,9 @@ var AuthService = (function () {
                 _this.isLoggedIn = true;
                 localStorage.setItem('arm_auth_token', res.token);
                 localStorage.setItem('userName', userName);
+                //an even is emitter on user login with the user object.
+                //this event is subscribed to and used in arm.component.ts to set the loggedin user details.
+                _this.userLoggedIn$.emit(res.user);
                 return res;
             }
             else {
@@ -85,6 +85,7 @@ var AuthService = (function () {
     };
     AuthService.prototype.logout = function () {
         localStorage.removeItem('arm_auth_token');
+        localStorage.removeItem('userName');
         this.isLoggedIn = false;
         this.authFailed = false;
     };
