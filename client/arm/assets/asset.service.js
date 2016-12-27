@@ -22,6 +22,12 @@ var AssetService = (function () {
         this.assetUrl = '/api/assets';
         this.headers = new http_1.Headers({ 'Content-Type': 'Application/json', 'arm_auth_token': localStorage.getItem('arm_auth_token') });
     }
+    AssetService.prototype.search = function (term) {
+        var url = this.assetUrl + "/?name=" + term;
+        return this.http
+            .get(url)
+            .map(function (res) { return res.json(); });
+    };
     AssetService.prototype.create = function (asset) {
         return this.http.post(this.assetUrl, { asset: asset }, { headers: this.headers })
             .toPromise()

@@ -80,12 +80,24 @@ exports.put = function(req, res, next) {
 };
 
 exports.get = function(req, res, next) {
-  Asset.find({})
-        .populate('location')
-        .exec()
-        .then((assets) => res.json(assets))
-        .catch((err) => {
-          logger.info("Error connecting to the database");
-          res.json({"assets": false});
-        });
+    var aname = req.param('name');
+    if (aname) { //A search term is suplied. we return all matching assets.
+        Asset.find({
+                name: new RegExp(aname, 'i')
+            })
+            .then((assets) => {
+                res.json(assets);
+            });
+    } else { //no search term. We return all assets
+        Asset.find({})
+            .populate('location')
+            .exec()
+            .then((assets) => res.json(assets))
+            .catch((err) => {
+                logger.info("Error connecting to the database");
+                res.json({
+                    "assets": false
+                });
+            });
+    }
 };

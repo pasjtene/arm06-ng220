@@ -1,9 +1,35 @@
-<md-toolbar color="primary" style="height:30px;">
-    Manage  Assets
-    <span class="move-right"></span>
-    <button md-icon-button [md-menu-trigger-for]="menu">
-      <md-icon>more_vert</md-icon>
-    </button>
+<md-toolbar color="primary">
+    <div class="search-toolbar">
+        Manage Assets
+        <div id="more-vert-icon">
+            <button md-icon-button [md-menu-trigger-for]="menu">
+              <md-icon>more_vert</md-icon>
+            </button>
+        </div>
+
+        <div id="search-icon">
+            <button md-icon-button (click)="jsearch=true">
+              <md-icon>search</md-icon>
+            </button>
+        </div>
+
+        <div id="search-box-container">
+            <div id="search-box-and-result">
+                <div class="search-div" *ngIf="jsearch" [@searchAnimation]>
+                    <span class="clear-search" md-icon-button (click)="jsearch=false">
+                      <md-icon>clear</md-icon>
+                    </span>
+
+                    <!-- Search boc -->
+                    <input #searchBox class="form-control" placeholder="Search" (keyup)="search(searchBox.value)" />
+                    <!-- Search result -->
+                    <div *ngFor="let asset of assetsFound | async; let i=index" id="search-result">
+                        <span (click)="currentAsset=asset; leftSidenav.open()" id="search-result-span">{{asset.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </md-toolbar>
 
 <md-menu x-position="before" #menu="mdMenu">

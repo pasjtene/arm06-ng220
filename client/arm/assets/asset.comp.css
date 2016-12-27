@@ -1,5 +1,80 @@
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 
+.search-toolbar {
+  width: 100%;
+}
+
+/*This wraps the search div*/
+#search-box-container {
+  float:right;
+  display: inline-block;
+  margin-right: 500px;
+  border: none;
+}
+
+#search-icon {
+  display: inline-block;
+  margin-right: 2px;
+  float: right;
+}
+
+#more-vert-icon {
+  display: inline-block;
+  margin-right: 2px;
+  float: right;
+}
+
+#search-box-and-result {
+  display: inline-block;
+  float: right;
+  position: absolute;
+}
+
+#search-result {
+  z-index: 10;
+  border: 1px solid gray;
+  position: relative;
+  background-color: #666;
+  color:white;
+  padding-left: 5px;
+}
+
+/*This allows click action to trigger when clicking anywher in a search result line */
+#search-result-span {
+  display:block;
+  width:100%;
+}
+
+#search-result:hover {
+  z-index: 10;
+  border: 1px solid gray;
+  position: relative;
+  background-color: rgba(158,158,158,0.9);
+  color:#000;
+  cursor: pointer;
+  padding-left: 5px;
+}
+
+.search-div input {
+  width: 500px;
+}
+
+.search-div .clear-search {
+  position:absolute;
+  margin-left:95%;
+  margin-top: 5px;
+  float: right;
+  width: 20px;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.search-div .clear-search:hover {
+  cursor:pointer;
+}
+
+.material-iconss { color: rgba(0, 0, 0, 0.9); }
+.material-iconss { color: rgba(0, 0, 0, 0.9); }
+
 .createSidenav {
   width: 60%;
 }

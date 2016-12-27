@@ -20,6 +20,11 @@ var auth_service_1 = require("../auth.service");
 var location_service_1 = require("../locations/location.service");
 var router_1 = require("@angular/router");
 var material_2 = require("@angular/material");
+var Subject_1 = require("rxjs/Subject");
+var Observable_1 = require("rxjs/Observable");
+require("rxjs/add/operator/debounceTime");
+require("rxjs/add/operator/distinctUntilChanged");
+require("rxjs/add/operator/switchMap");
 var ConfirmDeleteAssetComponent = (function () {
     function ConfirmDeleteAssetComponent(assetService, dialogRef) {
         this.assetService = assetService;
@@ -70,6 +75,7 @@ var AssetComponent = (function () {
         this.mouseOnButton = 100;
         this.assetIdExist = false;
         this.defaultStr = 'Select a location';
+        this.searchTerms = new Subject_1.Subject();
         this.newAsset = {
             _id: '',
             name: '',
@@ -181,8 +187,19 @@ var AssetComponent = (function () {
         this.dialogRef = this.dialog.open(AssetHelpComponent, config);
     };
     AssetComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.getLocations();
         this.getAssets();
+        this.assetsFound = this.searchTerms
+            .debounceTime(300)
+            .distinctUntilChanged()
+            .switchMap(function (term) { return term ? _this.assetService.search(term) : Observable_1.Observable.of([]); })
+            .catch(function (err) {
+            return Observable_1.Observable.of([]);
+        });
+    };
+    AssetComponent.prototype.search = function (term) {
+        this.searchTerms.next(term);
     };
     AssetComponent.prototype.logout = function () {
         this.authService.logout();
@@ -206,6 +223,18 @@ AssetComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'manage-asset',
+        animations: [
+            core_1.trigger('searchAnimation', [
+                core_1.transition(':enter', [
+                    core_1.style({ transform: 'translateX(100%)', opacity: 0 }),
+                    core_1.animate('500ms', core_1.style({ transform: 'translateX(0)', opacity: 1 }))
+                ]),
+                core_1.transition(':leave', [
+                    core_1.style({ transform: 'translateX(0)', opacity: 1 }),
+                    core_1.animate('900ms', core_1.style({ transform: 'translateX(100%)', opacity: 0 }))
+                ]),
+            ])
+        ],
         templateUrl: 'asset.comp.html',
         styleUrls: ['asset.comp.css'],
     }),

@@ -3,7 +3,7 @@
 *Created: Sept 2016
 *Last Updated: 30 Nov, 2016
 */
-import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ViewChild, trigger, transition, style, animate } from '@angular/core';
 import { MdSidenav } from '@angular/material';
 import { Asset } from './asset';
 import { AssetService } from './asset.service';
@@ -14,6 +14,11 @@ import { Router } from '@angular/router';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { AssetDetailsComponent } from  './details/asset-details.component';
 
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'confirm-delete-dialog',
@@ -56,6 +61,20 @@ export class AssetHelpComponent {
 @Component({
     moduleId: module.id, //this is required for the template and css to load from html or css file
     selector: 'manage-asset',
+    animations: [
+      trigger(
+        'searchAnimation', [
+          transition(':enter', [
+            style({transform: 'translateX(100%)', opacity: 0}),
+            animate('500ms', style({transform: 'translateX(0)', opacity: 1}))
+          ]),
+          transition(':leave', [
+            style({transform: 'translateX(0)', opacity:1}),
+            animate('900ms', style({transform: 'translateX(100%)', opacity: 0}))
+          ]),
+        ]
+      )
+    ],
     templateUrl: 'asset.comp.html',
     styleUrls: ['asset.comp.css'],
 })
@@ -73,6 +92,8 @@ export class AssetComponent implements OnInit {
     mouseOnButton = 100;
     assetIdExist = false;
     defaultStr = 'Select a location';
+    private searchTerms = new Subject<string>();
+    public assetsFound: Observable<Asset[]>;
     newAsset: Asset = {
         _id: '',
         name: '',
@@ -92,6 +113,8 @@ export class AssetComponent implements OnInit {
         public dialog: MdDialog
 
     ) { }
+
+
 
     resetFormErrors() {
       this.assetIdExist = false;
@@ -206,6 +229,21 @@ export class AssetComponent implements OnInit {
     ngOnInit(): void {
         this.getLocations();
         this.getAssets();
+
+        this.assetsFound = this.searchTerms
+                .debounceTime(300)
+                .distinctUntilChanged()
+                .switchMap(term => term ? this.assetService.search(term): Observable.of<Asset[]>([]))
+                .catch((err) => {
+                  return Observable.of<Asset[]>([]);
+                });
+
+
+
+    }
+
+    search(term: string): void {
+      this.searchTerms.next(term);
     }
 
 

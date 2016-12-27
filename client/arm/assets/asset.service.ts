@@ -4,8 +4,9 @@
 *
 */
 import { Injectable } from '@angular/core';
-import { Http, Headers }  from '@angular/http';
+import { Http, Headers, Response }  from '@angular/http';
 import { Asset } from './asset';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AssetService {
@@ -16,6 +17,13 @@ export class AssetService {
   constructor(
     private http: Http
   ){}
+
+  search(term: string): Observable<Asset[]> {
+      var url = `${this.assetUrl}/?name=${term}`;
+      return this.http
+        .get(url)
+        .map((res: Response) => res.json() as Asset[])
+  }
 
   create(asset: Asset) : Promise<Asset> {
       return this.http.post(this.assetUrl, { asset }, {headers: this.headers })
