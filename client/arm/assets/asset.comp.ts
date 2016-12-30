@@ -175,7 +175,7 @@ export class AssetComponent implements OnInit {
 
     //Rturns true if any asset already has the uniqueId supplied.
     contains(assets: Asset[], uniqueId: String): boolean {
-      for (var i = 0; i < assets.length; i++) {
+      for (let i = 0; i < assets.length; i++) {
         if (assets[i].uniqueIdNumber.trim() === uniqueId.trim()) {
           return true;
         }
@@ -200,8 +200,7 @@ export class AssetComponent implements OnInit {
       this.leftSidenav.open();
     }
 
-    update(asset: Asset) {
-      console.log("Updating asset: ", asset);
+    update(asset: Asset) {      
       this.assetService.update(asset);
     }
 
@@ -237,21 +236,14 @@ export class AssetComponent implements OnInit {
                 .catch((err) => {
                   return Observable.of<Asset[]>([]);
                 });
-
-
-
     }
 
     search(term: string): void {
       this.searchTerms.next(term);
     }
 
-
     logout() {
         this.authService.logout();
         this.router.navigate(['/login']);
     }
-
-
-
 }

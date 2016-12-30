@@ -220,14 +220,12 @@ export class LocationsComponent implements OnInit {
  }
 
  setLocation(location: Location) : void {
-   console.log("Location to update: ", location);
    this.newLocation = location;
    //refresh locations view or ng Error when contact is selected. (KI)
    this.getLocations();
  }
 
  update(location: Location): void {
-
    this.locationService.update(location).then((location) => {
      //When location creation fails, the returned location values are undefined
 
@@ -271,6 +269,4 @@ export class LocationsComponent implements OnInit {
      this.authService.logout();
      this.router.navigate(['/login']);
  }
-
-
 }

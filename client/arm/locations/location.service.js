@@ -19,20 +19,15 @@ var LocationService = (function () {
         this.locationUrl = '/api/locations';
     }
     LocationService.prototype.handleError = function (error) {
-        console.log('An error has occured while connecting to the server ', error);
+        //'An error has occured while connecting to the server ', error
         return Promise.reject(error.message || error);
     };
     LocationService.prototype.create2 = function (location) {
-        console.log("location created");
-        console.log(location);
-        console.log(JSON.stringify(location));
         this.http.post(this.locationUrl, { location: location }, { headers: this.headers })
             .toPromise()
             .then(function (response) {
-            console.log("response for location: ", response);
         })
             .catch(function () {
-            console.log("Errors while creating Location");
         });
         return;
     };
@@ -44,9 +39,7 @@ var LocationService = (function () {
             _this.router.navigate(['/locations']);
             return response.json();
         })
-            .catch(function () {
-            console.log("Errors while creating Location");
-        });
+            .catch(function () { });
         return loc;
     };
     LocationService.prototype.update = function (location) {
@@ -81,7 +74,7 @@ var LocationService = (function () {
             return locations.json();
         })
             .catch(function (err) {
-            //console.log(err)
+            //err
         });
     };
     return LocationService;

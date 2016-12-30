@@ -11,8 +11,7 @@ import { AssetService } from '../assets/asset.service';
 import * as d3 from 'd3';
 
 @Directive({
-    selector: 'donut-chart'
-    //template: ''
+    selector: 'donut-chart'    
 })
 
 
@@ -94,7 +93,7 @@ export class DonutChartDirective implements OnInit {
 
         this.textEl = g.append("text")
             .attr("text-anchor", "middle");
-        
+
 
         this.textEl2 = g2.append("text")
             .attr("text-anchor", "middle");

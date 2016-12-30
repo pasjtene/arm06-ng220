@@ -30,7 +30,7 @@ export class AssetService {
               .toPromise()
               .then((res) => res.json())
               .catch((err) => {
-                console.log(err);
+
               });
   }
 
@@ -38,7 +38,7 @@ export class AssetService {
     return this.http.put(this.assetUrl, JSON.stringify(asset), {headers: this.headers})
                 .toPromise()
                 .then(asset => {
-                  console.log(asset);
+
                 })
                 .catch();
   }
@@ -48,7 +48,6 @@ export class AssetService {
       return this.http.delete(url, { headers: this.headers })
                   .toPromise()
                   .then((asset) => {
-                    console.log("Asset deleted: ",asset);
                     return asset;
                   })
                   .catch()
@@ -59,8 +58,6 @@ export class AssetService {
             .toPromise()
             .then((res) => res.json() as Asset[])
             .catch((err) => {
-              console.log(err);
             })
   }
-
 }

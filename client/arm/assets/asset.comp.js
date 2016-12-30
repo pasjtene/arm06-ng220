@@ -165,7 +165,6 @@ var AssetComponent = (function () {
         this.leftSidenav.open();
     };
     AssetComponent.prototype.update = function (asset) {
-        console.log("Updating asset: ", asset);
         this.assetService.update(asset);
     };
     AssetComponent.prototype.openConfirmDeleteDialog = function (exportClass, asset) {

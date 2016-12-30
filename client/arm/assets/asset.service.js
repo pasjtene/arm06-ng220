@@ -33,14 +33,12 @@ var AssetService = (function () {
             .toPromise()
             .then(function (res) { return res.json(); })
             .catch(function (err) {
-            console.log(err);
         });
     };
     AssetService.prototype.update = function (asset) {
         return this.http.put(this.assetUrl, JSON.stringify(asset), { headers: this.headers })
             .toPromise()
             .then(function (asset) {
-            console.log(asset);
         })
             .catch();
     };
@@ -49,7 +47,6 @@ var AssetService = (function () {
         return this.http.delete(url, { headers: this.headers })
             .toPromise()
             .then(function (asset) {
-            console.log("Asset deleted: ", asset);
             return asset;
         })
             .catch();
@@ -59,7 +56,6 @@ var AssetService = (function () {
             .toPromise()
             .then(function (res) { return res.json(); })
             .catch(function (err) {
-            console.log(err);
         });
     };
     return AssetService;

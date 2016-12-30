@@ -188,7 +188,6 @@ var LocationsComponent = (function () {
         this.router.navigate(['/locations']);
     };
     LocationsComponent.prototype.setLocation = function (location) {
-        console.log("Location to update: ", location);
         this.newLocation = location;
         //refresh locations view or ng Error when contact is selected. (KI)
         this.getLocations();
